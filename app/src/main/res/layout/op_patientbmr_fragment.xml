@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr"
+    android:background="#F4F1F5">
+
+    <!--<de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilePic"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="370dp"
+        android:layout_alignParentTop="true"
+        android:elevation="1dp"
+        android:src="@drawable/barcode_hd"
+        app:civ_border_width="2dp" />-->
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="370dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/barcode_hd"
+        android:elevation="1dp" />
+
+
+
+    <SearchView
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/border_grey"
+         />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:id="@+id/patientQueue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="80dp"
+            android:layout_weight="5"
+            android:text="Patient's Queue"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+        <ImageView
+            android:id="@+id/ImagePatientAdd"
+            android:layout_width="40dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/plusbutton">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/AddPatient"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:text="Patient"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+    </LinearLayout>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/Op_bmr_tabs"
+        app:tabGravity="fill"
+        android:background="@drawable/tab_layout_background"
+        app:tabMode="fixed"
+        android:layout_marginTop="120dp"
+        app:tabBackground="@drawable/tab_layout_selector"
+        app:tabSelectedTextColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/opviewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="180dp">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+
+</RelativeLayout>

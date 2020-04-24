@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Prashant Singh"
+        android:id="@+id/nav_item_inbox"
+        android:icon="@drawable/profile_icon"/>
+
+    <item android:title="Logout"
+        android:id="@+id/nav_item_sent"
+        android:icon="@drawable/sent"/>
+
+
+    <item android:title="Others">
+        <menu>
+            <item
+            android:title="About KMHMS"
+                android:id="@+id/nav_item_aboutkmhms"
+            />
+            <item
+                android:title="FAQs"
+                />
+            <item
+                android:title="Useful Links"
+                />
+            <item
+                android:title="Downloads"
+                />
+            <item
+                android:title="Contact Us"
+                />
+        </menu>
+    </item>
+
+    <group android:id="@+id/group_settings_id">
+
+        <item android:title="Settings"
+            />
+        <item android:title="Help"
+            />
+        <item android:title="Select Another MHE"
+            android:id="@+id/nav_item_sent1"
+            />
+    </group>
+
+
+
+</menu>

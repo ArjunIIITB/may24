@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<ImageView
+		android:id="@+id/splashkarnatakalogo"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:foregroundGravity="center"
+		android:scaleType="centerCrop"
+		android:src="@drawable/loginpageset"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="1.0" />
+
+	<TextView
+		android:id="@+id/logindummytext"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:gravity="center"
+		android:text="Clinical Module"
+		android:textColor="#F8F7F8"
+		android:textSize="25dp"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="@+id/splashkarnatakalogo"
+		app:layout_constraintHorizontal_bias="0.066"
+		app:layout_constraintStart_toStartOf="@+id/splashkarnatakalogo"
+		app:layout_constraintTop_toTopOf="@+id/splashkarnatakalogo"
+		app:layout_constraintVertical_bias="0.054" />
+
+	<TextView
+		android:id="@+id/logindummytext1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:padding="16dp"
+		android:gravity="left"
+		android:text="This is a clinical module where we can add create Basic Medical record of the patient"
+		android:textColor="#F8F7F8"
+		android:textSize="20dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="@+id/splashkarnatakalogo"
+		app:layout_constraintHorizontal_bias="0.719"
+		app:layout_constraintStart_toStartOf="@+id/splashkarnatakalogo"
+		app:layout_constraintTop_toTopOf="@+id/splashkarnatakalogo"
+		app:layout_constraintVertical_bias="0.11" />
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_margin="16dp"
+		android:gravity="center"
+		android:orientation="vertical"
+		tools:layout_editor_absoluteX="32dp"
+		tools:layout_editor_absoluteY="-166dp">
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/Usernameshow"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="344dp">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/etName"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="344dp"
+				android:drawableLeft="@drawable/ic_person_login"
+				android:drawablePadding="10dp"
+				android:ems="10"
+				android:hint="Username"
+				android:inputType="textPersonName"
+				android:textColor="#000000"
+				app:layout_constraintHorizontal_bias="0.235"
+				app:layout_constraintStart_toStartOf="parent" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/passwordshow"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:passwordToggleEnabled="true"
+			android:layout_marginTop="400dp">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/etPassword"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="400dp"
+				android:drawableStart="@drawable/ic_lock_locklogin"
+				android:drawableLeft="@drawable/ic_lock_locklogin"
+				android:drawablePadding="10dp"
+				android:ems="10"
+				android:hint="Password"
+				android:inputType="textPassword"
+				android:textColor="#000000">
+			</com.google.android.material.textfield.TextInputEditText>
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<TextView
+			android:id="@+id/forgetidpass"
+			android:layout_width="196dp"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/passwordshow"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="6dp"
+			android:layout_marginRight="6dp"
+			android:text="Forgot Username / Password?" />
+
+
+		<Button
+			android:id="@+id/btnLogin"
+			android:layout_width="140dp"
+			android:layout_height="50dp"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginStart="119dp"
+			android:layout_marginLeft="119dp"
+			android:layout_marginTop="500dp"
+			android:layout_marginEnd="120dp"
+			android:layout_marginRight="120dp"
+			android:background="@drawable/button_rounded"
+			android:text="Login"
+			android:textColor="#F8F8FA"
+			app:layout_constraintTop_toBottomOf="@+id/passwordshow" />
+
+		<ProgressBar
+			android:id="@+id/progressBar"
+			style="?android:attr/progressBarStyleLarge"
+			android:layout_width="300dp"
+			android:layout_height="300dp"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginStart="129dp"
+			android:layout_marginLeft="129dp"
+			android:layout_marginTop="245dp"
+			android:layout_marginEnd="150dp"
+			android:layout_marginRight="150dp"
+			android:layout_marginBottom="354dp"
+			android:foregroundGravity="center"
+			android:progressDrawable="@drawable/circular_progress_bar" />
+
+		<TextView
+			android:id="@+id/tvInfo"
+			android:layout_width="wrap_content"
+			android:layout_height="40dp"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentEnd="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentBottom="true"
+			android:layout_marginStart="167dp"
+			android:layout_marginLeft="167dp"
+			android:layout_marginEnd="174dp"
+			android:layout_marginRight="174dp"
+			android:layout_marginBottom="50dp"
+			android:textSize="20dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.497"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+			app:layout_constraintVertical_bias="0.202" />
+
+	</RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

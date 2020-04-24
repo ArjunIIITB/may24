@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="530dp"
+        android:id="@+id/appbarlayout_id">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/collapsingtoolbar_id"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll"
+            app:title="Patient Name"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            >
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:theme="@style/ThemeOverlay.AppCompat.Light">
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingTop="50dp"
+                android:paddingRight="16dp"
+                >
+
+
+                <!--<ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/loading_shape"
+                    android:id="@+id/aa_thumbnail"/>-->
+
+                <androidx.cardview.widget.CardView
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_height="400dp"
+                    card_view:cardCornerRadius="10dp"
+                    card_view:cardElevation="5dp"
+                    android:background="@drawable/border_grey"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="#fff"
+                        android:layout_margin="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Patient's Details"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18sp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp">
+
+                            <TextView
+                                android:layout_width="78dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Age"
+                                android:textColor="#AAAAAA"></TextView>
+
+
+                            <TextView
+                                android:layout_width="129dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="MHMSID"
+                                android:textColor="#AAAAAA"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:id="@+id/aa_anime_name"
+                                android:layout_width="78dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Mr. Prashant Singh"
+                                android:textColor="#000000"></TextView>
+
+
+                            <TextView
+                                android:id="@+id/aa_categorie"
+                                android:layout_width="129dp"
+                                app:autoSizeTextType="uniform"
+                                tools:ignore="MissingPrefix"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="KA-01-2019-000021"
+                                android:textColor="#000000"></TextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp">
+
+                            <TextView
+                                android:layout_width="78dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Gender"
+                                android:textColor="#AAAAAA"></TextView>
+
+
+                            <TextView
+                                android:layout_width="129dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Age"
+                                android:textColor="#AAAAAA"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="78dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Male"
+                                android:textColor="#000000"></TextView>
+
+
+                            <TextView
+                                android:layout_width="129dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="22 Years"
+                                android:textColor="#000000"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp">
+
+                            <TextView
+                                android:layout_width="78dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Father's/ Mother's Name"
+                                app:autoSizeTextType="uniform"
+                                android:textColor="#AAAAAA"></TextView>
+
+
+                            <TextView
+                                android:layout_width="129dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Phone Number"
+                                android:textColor="#AAAAAA"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="78dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Mr. Mukesh Chand"
+                                android:textColor="#000000"></TextView>
+
+
+                            <TextView
+                                android:layout_width="129dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="9457182128"
+                                android:textColor="#000000"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:orientation="vertical"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Email"
+                                android:textColor="#AAAAAA"></TextView>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/aa_rating"
+                                android:layout_weight="1"
+                                android:text="akash.solanki@iiitb.ac.in"
+                                android:textColor="#000000"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:orientation="vertical"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:id="@+id/aa_studio"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="212, 1st cross, Neeladari Nagar, Electronics City Phase 1, Bengaluru, 560100"
+                                android:textColor="#000000"></TextView>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:orientation="vertical"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Advance Directive"
+                                android:textColor="#AAAAAA"></TextView>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/aa_description"
+                                android:layout_weight="1"
+                                android:text="Yes"
+                                android:textColor="#000000"></TextView>
+
+                        </LinearLayout>
+
+
+                   <!-- <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/aa_rating"
+                        android:text="0.0"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rating_background"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/ic_star_black_24dp"
+                        android:paddingRight="5dp"/>
+                        -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Studio"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginTop="5dp"
+                        />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Address"
+                            android:textColor="#AAAAAA"></TextView>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:gravity="center"
+                android:alignmentMode="alignMargins"
+                android:rowCount="1">
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="2"
+                    android:layout_below="@+id/textTitle"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/btnNavFrag1"
+                    android:background="@drawable/border_style"
+                    android:text="OP-BMR"/>
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@+id/btnNavFrag1"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/border_style"
+                    android:id="@+id/btnNavFrag2"
+                    android:text="Assessment"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:gravity="center"
+                android:alignmentMode="alignMargins"
+                android:rowCount="1"
+                android:layout_marginTop="80dp">
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/border_style"
+                    android:id="@+id/btnNavFrag3"
+                    android:text="Therapy"/>
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnNavFrag3"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/border_style"
+                    android:id="@+id/btnNavFrag4"
+                    android:layout_marginLeft="20dp"
+                    android:text="Restraint Monitoring"/>
+
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:layout_marginTop="150dp"
+                android:id="@+id/containter">
+
+            </androidx.viewpager.widget.ViewPager>
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

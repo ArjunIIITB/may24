@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.mhmsbmrapp">
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/karnatakalogo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/karnatakalogo"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.nextactivity" />
+        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity" />
+        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr"/>
+        <activity android:name=".AddPatientFolder.AddPatients" />
+        <activity android:name=".DashboardBmr.TabFragment" />
+        <activity android:name=".DashboardBmr.SentFragment" />
+        <activity android:name=".Login.SelectMhe" />
+        <activity android:name=".Login.LoginBmr" />
+        <activity android:name=".DashboardBmr.MainActivity"/>
+
+        <activity android:name=".Login.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
