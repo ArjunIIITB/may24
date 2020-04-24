@@ -23,6 +23,13 @@ public class MHPFlow {
 
         final String RELATIVE_PATH = "applogin/";
         String returnString = null;
+        /*String salts[] = getSalt(userName);
+        String hash = BCrypt.hashpw(password, salts[0]);
+        String hash1 = BCrypt.hashpw(hash, salts[1]);
+        System.out.println("hash---------------------------------> " + hash);
+        System.out.println("hash 1----------------------------------> " + hash1);
+*/
+
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
@@ -85,7 +92,7 @@ public class MHPFlow {
         }
         return returnString;
 
-    } //getSalt() ends
+    } //getSalt ends
 
 
     public JSONObject getuserbyuuid(String jwtToken, String uuid){
@@ -127,10 +134,6 @@ public class MHPFlow {
         return jsonObjectResult;
 
     }// getuserbyuuid ends here
-
-
-
-
 
 
 
@@ -242,7 +245,6 @@ public class MHPFlow {
     }
 
 
-
     public static String decoded(String JWTEncoded) throws Exception {
         try {
 
@@ -262,13 +264,6 @@ public class MHPFlow {
 
 
     }//decode ends here
-
-
-
-
-
-
-
 
 
     public static String getJson(String strEncoded) throws UnsupportedEncodingException{
@@ -313,9 +308,6 @@ public class MHPFlow {
 
 
 
-
-
-
     public JSONArray getWatingPatients(String orgUUID, String userUUID, String loginToken){
         System.out.println("GET Waiting Patients STARTS HERE");
 
@@ -337,8 +329,13 @@ public class MHPFlow {
 
         try {
             response = client.newCall(request).execute();
+            if(response.code() != 200){
+                Log.e("message", "response is null");
+                return null;
+            }
+            //Log.e("check       ----", response);
             ResponseBody rb = response.body();
-            Log.e("PRINTINGLO OVER HERE ", "PRINTINH OBER HERER  DFSD");
+            Log.e("Waiting Queue ", "rb.string()");
             String waitingQueue = rb.string();
             Log.e("waitingQueue", waitingQueue);
             waitingPatientArray = new JSONArray(waitingQueue);
@@ -355,7 +352,7 @@ public class MHPFlow {
 
 
     public JSONArray getCompletedPatients(String orgUUID, String userUUID, String loginToken){
-        System.out.println("GET Waiting Patients STARTS HERE");
+        System.out.println("GET Completed Patients STARTS HERE");
 
 
         final String RELATIVE_PATH = "getDoctorPatients/" + orgUUID +"/"+ userUUID +"/"+ "Completed";
@@ -375,6 +372,9 @@ public class MHPFlow {
 
         try {
             response = client.newCall(request).execute();
+            if(response.code() != 200) {
+                return null;
+            }
             ResponseBody rb = response.body();
             Log.e("PRINTINGLO OVER HERE ", "PRINTINH OBER HERER  DFSD");
             String completedQueue = rb.string();
@@ -386,13 +386,10 @@ public class MHPFlow {
         }
 
 
-        System.out.println("GET Waiting Patients ENDS HERE");
+        System.out.println("GET Completed Patients ENDS HERE");
         return completedPatientArray;
 
     }// getCompletedPatients ends here
-
-
-
 
 
 }// MHPFlow class ends here
