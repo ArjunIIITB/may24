@@ -19,12 +19,7 @@ public class FragmentOP extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.opbmrmain1, container, false);
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, new AFragment());
-            fragmentTransaction.commit();
+        View view = inflater.inflate(R.layout.opbmrfinal, container, false);
 
         return view;
     }
