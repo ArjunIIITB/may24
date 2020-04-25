@@ -2,82 +2,92 @@ package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.model;
 
 public class Anime {
 
-    private String name ;
-    private String Description;
-    private String rating;
-    private int nb_episode;
-    private String categorie;
-    private String studio ;
-    private String image_url;
+        private String givenName ;
+        private String middleName;
+        private String email;
+        private String patientName;
+        private int dateOfBirth;
+        private String phoneNumber;
+        private String personId ;
+        private String image_url;
 
-    public Anime() {
+        public Anime() {
+        }
+
+        public Anime(String givenName, String middleName, String email, String patientName, int dateOfBirth, String phoneNumber, String personId, String image_url) {
+            this.givenName = givenName;
+            this.middleName = middleName;
+            this.email = email;
+            this.patientName = patientName;
+            this.dateOfBirth = dateOfBirth;
+            this.phoneNumber = phoneNumber;
+            this.personId = personId;
+            this.image_url = image_url;
+        }
+
+
+        public String getGivenName() {
+            return givenName;
+        }
+
+        public String getMiddleName() {
+            return middleName;
+        }
+
+        public String getPatientName() {
+            return patientName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public int getDateOfBirth() {
+            return dateOfBirth;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public String getPersonId() {
+            return personId;
+        }
+
+        public String getImage_url() {
+            return image_url;
+        }
+
+
+        public void setGivenName(String givenName) {
+            this.givenName = givenName;
+        }
+
+        public void setMiddleName(String middleName) {
+            this.middleName = middleName;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public void setPatientName(String patientName) {
+            this.patientName = patientName;
+        }
+
+        public void setDateOfBirth(int dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
+        public void setPersonId(String personId) {
+            this.personId = personId;
+        }
+
+        public void setImage_url(String image_url) {
+            this.image_url = image_url;
+        }
     }
-
-    public Anime(String name, String description, String rating, int nb_episode, String categorie, String studio, String image_url) {
-        this.name = name;
-        Description = description;
-        this.rating = rating;
-        this.nb_episode = nb_episode;
-        this.categorie = categorie;
-        this.studio = studio;
-        this.image_url = image_url;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public int getNb_episode() {
-        return nb_episode;
-    }
-
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public String getStudio() {
-        return studio;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public void setNb_episode(int nb_episode) {
-        this.nb_episode = nb_episode;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
-
-    public void setStudio(String studio) {
-        this.studio = studio;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-}

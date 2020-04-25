@@ -41,20 +41,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view ;
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        view = inflater.inflate(R.layout.op_patientbmr_list,parent,false) ;
+        view = inflater.inflate(R.layout.op_row_item,parent,false) ;
         final MyViewHolder viewHolder = new MyViewHolder(view) ;
         viewHolder.view_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent i = new Intent(mContext, Animeactivity.class);
-                i.putExtra("anime_name",mData.get(viewHolder.getAdapterPosition()).getName());
-                i.putExtra("anime_description",mData.get(viewHolder.getAdapterPosition()).getDescription());
-                i.putExtra("anime_studio",mData.get(viewHolder.getAdapterPosition()).getStudio());
-                i.putExtra("anime_category",mData.get(viewHolder.getAdapterPosition()).getCategorie());
-                i.putExtra("anime_nb_episode",mData.get(viewHolder.getAdapterPosition()).getNb_episode());
-                i.putExtra("anime_rating",mData.get(viewHolder.getAdapterPosition()).getRating());
-                //i.putExtra("anime_img",mData.get(viewHolder.getAdapterPosition()).getImage_url());
+                i.putExtra("anime_givenName",mData.get(viewHolder.getAdapterPosition()).getGivenName());
+                i.putExtra("anime_description",mData.get(viewHolder.getAdapterPosition()).getMiddleName());
+                i.putExtra("anime_studio",mData.get(viewHolder.getAdapterPosition()).getPersonId());
+                i.putExtra("anime_category",mData.get(viewHolder.getAdapterPosition()).getPhoneNumber());
+                i.putExtra("anime_nb_episode",mData.get(viewHolder.getAdapterPosition()).getDateOfBirth());
+                i.putExtra("anime_rating",mData.get(viewHolder.getAdapterPosition()).getEmail());
+                i.putExtra("anime_img",mData.get(viewHolder.getAdapterPosition()).getImage_url());
+                i.putExtra("anime_patientName",mData.get(viewHolder.getAdapterPosition()).getPatientName());
 
                 mContext.startActivity(i);
 
@@ -70,10 +71,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.tv_name.setText(mData.get(position).getName());
-        holder.tv_rating.setText(mData.get(position).getRating());
-        holder.tv_studio.setText(mData.get(position).getStudio());
-        holder.tv_category.setText(mData.get(position).getCategorie());
+        holder.tv_name.setText(mData.get(position).getGivenName());
+        holder.tv_rating.setText(mData.get(position).getEmail());
+        holder.tv_studio.setText(mData.get(position).getPersonId());
+        holder.tv_category.setText(mData.get(position).getPhoneNumber());
+        holder.tv_patientName.setText(mData.get(position).getPatientName());
 
         // Load Image from the internet and set it into Imageview using Glide
 
@@ -94,11 +96,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView tv_rating ;
         TextView tv_studio ;
         TextView tv_category;
+        TextView tv_patientName;
         //ImageView img_thumbnail;
         LinearLayout view_container;
-
-
-
 
 
         public MyViewHolder(View itemView) {
@@ -110,12 +110,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_rating = itemView.findViewById(R.id.rating);
             tv_studio = itemView.findViewById(R.id.studio);
             //img_thumbnail = itemView.findViewById(R.id.thumbnail);
+            tv_patientName = itemView.findViewById(R.id.patientName);
 
         }
     }
 
 }
-
-
-
-

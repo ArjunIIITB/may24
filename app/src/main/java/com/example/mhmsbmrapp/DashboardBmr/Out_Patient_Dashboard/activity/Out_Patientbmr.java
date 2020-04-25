@@ -14,10 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.adapter.RecyclerViewAdapter;
@@ -29,17 +32,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Out_Patientbmr extends Fragment{
 
 
-    private final String JSON_URL = "https://gist.githubusercontent.com/aws1994/f583d54e5af8e56173492d3f60dd5ebf/raw/c7796ba51d5a0d37fc756cf0fd14e54434c547bc/anime.json" ;
+    private final String loginToken = "eyJEZXZlbG9wZWQgQnkiOiJlLUhlYWx0aCBSZXNlYXJjaCBDZW50ZXIsIElJSVQgQmFuZ2Fsb3JlIiwiSG9zdCI6Ikthcm5hdGFrYSBNZW50YWwgSGVhbHRoIE1hbmFnZW1lbnQgU3lzdGVtIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9mZXNzaW9uIjoiTUhNU1BzeWNoaWF0cmlzdCIsInN1YiI6Ik1ITVMgU2VjdXJpdHkgVG9rZW4iLCJsYXN0TG9naW5PcmdJZCI6ImEyMWI4ODVlLTJmM2EtNDQyNS04YjViLTBkMjc0YjQyYWYyNiIsInNlc3Npb25FbmRUaW1lIjoxNTg3ODQwNTMyLCJpc3MiOiJLTUhNUyIsInNlc3Npb25TdGFydFRpbWUiOjE1ODc3OTczMzIsInNlc3Npb25JZCI6ImE4MTA1NjEyLWE4ZTctNDA3NC1iOWEwLWFhZjNiM2ZiZWY5NSIsInVzZXJOYW1lIjoicHJhc2hhbnQiLCJvcmdVVUlEIjoiNGNjNzQyODAtZWZlNS00MDE2LWI0MWUtZjI5NDcyYTRlYzEyIiwibmJmIjoxNTg3Nzk3MzMyLCJvcmdSb2xlIjoiTUhQcm9mZXNzaW9uYWwiLCJzZXNzaW9uVG9rZW4iOiJTZXNzaW9uSWQ6MTcyLjMxLjUuMTMjcHJhc2hhbnQ6NGNjNzQyODAtZWZlNS00MDE2LWI0MWUtZjI5NDcyYTRlYzEyOk1ITVM6TUhQcm9mZXNzaW9uYWwjMTU4Nzc5NzMzMjM5NiMyNjMxNzU3ODYjMTUxMSIsInBlcnNvbklkIjoiOTI1ZDY3Y2QtN2QzYy00MDc4LTg5ZmItNjk2M2M0N2I0OTZhIiwidXNlclVVSUQiOiI3NzViOGMzZS02NzQyLTRiMzAtYjQ0My1jN2Q2YWE2ZWM0YWMiLCJleHAiOjE1ODc4MzMzMzIsImlhdCI6MTU4Nzc5NzMzMn0.ePKPfbkUA4HZkwMswdTKM8uwW8wfqUC6NLFbkEoirJM";
+    private String orgUUID = "4cc74280-efe5-4016-b41e-f29472a4ec12";
+    private String userUUID = "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac";
+    private String url = "http://13.126.27.50/MHMS_DEV/rest/getDoctorPatients/"+orgUUID+"/"+userUUID+"/Waiting";
+
     private JsonArrayRequest request ;
     private RequestQueue requestQueue ;
     private List<Anime> lstAnime ;
     private RecyclerView recyclerView ;
-
 
 
     public Out_Patientbmr() {
@@ -64,48 +72,63 @@ public class Out_Patientbmr extends Fragment{
 
 
     private void jsonrequest() {
+        Log.e(" ","inside jsonrequst()");
+        StringRequest requestString = new StringRequest(Request.Method.GET, url,
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println("inside on response()");
+                        Log.e("","4444444444444444444444444444444");
+                        Log.e("response", response);
 
-                JSONObject jsonObject  = null ;
 
-                for (int i = 0 ; i < response.length(); i++ ) {
+                        try {
+                            JSONArray arr = new JSONArray(response);
 
+                            for (int i = 0 ; i < arr.length(); i++ ) {
+                                JSONObject jsonObject = new JSONObject(arr.get(i).toString());
+                                Log.e(i+"",jsonObject.toString());
+                                Anime anime = new Anime();
+                                anime.setGivenName(jsonObject.getString("patientId"));
+                                anime.setMiddleName(jsonObject.getString("userId"));
+                                anime.setEmail(jsonObject.getString("assignedmhpName"));
+                                anime.setPhoneNumber(jsonObject.getString("orgId"));
+                                //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
+                                anime.setPersonId(jsonObject.getString("admissionStatus"));
+                                anime.setPatientName(jsonObject.getString("patientName"));
+                                //anime.setImage_url(jsonObject.getString("img"));
+                                lstAnime.add(anime);
+                            }
 
-                    try {
-                        jsonObject = response.getJSONObject(i) ;
-                        Anime anime = new Anime() ;
-                        anime.setName(jsonObject.getString("name"));
-                        anime.setDescription(jsonObject.getString("description"));
-                        anime.setRating(jsonObject.getString("Rating"));
-                        anime.setCategorie(jsonObject.getString("categorie"));
-                        anime.setNb_episode(jsonObject.getInt("episode"));
-                        anime.setStudio(jsonObject.getString("studio"));
-                        anime.setImage_url(jsonObject.getString("img"));
-                        lstAnime.add(anime);
+                        } catch (JSONException e) {
+                            Log.e("error occurred", e.getMessage());
+                            e.printStackTrace();
+                        }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        setuprecyclerview(lstAnime);
                     }
-
-
-                }
-
-                setuprecyclerview(lstAnime);
-
-            }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("inside error response", "VolleyError error");
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", "Bearer " + loginToken);
+                params.put("Accept", "application/json");
+
+                return params;
+            }
+        };
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;
+        requestQueue.add(requestString) ;
 
 
     }

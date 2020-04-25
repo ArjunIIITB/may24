@@ -42,13 +42,14 @@ public class Animeactivity extends AppCompatActivity {
 
         // Recieve data
 
-        String name  = getIntent().getExtras().getString("anime_name");
-        String description = getIntent().getExtras().getString("anime_description");
-        String studio = getIntent().getExtras().getString("anime_studio") ;
-        String category = getIntent().getExtras().getString("anime_category");
-        int nb_episode = getIntent().getExtras().getInt("anime_nb_episode") ;
-        String rating = getIntent().getExtras().getString("anime_rating") ;
-        String image_url = getIntent().getExtras().getString("anime_img") ;
+        String name  = getIntent().getExtras().getString("anime_givenName");
+        String description = getIntent().getExtras().getString("anime_middleName");
+        String studio = getIntent().getExtras().getString("anime_personId") ;
+        String category = getIntent().getExtras().getString("anime_phoneNumber");
+        //int nb_episode = getIntent().getExtras().getInt("anime_dateOfBirth") ;
+        String rating = getIntent().getExtras().getString("anime_email") ;
+        String patientName = getIntent().getExtras().getString("anime_patientName") ;
+        //String image_url = getIntent().getExtras().getString("anime_img");
 
         // ini views
 
@@ -60,7 +61,8 @@ public class Animeactivity extends AppCompatActivity {
         TextView tv_categorie = findViewById(R.id.aa_categorie) ;
         TextView tv_description = findViewById(R.id.aa_description);
         TextView tv_rating  = findViewById(R.id.aa_rating) ;
-        ImageView img = findViewById(R.id.aa_thumbnail);
+        TextView tv_patientName  = findViewById(R.id.aa_patientName) ;
+        //ImageView img = findViewById(R.id.aa_thumbnail);
 
         // setting values to each view
 
@@ -69,6 +71,8 @@ public class Animeactivity extends AppCompatActivity {
         tv_description.setText(description);
         tv_rating.setText(rating);
         tv_studio.setText(studio);
+        tv_patientName.setText(patientName);
+
 
         collapsingToolbarLayout.setTitle(name);
 
