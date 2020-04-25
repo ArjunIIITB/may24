@@ -26,6 +26,9 @@ import okhttp3.ResponseBody;
 
 public class AddPatients extends AppCompatActivity {
 
+
+    boolean idProof = true;
+
     EditText id_number;
     EditText patient_First_name;
     EditText patient_Last_name;
@@ -270,8 +273,10 @@ public class AddPatients extends AppCompatActivity {
             jsonObject.put("userToken", userToken);
             jsonObject.put("userUuid", userUUID);
             jsonObject.put("orgUuid", orgUUID);
-            jsonObject.put("idType", "AB-ARK ID");
-            Log.e("id number", idNumber);
+            if(idProof) {
+                jsonObject.put("idType", "AB-ARK ID");
+                Log.e(" id number", idNumber);
+            }
             jsonObject.put("idNumber", idNumber);
             jsonObject.put("prefix", salutation_string);
             Log.e("patient name", patient_First_name_string);
@@ -279,13 +284,13 @@ public class AddPatients extends AppCompatActivity {
             jsonObject.put("middleName", patient_Last_name_string);
 
             JSONObject genderObject = new JSONObject();
-            genderObject.put("genderCode", "Male");
+                genderObject.put("genderCode", "Male");
 
             jsonObject.put("gender", genderObject);
 
             JSONObject emergencyContactObject = new JSONObject();
-            emergencyContactObject.put("contactName", Father_name_string);
-            emergencyContactObject.put("telephone", "1234567890");
+                emergencyContactObject.put("contactName", Father_name_string);
+                emergencyContactObject.put("telephone", "1234567890");
 
             jsonObject.put("emergencyContact", emergencyContactObject);
             jsonObject.put("phoneNumber", Mobile_number_string);
