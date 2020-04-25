@@ -1,6 +1,8 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpbmrCompletedList;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpbmrCompletedList.opcompletelistadapter.Out_Completed_list_RecyclerViewAdapter;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpbmrCompletedList.opcompletelistmodel.Out_Completed_list_AnimeOpBmrTab;
+import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
 
 import org.json.JSONArray;
@@ -33,6 +36,12 @@ public class Out_Completed_list extends Fragment {
     private RequestQueue requestQueue ;
     private List<Out_Completed_list_AnimeOpBmrTab> lstOut_Completed_list_AnimeOpBmrTab ;
     private RecyclerView recyclerView ;
+
+
+    private String loginToken;
+    private String orgUUID;
+    private String userUUID;
+
 
     public Out_Completed_list() {
         // Required empty public constructor
@@ -51,7 +60,7 @@ public class Out_Completed_list extends Fragment {
         return v;
     }
     private void jsonrequest() {
-
+        /*
         request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -92,7 +101,64 @@ public class Out_Completed_list extends Fragment {
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;
+        requestQueue.add(request) ;*/
+
+
+        Log.e("^^^^^^^^^^^ ","inside jsonrequst() Out_Patientbmr");
+
+        System.out.println(getActivity().toString());
+        System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
+        System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("loginToken", ""));
+
+
+
+        loginToken = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("loginToken", "");
+        String sessionToken = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("sessionToken", "");
+
+        try{
+            orgUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("orgUUID");
+            userUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("userUUID");
+        } catch (Exception e) {}
+
+
+        Thread thread = new Thread(){
+
+            public void run() {
+                try {
+                    JSONArray arr = new MHPFlow().getCompletedPatients(orgUUID, userUUID, loginToken);
+
+                    for (int i = 0 ; i < arr.length(); i++ ) {
+                        JSONObject jsonObject = new JSONObject(arr.get(i).toString());
+                        Log.e(i+"",jsonObject.toString());
+                        Out_Completed_list_AnimeOpBmrTab anime = new Out_Completed_list_AnimeOpBmrTab();
+                        /*anime.setGivenName(jsonObject.getString("patientName"));
+                        anime.setMiddleName(jsonObject.getString("userId"));
+                        anime.setEmail(jsonObject.getString("assignedmhpName"));
+                        anime.setPhoneNumber(jsonObject.getString("patientPhone"));
+                        //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
+                        anime.setPersonId(jsonObject.getString("admissionStatus"));
+                        anime.setPatientName(jsonObject.getString("patientName"));*/
+                        //anime.setImage_url(jsonObject.getString("img"));
+                        anime.setName(jsonObject.getString("patientName"));
+                        anime.setCategorie(jsonObject.getString("assignedmhpName"));
+                        anime.setDescription(jsonObject.getString("patientPhone"));
+                        anime.setRating(jsonObject.getString("admissionStatus"));
+                        lstOut_Completed_list_AnimeOpBmrTab.add(anime);
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("error occurred", e.getMessage());
+                    e.printStackTrace();
+                }
+
+                setuprecyclerview(lstOut_Completed_list_AnimeOpBmrTab);
+            }
+
+        };
+        thread.start();
+
+
+
 
 
     }

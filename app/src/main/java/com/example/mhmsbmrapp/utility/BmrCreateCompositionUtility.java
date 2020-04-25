@@ -5,8 +5,9 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.mhmsbmr.Login.GlobalVariables;
-import com.example.mhmsbmr.model.Composition;
+import com.example.mhmsbmrapp.Login.GlobalVariables;
+import com.example.mhmsbmrapp.model.Composition;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
