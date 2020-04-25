@@ -4,7 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.adapter.RecyclerViewAdapter;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.model.Anime;
+import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
 
 import org.json.JSONArray;
@@ -39,15 +42,17 @@ import java.util.Map;
 public class Out_Patientbmr extends Fragment{
 
 
-    private final String loginToken = "eyJEZXZlbG9wZWQgQnkiOiJlLUhlYWx0aCBSZXNlYXJjaCBDZW50ZXIsIElJSVQgQmFuZ2Fsb3JlIiwiSG9zdCI6Ikthcm5hdGFrYSBNZW50YWwgSGVhbHRoIE1hbmFnZW1lbnQgU3lzdGVtIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJwcm9mZXNzaW9uIjoiTUhNU1BzeWNoaWF0cmlzdCIsInN1YiI6Ik1ITVMgU2VjdXJpdHkgVG9rZW4iLCJsYXN0TG9naW5PcmdJZCI6ImEyMWI4ODVlLTJmM2EtNDQyNS04YjViLTBkMjc0YjQyYWYyNiIsInNlc3Npb25FbmRUaW1lIjoxNTg3ODQwNTMyLCJpc3MiOiJLTUhNUyIsInNlc3Npb25TdGFydFRpbWUiOjE1ODc3OTczMzIsInNlc3Npb25JZCI6ImE4MTA1NjEyLWE4ZTctNDA3NC1iOWEwLWFhZjNiM2ZiZWY5NSIsInVzZXJOYW1lIjoicHJhc2hhbnQiLCJvcmdVVUlEIjoiNGNjNzQyODAtZWZlNS00MDE2LWI0MWUtZjI5NDcyYTRlYzEyIiwibmJmIjoxNTg3Nzk3MzMyLCJvcmdSb2xlIjoiTUhQcm9mZXNzaW9uYWwiLCJzZXNzaW9uVG9rZW4iOiJTZXNzaW9uSWQ6MTcyLjMxLjUuMTMjcHJhc2hhbnQ6NGNjNzQyODAtZWZlNS00MDE2LWI0MWUtZjI5NDcyYTRlYzEyOk1ITVM6TUhQcm9mZXNzaW9uYWwjMTU4Nzc5NzMzMjM5NiMyNjMxNzU3ODYjMTUxMSIsInBlcnNvbklkIjoiOTI1ZDY3Y2QtN2QzYy00MDc4LTg5ZmItNjk2M2M0N2I0OTZhIiwidXNlclVVSUQiOiI3NzViOGMzZS02NzQyLTRiMzAtYjQ0My1jN2Q2YWE2ZWM0YWMiLCJleHAiOjE1ODc4MzMzMzIsImlhdCI6MTU4Nzc5NzMzMn0.ePKPfbkUA4HZkwMswdTKM8uwW8wfqUC6NLFbkEoirJM";
-    private String orgUUID = "4cc74280-efe5-4016-b41e-f29472a4ec12";
-    private String userUUID = "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac";
-    private String url = "http://13.126.27.50/MHMS_DEV/rest/getDoctorPatients/"+orgUUID+"/"+userUUID+"/Waiting";
+
 
     private JsonArrayRequest request ;
     private RequestQueue requestQueue ;
     private List<Anime> lstAnime ;
     private RecyclerView recyclerView ;
+
+    private String loginToken;
+    private String orgUUID;
+    private String userUUID;
+
 
 
     public Out_Patientbmr() {
@@ -72,8 +77,28 @@ public class Out_Patientbmr extends Fragment{
 
 
     private void jsonrequest() {
-        Log.e(" ","inside jsonrequst()");
-        StringRequest requestString = new StringRequest(Request.Method.GET, url,
+
+
+        Log.e("^^^^^^^^^^^ ","inside jsonrequst() Out_Patientbmr");
+
+        System.out.println(getActivity().toString());
+        System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
+        System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("loginToken", ""));
+
+
+
+        loginToken = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("loginToken", "");
+         String sessionToken = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("sessionToken", "");
+
+        try{
+            orgUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("orgUUID");
+            userUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("userUUID");
+        } catch (Exception e) {}
+
+
+
+
+        /*StringRequest requestString = new StringRequest(Request.Method.GET, url,
 
                 new Response.Listener<String>()
                 {
@@ -128,7 +153,42 @@ public class Out_Patientbmr extends Fragment{
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(requestString) ;
+        requestQueue.add(requestString) ;*/
+
+
+        Thread thread = new Thread(){
+
+            public void run() {
+                try {
+                    JSONArray arr = new MHPFlow().getWatingPatients(orgUUID, userUUID, loginToken);
+
+                    for (int i = 0 ; i < arr.length(); i++ ) {
+                        JSONObject jsonObject = new JSONObject(arr.get(i).toString());
+                        Log.e(i+"",jsonObject.toString());
+                        Anime anime = new Anime();
+                        anime.setGivenName(jsonObject.getString("patientName"));
+                        anime.setMiddleName(jsonObject.getString("userId"));
+                        anime.setEmail(jsonObject.getString("assignedmhpName"));
+                        anime.setPhoneNumber(jsonObject.getString("patientPhone"));
+                        //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
+                        anime.setPersonId(jsonObject.getString("admissionStatus"));
+                        anime.setPatientName(jsonObject.getString("patientName"));
+                        //anime.setImage_url(jsonObject.getString("img"));
+                        lstAnime.add(anime);
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("error occurred", e.getMessage());
+                    e.printStackTrace();
+                }
+
+                setuprecyclerview(lstAnime);
+            }
+
+        };
+        thread.start();
+
+
 
 
     }

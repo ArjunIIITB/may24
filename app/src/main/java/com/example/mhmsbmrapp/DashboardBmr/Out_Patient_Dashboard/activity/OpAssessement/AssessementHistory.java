@@ -1,5 +1,6 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAsse
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement.model.AnimeOpAssessement;
 import com.example.mhmsbmrapp.R;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,13 +40,16 @@ import java.util.Map;
 public class AssessementHistory extends Fragment {
     private static final String TAG = "Fragment3";
 
+
+
+
     Button button;
     TextView addpatienttext;
 
 
-
-
-    private final String JSON_URL = "https://gist.githubusercontent.com/aws1994/f583d54e5af8e56173492d3f60dd5ebf/raw/c7796ba51d5a0d37fc756cf0fd14e54434c547bc/anime.json" ;
+    private String orgUUID = "4cc74280-efe5-4016-b41e-f29472a4ec12";
+    private String userUUID = "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac";
+    private final String JSON_URL = "http://13.126.27.50/MHMS_DEV/rest/getDoctorPatients/"+orgUUID+"/"+userUUID+"/Waiting";
     private JsonArrayRequest request ;
     private RequestQueue requestQueue ;
     private List<AnimeOpAssessement> lstAnimeOpAssessement ;
@@ -64,6 +69,10 @@ public class AssessementHistory extends Fragment {
 
         lstAnimeOpAssessement = new ArrayList<>() ;
         recyclerView = v.findViewById(R.id.recyclerviewid);
+        Log.e(" ", "Just before jsonrequest() calling");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        Log.e("message", sharedPreferences.getString("loginToken", ""));
+        Log.e("message", sharedPreferences.getString("sessionToken", ""));
         jsonrequest();
 
         //json//
@@ -71,9 +80,9 @@ public class AssessementHistory extends Fragment {
     }
 
 
-    private void jsonrequest() {
+    private void jsonrequest1() {
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+        /*request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -113,10 +122,87 @@ public class AssessementHistory extends Fragment {
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;
+        requestQueue.add(request) ;*/
+
+
 
 
     }
+
+
+    private void jsonrequest() {
+
+        Log.e(" ", "Just before jsonrequest() calling");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        Log.e("message", sharedPreferences.getString("loginToken", ""));
+        Log.e("message", sharedPreferences.getString("sessionToken", ""));
+
+        final String loginToken = sharedPreferences.getString("loginToken", "");
+
+        Log.e(" ","inside jsonrequst()");
+        StringRequest requestString = new StringRequest(Request.Method.GET, JSON_URL,
+
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println("inside on response()");
+                        Log.e("","4444444444444444444444444444444");
+                        Log.e("response", response);
+
+
+                        try {
+                            JSONArray arr = new JSONArray(response);
+
+                            for (int i = 0 ; i < arr.length(); i++ ) {
+
+                                JSONObject jsonObject = new JSONObject(arr.get(i).toString());
+
+                                Log.e(i+"   ",jsonObject.toString());
+                                AnimeOpAssessement anime = new AnimeOpAssessement();
+                                anime.setName(jsonObject.getString("patientName"));
+                                anime.setDescription(jsonObject.getString("assignedmhpName"));
+                                anime.setRating(jsonObject.getString("assignedmhpName"));
+                                anime.setStudio(jsonObject.getString("orgId"));
+                                //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
+                                anime.setImage_url(jsonObject.getString("admissionStatus"));
+                                //anime.setImage_url(jsonObject.getString("img"));
+                                lstAnimeOpAssessement.add(anime);
+                            }
+
+                        } catch (JSONException e) {
+                            Log.e("error occurred", e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                        setuprecyclerview(lstAnimeOpAssessement);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("inside error response", "VolleyError error");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Authorization", "Bearer " + loginToken);
+                params.put("Accept", "application/json");
+
+                return params;
+            }
+        };
+
+
+        requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(requestString) ;
+
+
+    }
+
+
+
 
 
 

@@ -1,6 +1,9 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab.adapter.RecyclerViewAdapterOpbmrtab;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab.model.AnimeOpBmrTab;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.model.Anime;
+import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
 
 import org.json.JSONArray;
@@ -63,25 +68,27 @@ public class FragmenOphistory extends Fragment {
 
     private void jsonrequest() {
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject  = null ;
-
-                for (int i = 0 ; i < response.length(); i++ ) {
-
+        Thread thread = new Thread() {
+            public void run() {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                Log.e("message", sharedPreferences.getString("loginToken", ""));
+                Log.e("message", sharedPreferences.getString("sessionToken", ""));
+                String loginToken = sharedPreferences.getString("loginToken", "");
+                JSONArray response = new MHPFlow().getCompletedPatients("4cc74280-efe5-4016-b41e-f29472a4ec12", "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac", loginToken);
+                Log.e("is null", response.toString());
+                for (
+                        int i = 0; i < response.length(); i++) {
+                    JSONObject jsonObject = null;
 
                     try {
-                        jsonObject = response.getJSONObject(i) ;
-                        AnimeOpBmrTab anime = new AnimeOpBmrTab() ;
-                        anime.setName(jsonObject.getString("name"));
-                        anime.setDescription(jsonObject.getString("description"));
-                        anime.setRating(jsonObject.getString("Rating"));
-                        anime.setCategorie(jsonObject.getString("categorie"));
-                        anime.setNb_episode(jsonObject.getInt("episode"));
-                        anime.setStudio(jsonObject.getString("studio"));
-                        anime.setImage_url(jsonObject.getString("img"));
+                        jsonObject = response.getJSONObject(i);
+                        AnimeOpBmrTab anime = new AnimeOpBmrTab();
+
+                        anime.setDescription(jsonObject.getString("patientName"));
+                        anime.setRating(jsonObject.getString("patientName"));
+                        anime.setCategorie(jsonObject.getString("patientName"));
+                        anime.setStudio(jsonObject.getString("patientName"));
+                        anime.setImage_url(jsonObject.getString("patientName"));
                         lstAnimeOpBmrTab.add(anime);
 
                     } catch (JSONException e) {
@@ -90,20 +97,11 @@ public class FragmenOphistory extends Fragment {
 
 
                 }
-
-                setuprecyclerview(lstAnimeOpBmrTab);
-
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-            }
-        });
+        };
+        thread.start();
 
-
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;
 
 
     }
