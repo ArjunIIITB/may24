@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -131,6 +132,39 @@ public class BmrUtility {
         }
         return jsonObjectResult;
     } //getComposition (POST)
+
+
+    public ArrayList<List<JSONObject>> getHistory(String loginToken, String sessionToken, String patientId, String orgUuid) {
+        ArrayList<List<JSONObject>> returnList = new ArrayList<List<JSONObject>>();
+
+        JSONObject virtualFolder = new BmrUtility().getVirtualFolderByPersonId(loginToken, patientId, orgUuid);
+        System.out.println(virtualFolder.toString());
+
+        //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
+        //System.out.println("Iterator starts from here\n");
+        List<String[][]> list = new BmrUtility().fetchNameTemplateIdAndCompositionUid(virtualFolder);
+        Iterator itr = list.iterator();
+        int index=-1;
+        while(itr.hasNext()){
+            index ++;
+            returnList.add(new ArrayList<JSONObject>());
+            String[][] nameAndTemplateId = (String[][])itr.next();
+            for(int i=0; i<nameAndTemplateId.length;i++){
+                //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                String name = nameAndTemplateId[i][0];
+                String templateId = nameAndTemplateId[i][1];
+                String compositionIDList = nameAndTemplateId[i][2];
+                System.out.println("check here --------" + name + " " + templateId +" " + compositionIDList);
+                JSONObject newComposition = new BmrUtility().getComposition(name, templateId, compositionIDList, patientId, sessionToken, loginToken);
+                //System.out.println("newComposition " +newComposition);
+                if(newComposition != null) {
+                    returnList.get(index).add(newComposition);
+                }
+            }
+        }
+        return  returnList;
+    }
 
 
     public JSONObject createCompositon(String value, String templateId, String loginToken) {

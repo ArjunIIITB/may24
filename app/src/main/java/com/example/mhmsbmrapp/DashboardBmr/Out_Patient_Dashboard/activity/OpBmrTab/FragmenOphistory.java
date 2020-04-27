@@ -25,12 +25,15 @@ import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrT
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.model.Anime;
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
+import com.example.mhmsbmrapp.model.MHP;
+import com.example.mhmsbmrapp.utility.BmrUtility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class FragmenOphistory extends Fragment {
@@ -66,7 +69,7 @@ public class FragmenOphistory extends Fragment {
     }
 
 
-    private void jsonrequest() {
+    private void jsonrequest1() {
 
         Thread thread = new Thread() {
             public void run() {
@@ -102,6 +105,72 @@ public class FragmenOphistory extends Fragment {
         };
         thread.start();
 
+        setuprecyclerview(lstAnimeOpBmrTab);
+
+    }
+
+    private void jsonrequest() {
+
+       Thread thread = new Thread() {
+           public void run() {
+
+               SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+               String loginToken = sharedPreferences.getString("loginToken", "");
+               Log.e("loginToken is", loginToken);
+               String sessionToken = sharedPreferences.getString("sessionToken", "");
+               String orgUUID = null;
+               try {
+                   orgUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("orgUUID");
+               }catch (Exception e) {e.printStackTrace();}
+               String patientId = "a7864f44-7ba8-4bfa-b8c2-de9afa84d30d";
+
+
+               ArrayList<List<JSONObject>> returnList;
+
+               System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+                returnList = new BmrUtility().getHistory(loginToken, sessionToken, patientId, orgUUID);
+               for (List item : returnList) {
+                   try {
+                       AnimeOpBmrTab anime = new AnimeOpBmrTab();
+                       for (int i = 0; i < item.size(); i++) {
+                           JSONObject obj = new JSONObject(item.get(i).toString());
+                           JSONObject o = obj.getJSONArray("resultSet").getJSONObject(0);
+
+                           if (o.has("symptomName")) {
+                               System.out.println(i + "  " + o.getString("symptomName"));
+                               anime.setName(o.getString("symptomName"));
+                           }
+                           else if (o.has("diagnosticCertainity")) {
+                               System.out.println(i + "  " + o.getString("diagnosticCertainity"));
+                               System.out.println(i + "  " + o.getString("problemDiagnosis"));
+                               System.out.println(i + "  " + o.getString("problemTerminology"));
+                               anime.setDescription(o.getString("diagnosticCertainity"));
+                           } else if (o.has("clinicalHistory")) {
+                               System.out.println(i + "  " + o.getString("clinicalHistory"));
+                               anime.setRating(o.getString("clinicalHistory"));
+                           } else if (o.has("illnessSummary")) {
+                               System.out.println(i + "  " + o.getString("illnessSummary"));
+                               anime.setCategorie(o.getString("illnessSummary"));
+                           } else if (o.has("clinicalSynopsis")) {
+                               System.out.println(i + "  " + o.getString("clinicalSynopsis"));
+                           } else if (o.has("medicationItem")) {
+                               System.out.println(i + "  " + o.getString("medicationItem"));
+                               System.out.println(i + "  " + o.getString("directionDuration"));
+                               System.out.println(i + "  " + o.getString("overallDirectionDescription"));
+                               System.out.println(i + "  " + o.getString("timingDescription"));
+                           }
+                       }
+                       Log.e("message", "next item starts from here onwards");
+                       lstAnimeOpBmrTab.add(anime);
+                   } catch (Exception e) {
+                       e.printStackTrace();
+                   }
+
+               }
+           }
+       };
+       thread.start();
+        setuprecyclerview(lstAnimeOpBmrTab);
 
 
     }

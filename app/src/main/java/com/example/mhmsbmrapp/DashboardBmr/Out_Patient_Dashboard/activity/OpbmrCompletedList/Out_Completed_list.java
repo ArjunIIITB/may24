@@ -31,11 +31,18 @@ import java.util.List;
 
 public class Out_Completed_list extends Fragment {
 
+
     private final String JSON_URL = "https://gist.githubusercontent.com/aws1994/f583d54e5af8e56173492d3f60dd5ebf/raw/c7796ba51d5a0d37fc756cf0fd14e54434c547bc/anime.json" ;
     private JsonArrayRequest request ;
     private RequestQueue requestQueue ;
     private List<Out_Completed_list_AnimeOpBmrTab> lstOut_Completed_list_AnimeOpBmrTab ;
     private RecyclerView recyclerView ;
+
+
+
+
+    //private List<Out_Completed_list_AnimeOpBmrTab> lstOut_Completed_list_AnimeOpBmrTab ;
+    //private RecyclerView recyclerView ;
 
 
     private String loginToken;
@@ -60,8 +67,8 @@ public class Out_Completed_list extends Fragment {
         return v;
     }
     private void jsonrequest() {
-        /*
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+
+        /*request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -97,11 +104,11 @@ public class Out_Completed_list extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        });*/
 
 
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;*/
+        //requestQueue = Volley.newRequestQueue(getActivity());
+        //requestQueue.add(request) ;
 
 
         Log.e("^^^^^^^^^^^ ","inside jsonrequst() Out_Patientbmr");
@@ -109,7 +116,6 @@ public class Out_Completed_list extends Fragment {
         System.out.println(getActivity().toString());
         System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
         System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("loginToken", ""));
-
 
 
         loginToken = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("loginToken", "");
@@ -131,13 +137,13 @@ public class Out_Completed_list extends Fragment {
                         JSONObject jsonObject = new JSONObject(arr.get(i).toString());
                         Log.e(i+"",jsonObject.toString());
                         Out_Completed_list_AnimeOpBmrTab anime = new Out_Completed_list_AnimeOpBmrTab();
-                        /*anime.setGivenName(jsonObject.getString("patientName"));
-                        anime.setMiddleName(jsonObject.getString("userId"));
-                        anime.setEmail(jsonObject.getString("assignedmhpName"));
-                        anime.setPhoneNumber(jsonObject.getString("patientPhone"));
+                        //anime.setGivenName(jsonObject.getString("patientName"));
+                        //anime.setDescription(jsonObject.getString("userId"));
+                        //anime.setName(jsonObject.getString("assignedmhpName"));
+                        //anime.setCategorie(jsonObject.getString("patientPhone"));
                         //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
-                        anime.setPersonId(jsonObject.getString("admissionStatus"));
-                        anime.setPatientName(jsonObject.getString("patientName"));*/
+                        //anime.setPersonId(jsonObject.getString("admissionStatus"));
+                        //anime.setStudio(jsonObject.getString("patientName"));
                         //anime.setImage_url(jsonObject.getString("img"));
                         anime.setName(jsonObject.getString("patientName"));
                         anime.setCategorie(jsonObject.getString("assignedmhpName"));
@@ -156,9 +162,6 @@ public class Out_Completed_list extends Fragment {
 
         };
         thread.start();
-
-
-
 
 
     }
