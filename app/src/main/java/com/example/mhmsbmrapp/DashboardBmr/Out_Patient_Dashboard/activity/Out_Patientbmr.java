@@ -79,7 +79,7 @@ public class Out_Patientbmr extends Fragment{
     private void jsonrequest() {
 
 
-        Log.e("^^^^^^^^^^^ ","inside jsonrequst() Out_Patientbmr");
+        //Log.e("^^^^^^^^^^^ ","inside jsonrequst() Out_Patientbmr");
 
         System.out.println(getActivity().toString());
         System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
@@ -161,20 +161,19 @@ public class Out_Patientbmr extends Fragment{
             public void run() {
                 try {
                     JSONArray arr = new MHPFlow().getWatingPatients(orgUUID, userUUID, loginToken);
-
-                    for (int i = 0 ; i < arr.length(); i++ ) {
-                        JSONObject jsonObject = new JSONObject(arr.get(i).toString());
-                        Log.e(i+"",jsonObject.toString());
-                        Anime anime = new Anime();
-                        anime.setGivenName(jsonObject.getString("patientName"));
-                        anime.setMiddleName(jsonObject.getString("userId"));
-                        anime.setEmail(jsonObject.getString("assignedmhpName"));
-                        anime.setPhoneNumber(jsonObject.getString("patientPhone"));
-                        //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
-                        anime.setPersonId(jsonObject.getString("admissionStatus"));
-                        anime.setPatientName(jsonObject.getString("patientName"));
-                        //anime.setImage_url(jsonObject.getString("img"));
-                        lstAnime.add(anime);
+                    if(arr != null) {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject jsonObject = new JSONObject(arr.get(i).toString());
+                            //Log.e(i + "", jsonObject.toString());
+                            Anime anime = new Anime();
+                            anime.setGivenName(jsonObject.getString("patientName"));
+                            anime.setMiddleName(jsonObject.getString("userId"));
+                            anime.setEmail(jsonObject.getString("assignedmhpName"));
+                            anime.setPhoneNumber(jsonObject.getString("patientPhone"));
+                            anime.setPersonId(jsonObject.getString("admissionStatus"));
+                            anime.setPatientName(jsonObject.getString("patientName"));
+                            lstAnime.add(anime);
+                        }
                     }
 
                 } catch (JSONException e) {
@@ -187,9 +186,6 @@ public class Out_Patientbmr extends Fragment{
 
         };
         thread.start();
-
-
-
 
     }
 

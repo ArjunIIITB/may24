@@ -132,24 +132,17 @@ public class Out_Completed_list extends Fragment {
             public void run() {
                 try {
                     JSONArray arr = new MHPFlow().getCompletedPatients(orgUUID, userUUID, loginToken);
-
-                    for (int i = 0 ; i < arr.length(); i++ ) {
-                        JSONObject jsonObject = new JSONObject(arr.get(i).toString());
-                        Log.e(i+"",jsonObject.toString());
-                        Out_Completed_list_AnimeOpBmrTab anime = new Out_Completed_list_AnimeOpBmrTab();
-                        //anime.setGivenName(jsonObject.getString("patientName"));
-                        //anime.setDescription(jsonObject.getString("userId"));
-                        //anime.setName(jsonObject.getString("assignedmhpName"));
-                        //anime.setCategorie(jsonObject.getString("patientPhone"));
-                        //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
-                        //anime.setPersonId(jsonObject.getString("admissionStatus"));
-                        //anime.setStudio(jsonObject.getString("patientName"));
-                        //anime.setImage_url(jsonObject.getString("img"));
-                        anime.setName(jsonObject.getString("patientName"));
-                        anime.setCategorie(jsonObject.getString("assignedmhpName"));
-                        anime.setDescription(jsonObject.getString("patientPhone"));
-                        anime.setRating(jsonObject.getString("admissionStatus"));
-                        lstOut_Completed_list_AnimeOpBmrTab.add(anime);
+                    if(arr != null) {
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject jsonObject = new JSONObject(arr.get(i).toString());
+                            //Log.e(i + "", jsonObject.toString());
+                            Out_Completed_list_AnimeOpBmrTab anime = new Out_Completed_list_AnimeOpBmrTab();
+                            anime.setName(jsonObject.getString("patientName"));
+                            anime.setCategorie(jsonObject.getString("assignedmhpName"));
+                            anime.setDescription(jsonObject.getString("patientPhone"));
+                            anime.setRating(jsonObject.getString("admissionStatus"));
+                            lstOut_Completed_list_AnimeOpBmrTab.add(anime);
+                        }
                     }
 
                 } catch (JSONException e) {

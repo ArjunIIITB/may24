@@ -58,14 +58,11 @@ public class FragmenOphistory extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.ophistory, container, false);
 
-
-
         lstAnimeOpBmrTab = new ArrayList<>() ;
         recyclerView = v.findViewById(R.id.recyclerviewid);
-        jsonrequest();
-
-        //json//
+        //jsonrequest();
         return v;
+
     }
 
 

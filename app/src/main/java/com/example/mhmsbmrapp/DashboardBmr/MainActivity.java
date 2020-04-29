@@ -40,18 +40,17 @@ public class MainActivity extends AppCompatActivity {
         final String userUUID;
 
         try {
-            String loginDecodedToken = MHPFlow.decoded(loginToken);
+            /*String loginDecodedToken = MHPFlow.decoded(loginToken);
             Log.e("loginDecodedToken", loginDecodedToken);
             orgUUID = new JSONObject(loginDecodedToken).getString("orgUUID");
             userUUID = new JSONObject(loginDecodedToken).getString("userUUID");
-            Log.e("three values    ",  orgUUID +"   " + userUUID+"  "+ loginToken);
-
+            Log.e("three values    ",  orgUUID +"   " + userUUID+"  "+ loginToken);*/
 
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    new MHPFlow().getWatingPatients(orgUUID, userUUID, loginToken);
-                    new MHPFlow().getCompletedPatients(orgUUID, userUUID, loginToken);
+                    //new MHPFlow().getWatingPatients(orgUUID, userUUID, loginToken);
+                    //new MHPFlow().getCompletedPatients(orgUUID, userUUID, loginToken);
                 }
             };
             new Thread(runnable).start();

@@ -82,7 +82,7 @@ public class SelectMhe extends AppCompatActivity {
                             } catch (Exception e) { e.printStackTrace(); }
 
 
-                            Log.e("check" ,"________________________^^^^^^^^^^^^^^^^^^^^^^^^______________________________");
+                            Log.e("check" ,"________________________^^^^^^^^^^put in sharedPreferences^^^^^^^^^^^^^^______________________________");
                             System.out.println("loginToken with or without token = " + loginToken);
                             System.out.println("sessionToken with or wihout token = " + sessionToken);
                             Log.e("chekc", "________________________^^^^^^^^^^^^^^^^^^^^^^^^______________________________");

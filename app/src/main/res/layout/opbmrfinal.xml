@@ -50,7 +50,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
                 <EditText
-                    android:id="@+id/Identity_Proof"
+                    android:id="@+id/Complaints"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
@@ -58,14 +58,14 @@
                     android:paddingLeft="17dp"
                     android:inputType="textPersonName"
                     android:background="@drawable/border_style"
-                    android:hint="Identity Proof"
+                    android:hint="Complaints"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <EditText
-                    android:id="@+id/Enter_ID_Number"
+                    android:id="@+id/Duration_complaint"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
@@ -77,7 +77,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Identity_Proof" />
+                    app:layout_constraintTop_toBottomOf="@+id/Complaints" />
 
                 <TextView
                     android:id="@+id/Notetext"
@@ -90,10 +90,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Enter_ID_Number" />
+                    app:layout_constraintTop_toBottomOf="@+id/Duration_complaint" />
 
                 <EditText
-                    android:id="@+id/Salutation"
+                    android:id="@+id/History"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="8dp"
@@ -109,7 +109,7 @@
 
 
                 <EditText
-                    android:id="@+id/Salutation_father"
+                    android:id="@+id/Illness_Summery"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:ems="10"
@@ -120,7 +120,7 @@
                     android:background="@drawable/border_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Salutation" />
+                    app:layout_constraintTop_toBottomOf="@+id/History" />
 
 
 
@@ -135,10 +135,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Salutation_father" />
+                    app:layout_constraintTop_toBottomOf="@+id/Illness_Summery" />
 
                 <EditText
-                    android:id="@+id/Address_1"
+                    android:id="@+id/Diagnosis_Type"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -153,7 +153,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                 <EditText
-                    android:id="@+id/Address_2"
+                    android:id="@+id/ICD_Description"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -164,7 +164,7 @@
                     android:background="@drawable/border_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Address_1" />
+                    app:layout_constraintTop_toBottomOf="@+id/Diagnosis_Type" />
 
                 <EditText
                     android:id="@+id/ICD_10_Code"
@@ -178,7 +178,7 @@
                     android:background="@drawable/border_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Address_2" />
+                    app:layout_constraintTop_toBottomOf="@+id/ICD_Description" />
 
                 <TextView
                     android:id="@+id/notetext2"
@@ -254,7 +254,7 @@
                         android:layout_columnWeight="2"
                         android:layout_centerHorizontal="true"
                         android:layout_weight="1"
-                        android:hint="No Change in Condition"
+                        android:hint="Condition Worsened"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0" />
                 </LinearLayout>
@@ -348,7 +348,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
                     <EditText
-                        android:id="@+id/Duration"
+                        android:id="@+id/Duration_med"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:layout_rowWeight="1"
@@ -503,30 +503,30 @@
                         app:layout_constraintHorizontal_bias="1.0" />
                 </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/Reason_of_IP_Transfer"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:paddingLeft="17dp"
-                        android:background="@drawable/border_style"
-                        android:inputType="textPersonName"
-                        android:layout_marginTop="8dp"
-                        android:hint="Reason of IP Transfer"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+                <EditText
+                    android:id="@+id/Reason_of_IP_Transfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                    android:inputType="textPersonName"
+                    android:layout_marginTop="8dp"
+                    android:hint="Reason of IP Transfer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
                 <Button
                     android:id="@+id/button5"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/button_rounded"
-                    android:onClick="verifyOTP"
-                    android:padding="10dp"
                     android:layout_marginTop="8dp"
+                    android:background="@drawable/button_rounded"
+                    android:onClick="fill"
+                    android:padding="10dp"
                     android:text="Submit"
                     android:textColor="#FBFBFB"
                     app:layout_constraintEnd_toEndOf="parent"

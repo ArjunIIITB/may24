@@ -247,22 +247,19 @@ public class MHPFlow {
 
     public static String decoded(String JWTEncoded) throws Exception {
         try {
-
-
-            System.out.println("before spliting " + JWTEncoded);
+            //System.out.println("before spliting " + JWTEncoded);
             String[] split = JWTEncoded.split("\\.");
-            System.out.println("--------------------------------");
-            for(String string : split){
+            //System.out.println("--------------------------------");
+            /*for(String string : split){
                 System.out.println("012"+string);
-            }
+            }*/
 
             return(getJson(split[1]));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-
+        
     }//decode ends here
 
 
@@ -330,14 +327,13 @@ public class MHPFlow {
         try {
             response = client.newCall(request).execute();
             if(response.code() != 200){
-                Log.e("message", "response is null");
+                Log.e("message", "response is not 200 "+response.toString());
                 return null;
             }
             //Log.e("check       ----", response);
             ResponseBody rb = response.body();
-            Log.e("Waiting Queue ", "rb.string()");
             String waitingQueue = rb.string();
-            Log.e("waitingQueue", waitingQueue);
+            Log.e("------->waitingQueue", waitingQueue);
             waitingPatientArray = new JSONArray(waitingQueue);
 
         }catch(Exception e){
@@ -373,12 +369,12 @@ public class MHPFlow {
         try {
             response = client.newCall(request).execute();
             if(response.code() != 200) {
+                Log.e("message", "response is not 200 "+response.toString());
                 return null;
             }
             ResponseBody rb = response.body();
-            Log.e("PRINTINGLO OVER HERE ", "PRINTINH OBER HERER  DFSD");
             String completedQueue = rb.string();
-            Log.e("completedQueue", completedQueue);
+            Log.e("------->completedQueue", completedQueue);
             completedPatientArray = new JSONArray(completedQueue);
 
         }catch(Exception e){

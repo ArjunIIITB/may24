@@ -207,8 +207,8 @@ public class MHPAssignmentUtility {
     } //getPatientAge (POST)
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void updateIPPatientQueue(JSONObject patient , JSONObject parentOrg, JSONObject MHP, String loginToken) {
+
+    public void updateIPPatientQueueWithUserID(JSONObject patient , JSONObject parentOrg, JSONObject MHP, String loginToken, String userUUID) {
 
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
@@ -231,7 +231,7 @@ public class MHPAssignmentUtility {
             //payload.put("patientId", "a7864f44-7ba8-4bfa-b8c2-de9afa84d30d");
             payload.put("patientId", patient.getString("personId"));
             //payload.put("userId", "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac");
-            payload.put("userId", MHP.getString("mhpUuid"));
+            payload.put("userId", userUUID);
             //payload.put("assignedMhpId", "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac");
             payload.put("assignedMhpId", MHP.getString("mhpUuid"));
             //payload.put("assignedmhpName", "Prashant SinghPrashant SinghPrashant SinghPrashant");
@@ -282,7 +282,7 @@ public class MHPAssignmentUtility {
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void updateIPPatientQueue(JSONObject patient , JSONObject parentOrg, JSONObject mhp, String loginToken, String admissionStatus) {
+    public JSONObject updateIPPatientQueue(JSONObject patient , JSONObject parentOrg, JSONObject mhp, String loginToken, String admissionStatus) {
 
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
@@ -346,14 +346,20 @@ public class MHPAssignmentUtility {
 
 
             response = client.newCall(request).execute();
-            ResponseBody rb = response.body();
+            if(response.code() == 200) {
+                ResponseBody rb = response.body();
+                JSONObject message = new JSONObject(rb.string());
+                Log.e("message", message.toString());
+                if(message.getString("message").equals("Updated successfully.")){
+                    return patient;
+                }
+            }
 
-            //JSONObject object = new JSONObject(rb.string());
-            System.out.println(rb.string());
 
         }catch(Exception e){
             e.printStackTrace();
         }
+        return null;
 
     } // updateIPPatientQueue (POST)
 

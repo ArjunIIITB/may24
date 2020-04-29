@@ -20,19 +20,19 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/karnatakalogo"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:replace="android:icon">
+        <activity android:name=".AddPatientFolder.AssignPatientTest"></activity>
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.nextactivity" />
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity" />
-        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr"/>
+        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr" />
         <activity android:name=".AddPatientFolder.AddPatients" />
         <activity android:name=".DashboardBmr.TabFragment" />
         <activity android:name=".DashboardBmr.SentFragment" />
         <activity android:name=".Login.SelectMhe" />
         <activity android:name=".Login.LoginBmr" />
-        <activity android:name=".DashboardBmr.MainActivity"/>
-
+        <activity android:name=".DashboardBmr.MainActivity" />
         <activity android:name=".Login.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

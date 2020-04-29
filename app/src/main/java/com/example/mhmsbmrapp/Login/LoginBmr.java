@@ -106,14 +106,14 @@ public class LoginBmr extends AppCompatActivity {
 
                         try {
                             Log.e("try","inside LoginBmr try----------------------------------");
-                            Log.e("JWT Token", jwtToken);
+                            //Log.e("JWT Token", jwtToken);
                             JSONObject jsonObjectbject = new JSONObject(jwtToken);
                             String token = jsonObjectbject.getString("token");
                             Log.e("Token", token);
 
                             JSONObject decodedResult = new JSONObject(MHPFlow.decoded(jwtToken));
-                            Log.e("decoded String (result)", decodedResult.toString());
-                            Log.e("getAssociatedOrg()",mhpFlow.getAssociatedOrg(token, decodedResult.getString("sessionToken")).toString());
+                            //Log.e("decoded String (result)", decodedResult.toString());
+                            //Log.e("getAssociatedOrg()",mhpFlow.getAssociatedOrg(token, decodedResult.getString("sessionToken")).toString());
                             JSONArray jsonArray = mhpFlow.getAssociatedOrg(token, decodedResult.getString("sessionToken"));
                             //System.out.println(jsonArray.getJSONObject(jsonArray.length()-1));
                             int cnt = 0;
@@ -124,7 +124,7 @@ public class LoginBmr extends AppCompatActivity {
                                 list.add(mheObject.getString("name"));
                                 cnt++;
                             }
-                            Log.e("MHE list", list.toString());
+                            //Log.e("MHE list", list.toString());
 
 
 
