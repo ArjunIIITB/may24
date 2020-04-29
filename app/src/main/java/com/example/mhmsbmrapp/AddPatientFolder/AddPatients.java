@@ -1,6 +1,7 @@
 package com.example.mhmsbmrapp.AddPatientFolder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -347,6 +348,12 @@ public class AddPatients extends AppCompatActivity {
                         response = client.newCall(request).execute();
                         ResponseBody rb = response.body();
                         System.out.println(rb.string());
+                        //JSONObject patient = new JSONObject(rb.string());
+                        //System.out.println("created Patient details "+patient.toString());
+
+                        //Intent intent = new Intent(AddPatients.this, AssignPatientTest.class);
+                        //intent.putExtra("patient", patient.toString());
+                        //AddPatients.this.startActivity(intent);
 
                     } catch (Exception e) {
                         e.printStackTrace();
