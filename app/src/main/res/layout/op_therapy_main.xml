@@ -1,6 +1,347 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollopbmr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Basic Details"
+                    android:textColor="#813D7E"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <EditText
+                    android:id="@+id/Identity_Proof"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="12dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:background="@drawable/border_style"
+                    android:hint="Education" />
+
+                <EditText
+                    android:id="@+id/Enter_ID_Number"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:hint="Occupation"
+                    android:background="@drawable/border_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Identity_Proof" />
+
+                <TextView
+                    android:id="@+id/reffered_details_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Referral Details"
+                    android:textColor="#813D7E"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="8dp"
+                    />
+
+
+                <EditText
+                    android:id="@+id/Referral_By"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:hint="Referral By"
+                    android:background="@drawable/border_style"
+                   />
+
+
+                <EditText
+                    android:id="@+id/Referral_Note"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:hint="Referral Note"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                   />
+
+                <Spinner
+                    android:id="@+id/Reason_for_Referral"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:tooltipText="Reason"
+                    android:contextClickable="true"
+                    android:hint="Reason for Referral"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Assessement Details"
+                    android:textColor="#813D7E"
+                    android:textSize="16dp"
+                    android:layout_marginTop="8dp" />
+
+
+            <EditText
+                android:id="@+id/Language_Tested_In"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="17dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Language Tested In *" />
+
+            <EditText
+                android:id="@+id/Background_Information"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="17dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/border_style"
+                android:hint="Background Information *" />
+
+            <EditText
+                android:id="@+id/Informant"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:inputType="textPersonName"
+                android:hint="Informant"/>
+
+            <EditText
+                android:id="@+id/Pincode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Informant Relationship"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style" />
+
+
+                <EditText
+                    android:id="@+id/Salient_Behavioral_Obeservations"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                    android:inputType="textPersonName"
+                    android:layout_marginTop="8dp"
+                    android:hint="Salient Behavioral Obeservations" />
+
+                <EditText
+                    android:id="@+id/Impressions"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:hint="Impressions" />
+
+            <EditText
+                android:id="@+id/Test_Scales_Administered"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Test/Scales Administered" />
+
+            <EditText
+                android:id="@+id/Test_Score"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Test Score*" />
+            <EditText
+                android:id="@+id/Recommendation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Recommendation*" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="2"
+                    android:layout_marginTop="8dp"
+                    android:rowCount="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Mobile_number">
+
+                    <Spinner
+                        android:id="@+id/button2"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
+                        android:tooltipText="Reason"
+                        android:contextClickable="true"
+                        android:paddingLeft="17dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+
+                        android:inputType="textPersonName"
+                        android:hint="OTP"
+                        android:background="@drawable/border_style"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0" />
+
+                    <Spinner
+                        android:id="@+id/editText19"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:layout_marginTop="8dp"
+                        android:tooltipText="Reason"
+                        android:contextClickable="true"
+                        android:paddingLeft="17dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:inputType="textPersonName"
+                        android:hint="OTP"
+                        android:background="@drawable/border_style"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0" />
+                </LinearLayout>
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Assessor Details"
+                android:textColor="#813D7E"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/Full_Name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Full Name" />
+
+            <EditText
+                android:id="@+id/Qualification"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Qualification" />
+
+            <TextView
+                android:id="@+id/Supervisor_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Supervisor Details"
+                android:textColor="#813D7E"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/Full_Name_supervisor"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Full Name" />
+            <EditText
+                android:id="@+id/Qualification_supervisor"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Qualification" />
+
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#FBFBFB"
+                        android:padding="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_rounded"
+                        android:inputType="textPersonName"
+                        android:text="Submit"/>
+
+        </LinearLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

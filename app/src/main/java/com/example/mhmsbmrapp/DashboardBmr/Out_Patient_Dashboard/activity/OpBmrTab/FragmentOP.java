@@ -1,7 +1,6 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,9 +14,9 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mhmsbmrapp.AddPatientFolder.AssignPatient;
-import com.example.mhmsbmrapp.AddPatientFolder.AssignPatientTest;
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
 import com.example.mhmsbmrapp.model.Composition;
@@ -101,17 +100,12 @@ public class FragmentOP extends Fragment {
 
 
                         /*String duration = "new new duration";
-
                         String history = "new new history";
-
                         String summaryOfIllness = "new new summary of illness";
-
                         String diagnosisType = "Differential Diagnosis";
                         String ICD_Description = "new desc";
                         String ICD_10_Code = "new code";
-
                         String improvementStatus = "2|local::at0027|Very much improved|";
-
                         String medicineName = "new new medicine name";
                         String dosage = "new new dosage";
                         String dosingTime = "new new dosing time";
@@ -119,7 +113,6 @@ public class FragmentOP extends Fragment {
                         String durationType = "months";
                         String remarks = "new new remarks";
                         String[] medicationOrder = {medicineName, dosage, dosingTime, medDuration, durationType, remarks};
-
                         String treatmentInstruction = "new new instruction";*/
 
 
@@ -196,17 +189,14 @@ public class FragmentOP extends Fragment {
                                 String userName = map.get("composer_name");
                                 String composer_identifier = map.get("composer_identifier");
                                 String facility_identifier = map.get("facility_identifier");
-
                                 mhp.put("givenName", givenName);
                                 mhp.put("userName", userName);
                                 mhp.put("composer_identifier", composer_identifier);
                                 mhp.put("facility_identifier", facility_identifier);
-
                                 JSONObject patient = new MHPAssignmentUtility().updateIPPatientQueue(util.getPatientByPatientId(loginToken, sessionToken, map.get("personId")), util.getParentOrg(loginToken), mhp, loginToken, "Completed");
                                 Intent intent = new Intent(FragmentOP.this.getActivity(), AssignPatientTest.class);
                                 intent.putExtra("patient", patient.toString());
                                 FragmentOP.this.getActivity().startActivity(intent);
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }*/
@@ -223,4 +213,5 @@ public class FragmentOP extends Fragment {
         return view;
     }
 }
+
 

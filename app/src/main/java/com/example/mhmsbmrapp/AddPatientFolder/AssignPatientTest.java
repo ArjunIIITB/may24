@@ -7,6 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
@@ -20,12 +25,59 @@ import java.util.List;
 
 public class AssignPatientTest extends AppCompatActivity {
 
+    private Spinner spinnerAssign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assignpatient);
 
-        Thread thread = new Thread() {
+        spinnerAssign = findViewById(R.id.spinnerAssign);
+
+        List<String> categories = new ArrayList<>();
+        categories.add(0,"Select MHP");
+        categories.add("MHP1");
+        categories.add("MHP2");
+
+
+        ArrayAdapter<String> dataAdapter;
+        dataAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categories);
+
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        spinnerAssign.setAdapter(dataAdapter);
+
+        spinnerAssign.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(parent.getItemAtPosition(position).equals("MHP"))
+                {
+                    //do nothing
+                }
+                else
+                {
+                    //on selecting spinner item
+                    String item = parent.getItemAtPosition(position).toString();
+
+                    //show spinner selected item
+                    Toast.makeText(parent.getContext(), ""  + item, Toast.LENGTH_SHORT).show();
+                    if(parent.getItemAtPosition(position).equals("mhp"));
+                    {
+                        //Intent intent = new Intent(Loginform.this, Loginform.class);
+                        //startActivity(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+}
+
+        /*Thread thread = new Thread() {
             public void run() {
 
                 System.out.println("reaching this point");
@@ -84,7 +136,7 @@ public class AssignPatientTest extends AppCompatActivity {
         };
         thread.start();
     }
-}
+}*/
 
 
 /*
@@ -99,3 +151,5 @@ public class AssignPatientTest extends AppCompatActivity {
                     mhp.put("composer_identifier", userUUID);
                     mhp.put("facility_identifier", orgUUID);
 */
+
+

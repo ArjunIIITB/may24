@@ -41,9 +41,6 @@ import java.util.Map;
 
 public class Out_Patientbmr extends Fragment{
 
-
-
-
     private JsonArrayRequest request ;
     private RequestQueue requestQueue ;
     private List<Anime> lstAnime ;
@@ -190,7 +187,6 @@ public class Out_Patientbmr extends Fragment{
     }
 
     private void setuprecyclerview(List<Anime> lstAnime) {
-
 
         RecyclerViewAdapter myadapter = new RecyclerViewAdapter(getActivity(),lstAnime) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
