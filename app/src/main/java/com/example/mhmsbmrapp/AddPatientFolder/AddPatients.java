@@ -14,6 +14,7 @@ import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.Out_Pa
 import com.example.mhmsbmrapp.Login.GlobalVariables;
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.R;
+import com.example.mhmsbmrapp.utility.MHPAssignmentUtility;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -261,6 +262,7 @@ public class AddPatients extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         final String loginToken = sharedPreferences.getString("loginToken", "");
+        final String sessionToken = sharedPreferences.getString("sessionToken", "");
         try {
             String loginDecodedToken = MHPFlow.decoded(loginToken);
             Log.e("loginDecodedToken", loginDecodedToken);
@@ -347,13 +349,16 @@ public class AddPatients extends AppCompatActivity {
                     try {
                         response = client.newCall(request).execute();
                         ResponseBody rb = response.body();
-                        System.out.println(rb.string());
-                        //JSONObject patient = new JSONObject(rb.string());
-                        //System.out.println("created Patient details "+patient.toString());
+                        //System.out.println("patient------ "+rb.string());
+                        String personUUID = new JSONObject(rb.string()).getString("personUUID");
+                        JSONObject patient = new MHPAssignmentUtility().getPatientByPatientId(loginToken, sessionToken, personUUID);
 
-                        //Intent intent = new Intent(AddPatients.this, AssignPatientTest.class);
-                        //intent.putExtra("patient", patient.toString());
-                        //AddPatients.this.startActivity(intent);
+
+                        System.out.println("created Patient details "+patient.toString());
+
+                        Intent intent = new Intent(AddPatients.this, AssignPatientTest.class);
+                        intent.putExtra("patient", patient.toString());
+                        AddPatients.this.startActivity(intent);
 
                     } catch (Exception e) {
                         e.printStackTrace();

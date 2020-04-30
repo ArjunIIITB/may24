@@ -33,7 +33,7 @@ public class SelectMhe extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        System.out.println("###################################################value = " + ((ArrayList<String>)intent.getSerializableExtra("list")).toString());
+        //System.out.println("###################################################value = " + ((ArrayList<String>)intent.getSerializableExtra("list")).toString());
         setContentView(R.layout.activity_select_mhe);
 
         spinnerMhe = findViewById(R.id.spinnerMhe);
