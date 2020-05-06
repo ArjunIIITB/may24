@@ -27,7 +27,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Basic Details"
+                    android:text="Therapy Reporting Form"
                     android:textColor="#813D7E"
                     android:textSize="18dp"
                     android:textFontWeight="600"
@@ -35,6 +35,18 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/basic_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Basic Details"
+                android:textColor="#090909"
+                android:textSize="18dp"
+                android:textFontWeight="600"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
                 <EditText
@@ -46,7 +58,7 @@
                     android:paddingLeft="17dp"
                     android:inputType="textPersonName"
                     android:background="@drawable/border_style"
-                    android:hint="Education" />
+                    android:hint="Education*" />
 
                 <EditText
                     android:id="@+id/Enter_ID_Number"
@@ -56,7 +68,7 @@
                     android:ems="10"
                     android:paddingLeft="17dp"
                     android:inputType="textPersonName"
-                    android:hint="Occupation"
+                    android:hint="Occupation*"
                     android:background="@drawable/border_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.4"
@@ -67,8 +79,8 @@
                     android:id="@+id/reffered_details_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Referral Details"
-                    android:textColor="#813D7E"
+                    android:text="Therapy Details"
+                    android:textColor="#050505"
                     android:textSize="18dp"
                     android:textFontWeight="600"
                     android:layout_marginTop="8dp"
@@ -76,55 +88,32 @@
 
 
                 <EditText
-                    android:id="@+id/Referral_By"
+                    android:id="@+id/Session_Number"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     android:ems="10"
                     android:paddingLeft="17dp"
                     android:inputType="textPersonName"
-                    android:hint="Referral By"
+                    android:hint="Session Number"
                     android:background="@drawable/border_style"
                    />
 
 
                 <EditText
-                    android:id="@+id/Referral_Note"
+                    android:id="@+id/Therapy_Method"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
                     android:layout_marginTop="8dp"
                     android:inputType="textPersonName"
-                    android:hint="Referral Note"
+                    android:hint="Therapy Method"
                     android:paddingLeft="17dp"
                     android:background="@drawable/border_style"
                    />
 
-                <Spinner
-                    android:id="@+id/Reason_for_Referral"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:layout_marginTop="8dp"
-                    android:inputType="textPersonName"
-                    android:tooltipText="Reason"
-                    android:contextClickable="true"
-                    android:hint="Reason for Referral"
-                    android:paddingLeft="17dp"
-                    android:background="@drawable/border_style" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Assessement Details"
-                    android:textColor="#813D7E"
-                    android:textSize="16dp"
-                    android:layout_marginTop="8dp" />
-
-
             <EditText
-                android:id="@+id/Language_Tested_In"
+                android:id="@+id/Type_of_Therapy"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/border_style"
@@ -132,150 +121,100 @@
                 android:paddingLeft="17dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Language Tested In *" />
+                android:hint="Type of Therapy" />
 
             <EditText
-                android:id="@+id/Background_Information"
+                android:id="@+id/Psychiatric_Diagnosis"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:paddingLeft="17dp"
                 android:inputType="textPersonName"
                 android:background="@drawable/border_style"
-                android:hint="Background Information *" />
+                android:hint="Psychiatric Diagnosis" />
 
             <EditText
-                android:id="@+id/Informant"
+                android:id="@+id/Objective_of_Session"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:paddingLeft="17dp"
                 android:background="@drawable/border_style"
                 android:inputType="textPersonName"
-                android:hint="Informant"/>
+                android:hint="Objective of Session"/>
 
             <EditText
-                android:id="@+id/Pincode"
+                android:id="@+id/Key_Issues_Theme_Discussed"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:inputType="textPersonName"
-                android:hint="Informant Relationship"
+                android:hint="Key Issues / Theme Discussed"
                 android:paddingLeft="17dp"
                 android:background="@drawable/border_style" />
 
 
                 <EditText
-                    android:id="@+id/Salient_Behavioral_Obeservations"
+                    android:id="@+id/Therapy_Technique_Used"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
                     android:background="@drawable/border_style"
                     android:inputType="textPersonName"
                     android:layout_marginTop="8dp"
-                    android:hint="Salient Behavioral Obeservations" />
+                    android:hint="Therapy Technique Used" />
 
                 <EditText
-                    android:id="@+id/Impressions"
+                    android:id="@+id/Therapist_Observations_Reflections"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
                     android:background="@drawable/border_style"
                     android:layout_marginTop="8dp"
                     android:inputType="textPersonName"
-                    android:hint="Impressions" />
-
-            <EditText
-                android:id="@+id/Test_Scales_Administered"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingLeft="17dp"
-                android:background="@drawable/border_style"
-                android:layout_marginTop="8dp"
-                android:inputType="textPersonName"
-                android:hint="Test/Scales Administered" />
-
-            <EditText
-                android:id="@+id/Test_Score"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingLeft="17dp"
-                android:background="@drawable/border_style"
-                android:layout_marginTop="8dp"
-                android:inputType="textPersonName"
-                android:hint="Test Score*" />
-            <EditText
-                android:id="@+id/Recommendation"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingLeft="17dp"
-                android:background="@drawable/border_style"
-                android:layout_marginTop="8dp"
-                android:inputType="textPersonName"
-                android:hint="Recommendation*" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:alignmentMode="alignMargins"
-                    android:columnCount="2"
-                    android:layout_marginTop="8dp"
-                    android:rowCount="1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Mobile_number">
-
-                    <Spinner
-                        android:id="@+id/button2"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="8dp"
-                        android:tooltipText="Reason"
-                        android:contextClickable="true"
-                        android:paddingLeft="17dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_weight="1"
-
-                        android:inputType="textPersonName"
-                        android:hint="OTP"
-                        android:background="@drawable/border_style"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0" />
-
-                    <Spinner
-                        android:id="@+id/editText19"
-                        android:layout_width="150dp"
-                        android:layout_height="50dp"
-                        android:ems="10"
-                        android:layout_marginTop="8dp"
-                        android:tooltipText="Reason"
-                        android:contextClickable="true"
-                        android:paddingLeft="17dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="8dp"
-                        android:inputType="textPersonName"
-                        android:hint="OTP"
-                        android:background="@drawable/border_style"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0" />
-                </LinearLayout>
+                    android:hint="Therapist Observations/Reflections" />
 
             <TextView
-
+                android:id="@+id/Follow_Up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Assessor Details"
-                android:textColor="#813D7E"
-                android:textSize="16dp"
-                android:layout_marginTop="8dp" />
+                android:text="Follow Up"
+                android:textColor="#050505"
+                android:textSize="18dp"
+                android:textFontWeight="600"
+                android:layout_marginTop="8dp"
+                />
+
+            <EditText
+                android:id="@+id/Plan_for_next_session"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Plan for next session" />
+
+            <EditText
+                android:id="@+id/Date_of_next_session"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Date of next session *" />
+
+            <TextView
+                android:id="@+id/Therapist_Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Therapist Details"
+                android:textColor="#050505"
+                android:textSize="18dp"
+                android:textFontWeight="600"
+                android:layout_marginTop="8dp"
+                />
 
             <EditText
                 android:id="@+id/Full_Name"
@@ -327,7 +266,7 @@
 
 
                     <Button
-                        android:id="@+id/button3"
+                        android:id="@+id/submit_therapy_op"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:ems="10"
