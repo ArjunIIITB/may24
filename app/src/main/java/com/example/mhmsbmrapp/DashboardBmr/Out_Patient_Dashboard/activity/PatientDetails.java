@@ -1,16 +1,13 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement.Fragment2;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab.Fragment1;
@@ -19,7 +16,7 @@ import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRest
 import com.example.mhmsbmrapp.R;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-public class Animeactivity extends AppCompatActivity {
+public class PatientDetails extends AppCompatActivity {
 
 
     private Button btnNavFrag1;
@@ -94,34 +91,34 @@ public class Animeactivity extends AppCompatActivity {
         btnNavFrag1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                (Animeactivity.this).setViewPager(0);
+                (PatientDetails.this).setViewPager(0);
             }
         });
 
         btnNavFrag2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                (Animeactivity.this).setViewPager(1);
+                (PatientDetails.this).setViewPager(1);
             }
         });
 
         btnNavFrag3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                (Animeactivity.this).setViewPager(2);
+                (PatientDetails.this).setViewPager(2);
             }
         });
         btnNavFrag4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                (Animeactivity.this).setViewPager(3);
+                (PatientDetails.this).setViewPager(3);
             }
         });
 
         /*btnNavSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Animeactivity.this, nextactivity.class);
+                Intent intent = new Intent(PatientDetails.this, nextactivity.class);
                 startActivity(intent);
             }
         });*/

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.request.RequestOptions;
 
 import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.model.Anime_Ip_Reffered;
-import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.PatientDetails;
 import com.example.mhmsbmrapp.R;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class RecyclerView_Adapter_IpReffered extends RecyclerView.Adapter<Recycl
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext, Animeactivity.class);
+                Intent i = new Intent(mContext, PatientDetails.class);
                 i.putExtra("anime_name",mData.get(viewHolder.getAdapterPosition()).getName());
                 i.putExtra("anime_description",mData.get(viewHolder.getAdapterPosition()).getDescription());
                 i.putExtra("anime_studio",mData.get(viewHolder.getAdapterPosition()).getStudio());

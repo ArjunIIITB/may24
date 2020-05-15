@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.PatientDetails;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.model.Anime;
 import com.example.mhmsbmrapp.R;
 
@@ -47,7 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext, Animeactivity.class);
+                Intent i = new Intent(mContext, PatientDetails.class);
                 i.putExtra("anime_givenName",mData.get(viewHolder.getAdapterPosition()).getGivenName());
                 i.putExtra("anime_description",mData.get(viewHolder.getAdapterPosition()).getMiddleName());
                 i.putExtra("anime_studio",mData.get(viewHolder.getAdapterPosition()).getPersonId());

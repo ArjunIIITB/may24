@@ -23,9 +23,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".AddPatientFolder.AssignPatientTest"></activity>
+        <activity android:name=".AddPatientFolder.AssignPatientTest"/>
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.nextactivity" />
-        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity" />
+        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.PatientDetails" />
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr" />
         <activity android:name=".AddPatientFolder.AddPatients" />
         <activity android:name=".DashboardBmr.TabFragment" />

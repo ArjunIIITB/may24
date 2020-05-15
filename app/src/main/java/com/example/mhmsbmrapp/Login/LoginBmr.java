@@ -80,7 +80,7 @@ public class LoginBmr extends AppCompatActivity {
         spinner=(ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.GONE);
 
-        Info.setText("No of attempts remaining: 5");
+        Info.setText("");
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override

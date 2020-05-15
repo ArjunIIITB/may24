@@ -13,9 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.Animeactivity;
-import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab.adapter.RecyclerViewAdapterOpbmrtab;
-import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab.model.AnimeOpBmrTab;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.PatientDetails;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpbmrCompletedList.opcompletelistmodel.Out_Completed_list_AnimeOpBmrTab;
 import com.example.mhmsbmrapp.R;
 
@@ -47,7 +45,7 @@ public class Out_Completed_list_RecyclerViewAdapter extends RecyclerView.Adapter
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext, Animeactivity.class);
+                Intent i = new Intent(mContext, PatientDetails.class);
                 i.putExtra("anime_name",mData.get(viewHolder.getAdapterPosition()).getName());
                 i.putExtra("anime_description",mData.get(viewHolder.getAdapterPosition()).getDescription());
                 i.putExtra("anime_studio",mData.get(viewHolder.getAdapterPosition()).getStudio());
