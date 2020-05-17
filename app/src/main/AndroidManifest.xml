@@ -23,7 +23,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".AddPatientFolder.AssignPatientTest"/>
+        <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.OpbmrCompletedList.OutCompletePatientDetails"></activity>
+        <activity android:name=".AddPatientFolder.AssignPatientTest" />
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.nextactivity" />
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.PatientDetails" />
         <activity android:name=".DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr" />

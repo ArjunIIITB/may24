@@ -169,6 +169,7 @@ public class Out_Patientbmr extends Fragment{
                             anime.setPhoneNumber(jsonObject.getString("patientPhone"));
                             anime.setPersonId(jsonObject.getString("admissionStatus"));
                             anime.setPatientName(jsonObject.getString("patientName"));
+                            anime.setPatientId(jsonObject.getString("patientId"));
                             lstAnime.add(anime);
                         }
                     }

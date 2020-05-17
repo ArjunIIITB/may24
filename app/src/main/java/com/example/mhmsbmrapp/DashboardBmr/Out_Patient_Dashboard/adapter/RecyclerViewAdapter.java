@@ -53,6 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 i.putExtra("anime_rating",mData.get(viewHolder.getAdapterPosition()).getEmail());
                 i.putExtra("anime_img",mData.get(viewHolder.getAdapterPosition()).getImage_url());
                 i.putExtra("anime_patientName",mData.get(viewHolder.getAdapterPosition()).getPatientName());
+                i.putExtra("anime_patientId",mData.get(viewHolder.getAdapterPosition()).getPatientId());
 
                 mContext.startActivity(i);
 
@@ -73,6 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tv_studio.setText(mData.get(position).getPersonId());
         holder.tv_category.setText(mData.get(position).getPhoneNumber());
         holder.tv_patientName.setText(mData.get(position).getPatientName());
+        holder.tv_patientId.setText(mData.get(position).getPatientId());
 
         // Load Image from the internet and set it into Imageview using Glide
 
@@ -94,6 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView tv_studio ;
         TextView tv_category;
         TextView tv_patientName;
+        TextView tv_patientId;
         //ImageView img_thumbnail;
         LinearLayout view_container;
 
@@ -108,6 +111,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_studio = itemView.findViewById(R.id.studio);
             //img_thumbnail = itemView.findViewById(R.id.thumbnail);
             tv_patientName = itemView.findViewById(R.id.patientName);
+            tv_patientId = itemView.findViewById(R.id.patientId);
 
         }
     }

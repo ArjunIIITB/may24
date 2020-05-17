@@ -82,7 +82,7 @@
                                 android:layout_width="78dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Age"
+                                android:text="Person Name"
                                 android:textColor="#AAAAAA"></TextView>
 
 
@@ -91,7 +91,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="MHMSID"
-                                android:textColor="#AAAAAA"></TextView>
+                                android:textColor="#AAAAAA"/>
+                            <TextView
+                                android:id="@+id/aa_patientId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="#AAAAAA"/>
 
                         </LinearLayout>
                         <LinearLayout

@@ -10,11 +10,13 @@ public class Anime {
         private String phoneNumber;
         private String personId ;
         private String image_url;
+        private String patientId;
 
         public Anime() {
         }
 
-        public Anime(String givenName, String middleName, String email, String patientName, int dateOfBirth, String phoneNumber, String personId, String image_url) {
+        public Anime(String givenName, String middleName, String email, String patientName, int dateOfBirth, String phoneNumber, String personId,
+                     String image_url, String patientId) {
             this.givenName = givenName;
             this.middleName = middleName;
             this.email = email;
@@ -23,6 +25,7 @@ public class Anime {
             this.phoneNumber = phoneNumber;
             this.personId = personId;
             this.image_url = image_url;
+            this.patientId = patientId;
         }
 
 
@@ -58,6 +61,10 @@ public class Anime {
             return image_url;
         }
 
+        public String getPatientId() {
+        return patientId;
+    }
+
 
         public void setGivenName(String givenName) {
             this.givenName = givenName;
@@ -90,4 +97,8 @@ public class Anime {
         public void setImage_url(String image_url) {
             this.image_url = image_url;
         }
+
+        public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
     }

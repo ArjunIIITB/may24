@@ -31,7 +31,7 @@ public class PatientDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.animeactivitytest);
+        setContentView(R.layout.activity_patient_details);
 
 
         // hide the default actionbar
@@ -46,6 +46,7 @@ public class PatientDetails extends AppCompatActivity {
         //int nb_episode = getIntent().getExtras().getInt("anime_dateOfBirth") ;
         String rating = getIntent().getExtras().getString("anime_email") ;
         String patientName = getIntent().getExtras().getString("anime_patientName") ;
+        String patientId = getIntent().getExtras().getString("anime_patientId") ;
         //String image_url = getIntent().getExtras().getString("anime_img");
 
         // ini views
@@ -59,6 +60,7 @@ public class PatientDetails extends AppCompatActivity {
         TextView tv_description = findViewById(R.id.aa_description);
         TextView tv_rating  = findViewById(R.id.aa_rating) ;
         TextView tv_patientName  = findViewById(R.id.aa_patientName) ;
+        TextView tv_patientId  = findViewById(R.id.aa_patientId) ;
         //ImageView img = findViewById(R.id.aa_thumbnail);
 
         // setting values to each view
@@ -69,6 +71,7 @@ public class PatientDetails extends AppCompatActivity {
         tv_rating.setText(rating);
         tv_studio.setText(studio);
         tv_patientName.setText(patientName);
+        tv_patientId.setText(patientId);
 
 
         collapsingToolbarLayout.setTitle(name);

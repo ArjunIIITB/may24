@@ -2,83 +2,103 @@ package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.Opbmr
 
 public class Out_Completed_list_AnimeOpBmrTab {
 
-    private String name ;
-    private String Description;
-    private String rating;
-    private int nb_episode;
-    private String categorie;
-    private String studio ;
+    private String givenName ;
+    private String middleName;
+    private String email;
+    private String patientName;
+    private int dateOfBirth;
+    private String phoneNumber;
+    private String personId ;
     private String image_url;
+    private String patientId;
 
     public Out_Completed_list_AnimeOpBmrTab() {
     }
 
-    public Out_Completed_list_AnimeOpBmrTab(String name, String description, String rating, int nb_episode, String categorie, String studio, String image_url) {
-        this.name = name;
-        Description = description;
-        this.rating = rating;
-        this.nb_episode = nb_episode;
-        this.categorie = categorie;
-        this.studio = studio;
+    public Out_Completed_list_AnimeOpBmrTab(String givenName, String middleName, String email, String patientName, int dateOfBirth, String phoneNumber, String personId,
+                                            String image_url, String patientId) {
+        this.givenName = givenName;
+        this.middleName = middleName;
+        this.email = email;
+        this.patientName = patientName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.personId = personId;
         this.image_url = image_url;
+        this.patientId = patientId;
     }
 
 
-    public String getName() {
-        return name;
+    public String getGivenName() {
+        return givenName;
     }
 
-    public String getDescription() {
-        return Description;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public String getRating() {
-        return rating;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public int getNb_episode() {
-        return nb_episode;
+    public String getEmail() {
+        return email;
     }
 
-    public String getCategorie() {
-        return categorie;
+    public int getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public String getStudio() {
-        return studio;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getPersonId() {
+        return personId;
     }
 
     public String getImage_url() {
         return image_url;
     }
 
-
-    public void setName(String name) {
-        this.name = name;
+    public String getPatientId() {
+        return patientId;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public void setNb_episode(int nb_episode) {
-        this.nb_episode = nb_episode;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
-    public void setStudio(String studio) {
-        this.studio = studio;
+    public void setDateOfBirth(int dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
-}
 
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+}
