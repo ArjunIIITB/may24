@@ -167,47 +167,6 @@ public class MHPAssignmentUtility {
     } //getPatientByPatientId (POST)
 
 
-    public void getPatientAge(String loginToken, String dob){
-        final String RELATIVE_PATH = "getAge/";
-        final MediaType JSON
-                = MediaType.parse("application/json; charset=utf-8");
-
-
-
-        JSONObject jsonObject = new JSONObject();
-        try{
-            jsonObject.put("age", dob);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        RequestBody formBody = RequestBody.create(JSON, jsonObject.toString());
-
-        Request request = new Request.Builder()
-                .url(GlobalVariables.GLOBAL_PATH_REST+RELATIVE_PATH)
-                .post(formBody)
-                .addHeader("Authorization", "Bearer " + loginToken)
-                .addHeader("Content-Type", "application/json")
-                .build();
-
-        Response response = null;
-
-        try {
-
-
-            response = client.newCall(request).execute();
-            ResponseBody rb = response.body();
-
-            JSONObject object = new JSONObject(rb.string());
-            System.out.println(object.toString());
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    } //getPatientAge (POST)
-
-
-
     public void updateIPPatientQueueWithUserID(JSONObject patient , JSONObject parentOrg, JSONObject MHP, String loginToken, String userUUID) {
 
 

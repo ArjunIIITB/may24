@@ -104,6 +104,11 @@ public class FragmenOphistory extends Fragment {
 
         setuprecyclerview(lstAnimeOpBmrTab);
 
+
+
+
+
+
     }
 
     private void jsonrequest() {

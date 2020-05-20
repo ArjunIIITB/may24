@@ -50,7 +50,7 @@
 
 
                 <EditText
-                    android:id="@+id/Identity_Proof"
+                    android:id="@+id/trpEducation"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
@@ -61,7 +61,7 @@
                     android:hint="Education*" />
 
                 <EditText
-                    android:id="@+id/Enter_ID_Number"
+                    android:id="@+id/trpOccupation"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"

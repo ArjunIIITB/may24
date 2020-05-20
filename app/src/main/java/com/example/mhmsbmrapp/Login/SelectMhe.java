@@ -91,9 +91,26 @@ public class SelectMhe extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("loginToken", loginToken);
                             editor.putString("sessionToken", sessionToken);
-                            editor.putString("mhpName", selectedMHE);
+                            editor.putString("mheName", selectedMHE);
 
                             editor.commit();
+
+                            try {
+                                new JSONObject(MHPFlow.decoded(loginToken)).getString("sessionToken");
+                                SessionInformation.sessionToken = new JSONObject(MHPFlow.decoded(loginToken)).getString("sessionToken");
+
+                                SessionInformation.userUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("userUUID");
+
+                                SessionInformation.orgUUID = new JSONObject(MHPFlow.decoded(loginToken)).getString("orgUUID");
+
+                                SessionInformation.userName = new JSONObject(MHPFlow.decoded(loginToken)).getString("userName");;
+
+                                System.out.println(SessionInformation.userName);
+                                System.out.println(SessionInformation.userUUID);
+                                System.out.println(SessionInformation.orgUUID);
+                                System.out.println(SessionInformation.sessionToken);
+                                System.out.println(loginToken);
+                            }catch (Exception e){ e.printStackTrace(); }
 
 
                             Intent intent = new Intent(SelectMhe.this, MainActivity.class);

@@ -6,14 +6,17 @@ import android.util.Log;
 import androidx.annotation.RequiresApi;
 
 import com.example.mhmsbmrapp.Login.GlobalVariables;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.model.Composition;
 
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -22,20 +25,19 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
+
 public class BmrCreateCompositionUtility {
 
     OkHttpClient client = new OkHttpClient();
 
-    public JSONObject createComposition_EHRC_Complaintsv0(String[] values, Map<String, String> map, String loginToken, String sessionToken) {
+    public Composition createComposition_EHRC_Complaintsv0(String[] values, JSONObject compositionCopy, String patientId,String loginToken, String sessionToken) {
+        Composition returnComposition = null;
 
         final String RELATIVE_PATH = "createComposition/";
 
-
-        //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587232756366#-301314980#869";
-
-        //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
         String templateId = "EHRC - Complaints.v0";
 
@@ -46,30 +48,22 @@ public class BmrCreateCompositionUtility {
 
         try {
 
-            JSONObject composition = new JSONObject();
+            JSONObject composition = new JSONObject(compositionCopy.toString());
 
-            composition.put("/language", "en");
-            composition.put("/territory", "IN");
             composition.put("/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0001]|value", values[0]);
             composition.put("/content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.symptom_sign.v1]/items[at0003]|value", values[1]);
-
-            composition.put("/composer|name", map.get("composer_name"));
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
-            composition.put("/context/start_time", time);
-            composition.put("/context/end_time", time);
-            composition.put("/context/location", map.get("location"));
-
-
             composition.put("content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/events[at0002]/time|value", time);
             composition.put("content[openEHR-EHR-OBSERVATION.story.v1]/data[at0001]/origin|value", time);
+
+            composition.put("/context/start_time", time);
+            composition.put("/context/end_time", time);
+
 
             jsonObject.put("composition", composition);
 
             jsonObject.put("authorization", sessionToken);
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -85,30 +79,35 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("complaints_matches_compositionIDs", "EHRC - Complaints.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
+
+
     } //createComposition_EHRC_Complaintsv0 (POST)
 
 
-    public JSONObject createCompostion_EHRC_Clinical_historyv0(String value, Map<String, String> map, String loginToken, String sessionToken) {
+    public Composition createCompostion_EHRC_Clinical_historyv0(String value, JSONObject compositionCopy, String patientId, String loginToken, String sessionToken) {
+        Composition returnComposition = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
         final String RELATIVE_PATH = "createComposition/";
 
         String templateId = "EHRC - Clinical history.v0";
-
-        //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587232756366#-301314980#869";
-
-        //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
 
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -117,25 +116,18 @@ public class BmrCreateCompositionUtility {
 
         try {
 
-            JSONObject composition = new JSONObject();
+            JSONObject composition = new JSONObject(compositionCopy.toString());
 
-            composition.put("/language", "en");
-            composition.put("/territory", "IN");
             composition.put("/content[openEHR-EHR-EVALUATION.clinical_history.v0]/data[at0001]/items[at0002]|value", value);
 
-            composition.put("/composer|name", map.get("composer_name"));
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
             composition.put("/context/start_time", time);
             composition.put("/context/end_time", time);
-            composition.put("/context/location", map.get("location"));
 
             jsonObject.put("composition", composition);
 
             jsonObject.put("authorization", sessionToken);
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -151,19 +143,20 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-            //jsonObjectResult = new JSONObject(rb.string());
-            //System.out.println("why is it null-----------------------------------"+rb.string());
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("clinical_history_matches_compositionIDs", "EHRC - Clinical history.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
 
 
 
@@ -171,17 +164,21 @@ public class BmrCreateCompositionUtility {
     } //createCompostionEHRC_Clinical_historyv0 (POST)
 
 
-    public JSONObject createComposition_EHRC_Summary_of_illnessv0(String value, Map<String, String> map, String loginToken, String sessionToken) {
-
+    public Composition createComposition_EHRC_Summary_of_illnessv0(String value, JSONObject compositionCopy, String patientId,String loginToken, String sessionToken) {
+        Composition returnComposition = null;
 
         final String RELATIVE_PATH = "createComposition/";
 
         String templateId = "EHRC - Summary of illness.v0";
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
+
         //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587232756366#-301314980#869";
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+
 
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -190,24 +187,19 @@ public class BmrCreateCompositionUtility {
 
         try {
 
-            JSONObject composition = new JSONObject();
-
+            JSONObject composition = new JSONObject(compositionCopy.toString());
             composition.put("/language", "en");
             composition.put("/territory", "IN");
             composition.put("/content[openEHR-EHR-EVALUATION.summary_of_illness.v0]/data[at0001]/items[at0002]|value", value);
 
-            composition.put("/composer|name", map.get("composer_name"));
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
             composition.put("/context/start_time", time);
             composition.put("/context/end_time", time);
-            composition.put("/context/location", map.get("location"));
+
             jsonObject.put("composition", composition);
 
             jsonObject.put("authorization", sessionToken);
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -223,26 +215,28 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("summary_of_illness_matches_compositionIDs", "EHRC - Summary of illness.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
 
 
 
     } //createCompositionEHRC_Summary_of_illnessv0 (POST)
 
 
-    public JSONObject createComposition_EHRC_CGI_Scalev0(String value, Map<String, String> map, String loginToken, String sessionToken) {
-
+    public Composition createComposition_EHRC_CGI_Scalev0(String value, JSONObject compositionCopy, String patientId,String loginToken, String sessionToken) {
+        Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
 
         String templateId = "EHRC - CGI Scale.v0";
@@ -250,7 +244,9 @@ public class BmrCreateCompositionUtility {
         //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587232756366#-301314980#869";
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -264,18 +260,14 @@ public class BmrCreateCompositionUtility {
             composition.put("/language", "en");
             composition.put("/territory", "IN");
             composition.put("/content[openEHR-EHR-EVALUATION.cgi_scale.v0]/data[at0001]/items[at0006]|value", value);
-            composition.put("/composer|name", map.get("composer_name"));
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
             composition.put("/context/start_time", time);
             composition.put("/context/end_time", time);
-            composition.put("/context/location", map.get("location"));
+
             jsonObject.put("composition", composition);
 
             jsonObject.put("authorization", sessionToken);
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -291,25 +283,27 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("cgi_scale_matches_compositionIDs", "EHRC - CGI Scale.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
 
     } //createComposition_EHRC_CGI_Scalev0 (POST)
 
 
-    public JSONObject createCompositionEHRC_Medication_orderv0(String[] values, Map<String, String> map, String loginToken, String sessionToken) {
+    public Composition createCompositionEHRC_Medication_orderv0(String[] values, JSONObject compositionCopy, String patientId,String loginToken, String sessionToken) {
 
-
+        Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
 
         String templateId = "EHRC - Medication order.v0";
@@ -317,7 +311,9 @@ public class BmrCreateCompositionUtility {
         //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587238304431#93780176#874";
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
 
         final MediaType JSON
@@ -338,19 +334,15 @@ public class BmrCreateCompositionUtility {
             composition.put("/content[openEHR-EHR-SECTION.medication_order_list.v0]/items[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.therapeutic_direction.v1]/items[at0066]|value", "P"+values[3]+values[4].toUpperCase().charAt(0) ); // here P is prefix, 1(integer) is for duration and W(D,W,M) is for days, weeks or months;
             composition.put("/content[openEHR-EHR-SECTION.medication_order_list.v0]/items[openEHR-EHR-INSTRUCTION.medication_order.v2]/activities[at0001]/description[at0002]/items[at0009]|value", values[5]);
 
-            composition.put("/composer|name", map.get("composer_name"));
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
             composition.put("/context/start_time", time);
             composition.put("/context/end_time", time);
-            composition.put("/context/location", map.get("location"));
+
 
             jsonObject.put("composition", composition);
 
             jsonObject.put("authorization", sessionToken);
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -366,35 +358,33 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("medication_order_matches_compositionIDs", "EHRC - Medication order.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
-
-
-
-
+        return returnComposition;
 
     } //createCompositionEHRC_Medication_orderv0 (POST)
 
 
-    public JSONObject createCompositionEHRC_Clinical_notesv0(String value, Map<String, String> map, String loginToken, String sessionToken) {
-
+    public Composition createCompositionEHRC_Clinical_notesv0(String value, JSONObject compositionCopy, String patientId,String loginToken, String sessionToken) {
+        Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
 
         String templateId = "EHRC - Clinical notes.v0";
 
-        //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587238304431#93780176#874";
-
-        //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -403,24 +393,21 @@ public class BmrCreateCompositionUtility {
 
         try {
 
-            JSONObject composition = new JSONObject();
+            JSONObject composition = new JSONObject(compositionCopy.toString());
 
             composition.put("/language", "en");
             composition.put("/territory", "IN");
             composition.put("/content[openEHR-EHR-EVALUATION.clinical_synopsis.v1]/data[at0001]/items[at0002]|value", value);
-            composition.put("/composer|name", map.get("composer_name"));
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
+
             composition.put("/context/start_time", time);
             composition.put("/context/end_time", time);
-            composition.put("/context/location", map.get("location"));
+
 
             jsonObject.put("composition", composition);
 
             jsonObject.put("authorization", sessionToken);
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -437,22 +424,26 @@ public class BmrCreateCompositionUtility {
 
         Response response = null;
         JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("clinical_notes_order_matches_compositionIDs", "EHRC - Clinical notes.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
 
     } //createCompositionEHRC_Clinical_notesv0 (POST)
 
 
-    public JSONObject createComposition_EHRC_Diagnosisv0(String[] values, Map<String, String> map, String loginToken, String sessionToken) {
+    public Composition createComposition_EHRC_Diagnosisv0(String[] values, JSONObject compositionCopy, String patientId, String loginToken, String sessionToken) {
+        Composition returnComposition = null;
 
         final String RELATIVE_PATH = "createComposition/";
 
@@ -460,7 +451,9 @@ public class BmrCreateCompositionUtility {
 
         //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587287659468#-1356064576#898";
 
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
 
         final MediaType JSON
@@ -472,13 +465,13 @@ public class BmrCreateCompositionUtility {
             jsonObject.put("authorization", sessionToken);
 
                 JSONObject composition = getDiagnosisTemplate(loginToken);
-
+                JSONObject copy = new JSONObject(compositionCopy.toString());
 
                 composition.put("ctx/language", "en");
-                composition.put("diagnosis/composer|id", map.get("composer_name"));
+                composition.put("diagnosis/composer|id", copy.getString("/composer|name"));
                 composition.put("diagnosis/context/end_time", time);
-                composition.put("diagnosis/context/health_care_facility|id", map.get("composer_identifier"));
-                composition.put("diagnosis/context/health_care_facility|name", map.get("facility_name"));
+                composition.put("diagnosis/context/health_care_facility|id", copy.getString("/composer|identifier"));
+                composition.put("diagnosis/context/health_care_facility|name", copy.getString("/context/health_care_facility|name"));
                 composition.put("diagnosis/context/start_time", time);
                 composition.put("diagnosis/problem_diagnosis:0/diagnostic_certainty", values[0]);
                 composition.put("diagnosis/problem_diagnosis:0/problem_diagnosis_name|code", values[2]);
@@ -487,7 +480,7 @@ public class BmrCreateCompositionUtility {
             jsonObject.put("composition", composition);
 
             jsonObject.put("format", "FLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -505,18 +498,20 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("diagnosis_matches_compositionIDs", "EHRC - Diagnosis.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
 
     } //createComposition_EHRC_Diagnosisv0 (POST)
 
@@ -552,7 +547,8 @@ public class BmrCreateCompositionUtility {
     } //getDiagnosisTemplate (GET)
 
 
-    public JSONObject createComposition_EHRC_Service_requestv0(String values[], Map<String, String> map, String loginToken, String sessionToken) {
+    public Composition createComposition_EHRC_Service_requestv0(String values[], JSONObject compositionCopy, String patientId, String loginToken, String sessionToken) {
+        Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
 
         String templateId = "EHRC - Service request.v0";
@@ -560,7 +556,9 @@ public class BmrCreateCompositionUtility {
         //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587232756366#-301314980#869";
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
 
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -570,11 +568,9 @@ public class BmrCreateCompositionUtility {
         try {
 
             jsonObject.put("authorization", sessionToken);
-            JSONObject composition = new JSONObject();
+            JSONObject composition = new JSONObject(compositionCopy.toString());
 
 
-                composition.put("/composer|identifier", map.get("composer_identifier"));
-                composition.put("/composer|name", map.get("composer_name"));
                 composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0062]|value", values[0]);
                 composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0064]|value", values[1]);
                 composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0121]|value", values[2]);
@@ -582,17 +578,12 @@ public class BmrCreateCompositionUtility {
                 composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/protocol[at0008]/items[openEHR-EHR-CLUSTER.organisation.v0]/items[at0001]|value", values[4]);
                 composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/protocol[at0008]/items[openEHR-EHR-CLUSTER.organisation.v0]/items[at0005]/items[openEHR-EHR-CLUSTER.person_name.v0]/items[at0001]|value",values[5]);
                 composition.put("/context/end_time", time);
-                composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-                composition.put("/context/health_care_facility|name", map.get("facility_name"));
-                composition.put("/context/location", map.get("location"));
                 composition.put("/context/start_time", time);
-                composition.put("/language", "en");
-                composition.put("/territory", "IN");
 
                 jsonObject.put("composition", composition);
 
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -608,30 +599,35 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("service_request_matches_compositionIDs", "EHRC - Service request.v0", "Referral",compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
     } //createComposition_EHRC_Service_requestv0 (POST)
 
 
-    public JSONObject createComposition_EHRC_Service_requestv01(String values[], Map<String, String> map, String loginToken, String sessionToken) {
+    public Composition createComposition_EHRC_Service_requestv01(String values[], JSONObject compositionCopy, String patientId, String loginToken, String sessionToken) {
+        Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
-
         String templateId = "EHRC - Service request.v0";
 
         //String sessionToken = "SessionId:172.31.5.13#prashant:4cc74280-efe5-4016-b41e-f29472a4ec12:MHMS:MHProfessional#1587232756366#-301314980#869";
 
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
-        String time = "2020-04-23T11:38:01.109Z";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
+
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
@@ -640,19 +636,12 @@ public class BmrCreateCompositionUtility {
         try {
 
             jsonObject.put("authorization", sessionToken);
-            JSONObject composition = new JSONObject();
-
-
-            composition.put("/composer|identifier", map.get("composer_identifier"));
-            composition.put("/composer|name", map.get("composer_name"));
+            JSONObject composition = new JSONObject(compositionCopy.toString());
 
             composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0040]|value", values[0]);
             composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0148]|value", "Followup");
 
             composition.put("/context/end_time", time);
-            composition.put("/context/health_care_facility|identifier", map.get("facility_identifier"));
-            composition.put("/context/health_care_facility|name", map.get("facility_name"));
-            composition.put("/context/location", map.get("location"));
             composition.put("/context/start_time", time);
             composition.put("/language", "en");
             composition.put("/territory", "IN");
@@ -660,7 +649,7 @@ public class BmrCreateCompositionUtility {
             jsonObject.put("composition", composition);
 
             jsonObject.put("format", "ECISFLAT");
-            jsonObject.put("personId", map.get("personId"));
+            jsonObject.put("personId", patientId);
             jsonObject.put("templateId", templateId);
 
 
@@ -676,18 +665,20 @@ public class BmrCreateCompositionUtility {
                 .build();
 
         Response response = null;
-        JSONObject returnObject = null;
+        JSONObject compositionUidObject = null;
         try {
             response = client.newCall(request).execute();
             ResponseBody rb = response.body();
-            Log.e("why is it null", "");
-            returnObject = new JSONObject(rb.string());
-
+            //Log.e("why is it null", "");
+            compositionUidObject = new JSONObject(rb.string());
+            System.out.println("#########################"+compositionUidObject.toString());
+            String compositionUid = compositionUidObject.getString("compositionUid");
+            returnComposition = new Composition("service_request_matches_compositionIDs", "EHRC - Service request.v0", compositionUid);
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return returnObject;
+        return returnComposition;
 
 
     } //
@@ -703,21 +694,9 @@ public class BmrCreateCompositionUtility {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    public JSONObject saveAllCompositions(Map<String,String> map, List<Composition> compositionList, String loginToken, String sessionToken) {
+    public JSONObject saveAllCompositions(String patientId, List<Composition> compositionList, String loginToken, String sessionToken) {
 
         final String RELATIVE_PATH = "saveAllCompositions/";
-
-        //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
 
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
@@ -728,8 +707,8 @@ public class BmrCreateCompositionUtility {
 
             JSONObject jsonObject = new JSONObject();
 
-            payload.put("orgUUID", map.get("facility_identifier"));
-            payload.put("patientId", map.get("personId"));
+            payload.put("orgUUID", SessionInformation.orgUUID);
+            payload.put("patientId", patientId);
             payload.put("token", sessionToken);
 
                 JSONArray uidata = new JSONArray();
@@ -751,7 +730,7 @@ public class BmrCreateCompositionUtility {
                 }
 
             payload.put("uidata", uidata);
-            payload.put("uuid", map.get("composer_identifier"));
+            payload.put("uuid", SessionInformation.userUUID);
 
         }catch (Exception e) { e.printStackTrace(); }
 

@@ -138,6 +138,45 @@ public class PatientUtility {
     }*/
 
 
+    public String getPatientAge(String loginToken, String dob){
+        final String RELATIVE_PATH = "getAge/";
+        final MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+        String age = null;
+
+        JSONObject jsonObject = new JSONObject();
+        try{
+            jsonObject.put("age", dob);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        RequestBody formBody = RequestBody.create(JSON, jsonObject.toString());
+
+        Request request = new Request.Builder()
+                .url(GlobalVariables.GLOBAL_PATH_REST+RELATIVE_PATH)
+                .post(formBody)
+                .addHeader("Authorization", "Bearer " + loginToken)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        Response response = null;
+
+        try {
+            response = client.newCall(request).execute();
+            ResponseBody rb = response.body();
+
+            JSONObject object = new JSONObject(rb.string());
+            System.out.println(object.toString());
+            age = object.getString("age");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return age;
+    } //getPatientAge (POST)
+
+
     public String[] getPatientByMHMSID(String mhmsid) {
 
         final String RELATIVE_PATH = "mhmsIdSearch/";

@@ -96,45 +96,45 @@ public class Test extends AppCompatActivity {
 
 
                     System.out.println("Entering try");
-                    System.out.println(utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, ICD_Description, ICD_10_Code}, map, loginToken, sessionToken));
+                    //System.out.println(utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, ICD_Description, ICD_10_Code}, map, loginToken, sessionToken));
 
                     try {
                         System.out.println("inside try");
                         //0       arr.put(0, utility.createComposition_EHRC_Complaintsv0(new String[]{complaints, duration}, map, loginToken, sessionToken));
-                        list.add(new Composition("complaints_matches_compositionIDs", "EHRC - Complaints.v0", utility.createComposition_EHRC_Complaintsv0(new String[]{complaints, duration}, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("complaints_matches_compositionIDs", "EHRC - Complaints.v0", utility.createComposition_EHRC_Complaintsv0(new String[]{complaints, duration}, map, loginToken, sessionToken).getString("compositionUid")));
 
                         //1        arr.put(1, utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, ICD_Description, ICD_10_Code}, map, loginToken, sessionToken));
 
-                        list.add(new Composition("diagnosis_matches_compositionIDs", "EHRC - Diagnosis.v0", utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, ICD_Description, ICD_10_Code}, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("diagnosis_matches_compositionIDs", "EHRC - Diagnosis.v0", utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, ICD_Description, ICD_10_Code}, map, loginToken, sessionToken).getString("compositionUid")));
 
                         //2       arr.put(2, utility.createCompostion_EHRC_Clinical_historyv0(history, map, loginToken, sessionToken));
 
-                        list.add(new Composition("clinical_history_matches_compositionIDs", "EHRC - Clinical history.v0", utility.createCompostion_EHRC_Clinical_historyv0(history, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("clinical_history_matches_compositionIDs", "EHRC - Clinical history.v0", utility.createCompostion_EHRC_Clinical_historyv0(history, map, loginToken, sessionToken).getString("compositionUid")));
 
                         //3        arr.put(3, utility.createComposition_EHRC_Summary_of_illnessv0(summaryOfIllness, map, loginToken, sessionToken));
 
-                        list.add(new Composition("summary_of_illness_matches_compositionIDs", "EHRC - Summary of illness.v0", utility.createComposition_EHRC_Summary_of_illnessv0(summaryOfIllness, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("summary_of_illness_matches_compositionIDs", "EHRC - Summary of illness.v0", utility.createComposition_EHRC_Summary_of_illnessv0(summaryOfIllness, map, loginToken, sessionToken).getString("compositionUid")));
 
 
                         //4        arr.put(4, utility.createCompositionEHRC_Clinical_notesv0(treatmentInstruction, map, loginToken, sessionToken));
 
-                        list.add(new Composition("clinical_notes_order_matches_compositionIDs", "EHRC - Clinical notes.v0", utility.createCompositionEHRC_Clinical_notesv0(treatmentInstruction, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("clinical_notes_order_matches_compositionIDs", "EHRC - Clinical notes.v0", utility.createCompositionEHRC_Clinical_notesv0(treatmentInstruction, map, loginToken, sessionToken).getString("compositionUid")));
                         //5        arr.put(5, utility.createCompositionEHRC_Medication_orderv0(new String[]{medicineName, dosage, dosingTime, medduration, durationType, remarks}, map, loginToken, sessionToken));
 
 
-                        list.add(new Composition("medication_order_matches_compositionIDs", "EHRC - Medication order.v0", utility.createCompositionEHRC_Medication_orderv0(medicationOrder, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("medication_order_matches_compositionIDs", "EHRC - Medication order.v0", utility.createCompositionEHRC_Medication_orderv0(medicationOrder, map, loginToken, sessionToken).getString("compositionUid")));
 
                         //6        arr.put(6, utility.createComposition_EHRC_CGI_Scalev0(improvementStatus, map, loginToken, sessionToken));
 
 
-                        list.add(new Composition("cgi_scale_matches_compositionIDs", "EHRC - CGI Scale.v0", utility.createComposition_EHRC_CGI_Scalev0(improvementStatus, map, loginToken, sessionToken).getString("compositionUid")));
+                        //list.add(new Composition("cgi_scale_matches_compositionIDs", "EHRC - CGI Scale.v0", utility.createComposition_EHRC_CGI_Scalev0(improvementStatus, map, loginToken, sessionToken).getString("compositionUid")));
 
                         if(referral) {
                             String[] referralValues = {"a", "b", "c", "Referral", "e", "f"};
-                            list.add(new Composition("service_request_matches_compositionIDs", "EHRC - Service request.v0","Referral", utility.createComposition_EHRC_Service_requestv0(referralValues, map, loginToken, sessionToken).getString("compositionUid")));
+                            //list.add(new Composition("service_request_matches_compositionIDs", "EHRC - Service request.v0","Referral", utility.createComposition_EHRC_Service_requestv0(referralValues, map, loginToken, sessionToken).getString("compositionUid")));
                         } else if(followUp) {
                             String[] followUpValues = {"2020-04-23T04:56:46.793Z::2020-04-24T18:30:00.000Z", "Followup"};
-                            list.add(new Composition("service_request_matches_compositionIDs", "EHRC - Service request.v0", "Followup", utility.createComposition_EHRC_Service_requestv01(followUpValues, map, loginToken, sessionToken).getString("compositionUid")));
+                            //list.add(new Composition("service_request_matches_compositionIDs", "EHRC - Service request.v0", "Followup", utility.createComposition_EHRC_Service_requestv01(followUpValues, map, loginToken, sessionToken).getString("compositionUid")));
                         }
 
                     } catch (Exception e) {e.printStackTrace();}

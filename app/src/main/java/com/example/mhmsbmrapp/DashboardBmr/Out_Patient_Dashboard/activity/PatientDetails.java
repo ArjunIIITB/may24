@@ -1,6 +1,9 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,10 +16,25 @@ import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAsse
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpBmrTab.Fragment1;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpTherapy.Fragment3;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRestraintMonitoring.Fragment4;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
+import com.example.mhmsbmrapp.utility.PatientUtility;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class PatientDetails extends AppCompatActivity {
+
+    String patientName;
+    String patientFatherName;
+    String phoneNumber;
+    String address;
+    String mhmsId;
+    String age;
+    String gender;
+    String email;
 
 
     private Button btnNavFrag1;
@@ -39,6 +57,13 @@ public class PatientDetails extends AppCompatActivity {
 
         // Recieve data
 
+        String patientId = getIntent().getExtras().getString("anime_patientId") ;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("patientId", patientId);
+        editor.commit();
+        getData(sharedPreferences.getString("loginToken", ""), patientId);
+
         String name  = getIntent().getExtras().getString("anime_givenName");
         String description = getIntent().getExtras().getString("anime_middleName");
         String studio = getIntent().getExtras().getString("anime_personId") ;
@@ -46,7 +71,8 @@ public class PatientDetails extends AppCompatActivity {
         //int nb_episode = getIntent().getExtras().getInt("anime_dateOfBirth") ;
         String rating = getIntent().getExtras().getString("anime_email") ;
         String patientName = getIntent().getExtras().getString("anime_patientName") ;
-        String patientId = getIntent().getExtras().getString("anime_patientId") ;
+
+
         //String image_url = getIntent().getExtras().getString("anime_img");
 
         // ini views
@@ -146,5 +172,44 @@ public class PatientDetails extends AppCompatActivity {
         mViewPager.setCurrentItem(fragmentNumber);
     }
 
+    public void getData(final String loginToken, String patientId) {
 
+        final String sessionToken = SessionInformation.sessionToken;
+        final String logTok = loginToken;
+        final String patid = patientId;
+
+
+        Thread thread = new Thread(){
+            public void run() {
+                Log.e("show card", "$$$$$$$$$$$$$$$$$$$$$$$$$");
+                try {
+                    JSONObject patient = new PatientUtility().getPatient(logTok, patid, sessionToken);
+                    patientName = patient.getString("prefix")+" "+patient.getString("givenName")+" "+patient.getString("middleName");
+
+                    patientFatherName = patient.getJSONObject("emergencyContact").getString("contactName");
+                    phoneNumber = patient.getString("phoneNumber");
+                    email = patient.getString("email");
+                    gender = patient.getJSONObject("gender").getString("genderCode");
+                    mhmsId = patient.getJSONArray("idproof").getJSONObject(0).getString("idNumber");
+                    age = new PatientUtility().getPatientAge(loginToken, patient.getString("dateOfBirth"));
+
+                    JSONObject addressobj = patient.getJSONArray("address").getJSONObject(0);
+                    address = addressobj.getString("address1")+" "+addressobj.getString("address2")+addressobj.getString("city")+" "+addressobj.getString("district")+addressobj.getString("postalCode")+" "+addressobj.getString("state");
+
+                    System.out.println(patientName);
+                    System.out.println(patientFatherName);
+                    System.out.println(phoneNumber);
+                    System.out.println(email);
+                    System.out.println(gender);
+                    System.out.println(mhmsId);
+                    System.out.println(age);
+
+                } catch (JSONException e) { e.printStackTrace(); }
+                Log.e("show card", "$$$$$$$$$$$$$$$$$$$$$$$$$");
+            }
+        };thread.start();
     }
+
+
+
+}

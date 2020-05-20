@@ -1,6 +1,9 @@
 package com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +21,12 @@ import com.android.volley.toolbox.Volley;
 import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.adapter.RecyclerView_Adapter_IpReffered;
 import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.model.Anime_Ip_Reffered;
 
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpTherapy.model.AnimeOpTherapy;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
+import com.example.mhmsbmrapp.model.Therapy;
+import com.example.mhmsbmrapp.utility.TherapyUtility;
+import com.example.mhmsbmrapp.utility.ip.IPUtility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +61,7 @@ public class Reffered_To_Ip extends Fragment {
     }
     private void jsonrequest() {
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+        /*request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -93,13 +101,40 @@ public class Reffered_To_Ip extends Fragment {
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;
+        requestQueue.add(request) ;*/
 
+        Thread thread = new Thread() {
+            public void run() {
 
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                String loginToken = sharedPreferences.getString("loginToken", "");
+                Log.e("loginToken is", loginToken);
+                String patientId = sharedPreferences.getString("patientId", "");
+
+                System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+                JSONArray referredPatientList = new IPUtility().getorgpatientReferredToIP(loginToken, SessionInformation.orgUUID);
+
+                try {
+                    for (int i = 0; i < referredPatientList.length(); i++) {
+                        Anime_Ip_Reffered anime = new Anime_Ip_Reffered();
+                        JSONObject referredPatient = referredPatientList.getJSONObject(i);
+                        anime.setName(referredPatient.getString("patientName"));
+                        anime.setCategorie(referredPatient.getString("patientPhone"));
+                        anime.setImage_url(referredPatient.getString("referredBy"));
+                        anime.setRating(referredPatient.getString("patientCity"));
+                        System.out.println(referredPatient.getString("patientPhone"));
+                        System.out.println(referredPatient.getString("patientName"));
+                        System.out.println(referredPatient.getString("referredBy"));
+                        lstAnime_Ip_Reffered.add(anime);
+                    }
+                }catch (Exception e) {e.printStackTrace();}
+            }
+        };
+        thread.start();
+        setuprecyclerview(lstAnime_Ip_Reffered);
     }
 
     private void setuprecyclerview(List<Anime_Ip_Reffered> lstAnime_Ip_Reffered) {
-
 
         RecyclerView_Adapter_IpReffered myadapter = new RecyclerView_Adapter_IpReffered(getActivity(),lstAnime_Ip_Reffered) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

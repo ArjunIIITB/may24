@@ -36,7 +36,7 @@
 
 
                 <EditText
-                    android:id="@+id/Identity_Proof"
+                    android:id="@+id/asmtEducation"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
@@ -47,7 +47,7 @@
                     android:hint="Education" />
 
                 <EditText
-                    android:id="@+id/Enter_ID_Number"
+                    android:id="@+id/asmtOccupation"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
@@ -74,7 +74,7 @@
 
 
                 <EditText
-                    android:id="@+id/Referral_By"
+                    android:id="@+id/referred_By"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
@@ -87,7 +87,7 @@
 
 
                 <EditText
-                    android:id="@+id/Referral_Note"
+                    android:id="@+id/referral_Note"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -99,7 +99,7 @@
                     />
 
                 <Spinner
-                    android:id="@+id/Reason_for_Referral"
+                    android:id="@+id/reason_for_Referral"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
@@ -122,7 +122,7 @@
 
 
                 <EditText
-                    android:id="@+id/Language_Tested_In"
+                    android:id="@+id/language_Tested_In"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/border_style"
@@ -133,7 +133,7 @@
                     android:hint="Language Tested In *" />
 
                 <EditText
-                    android:id="@+id/Background_Information"
+                    android:id="@+id/background_Information"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
@@ -143,7 +143,7 @@
                     android:hint="Background Information *" />
 
                 <EditText
-                    android:id="@+id/Informant"
+                    android:id="@+id/informant"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
@@ -153,7 +153,7 @@
                     android:hint="Informant"/>
 
                 <EditText
-                    android:id="@+id/Pincode"
+                    android:id="@+id/informant_Relationship"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
@@ -164,7 +164,7 @@
 
 
                 <EditText
-                    android:id="@+id/Salient_Behavioral_Obeservations"
+                    android:id="@+id/salient_Behavioral_Obeservations"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -174,7 +174,7 @@
                     android:hint="Salient Behavioral Obeservations" />
 
                 <EditText
-                    android:id="@+id/Impressions"
+                    android:id="@+id/impressions"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -184,7 +184,7 @@
                     android:hint="Impressions" />
 
                 <EditText
-                    android:id="@+id/Test_Scales_Administered"
+                    android:id="@+id/test_Scales_Administered"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -194,7 +194,7 @@
                     android:hint="Test/Scales Administered" />
 
                 <EditText
-                    android:id="@+id/Test_Score"
+                    android:id="@+id/test_Score"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -204,7 +204,7 @@
                     android:hint="Test Score*" />
 
                 <EditText
-                    android:id="@+id/Recommendation"
+                    android:id="@+id/recommendation"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -276,7 +276,7 @@
                     android:layout_marginTop="8dp" />
 
                 <EditText
-                    android:id="@+id/Full_Name"
+                    android:id="@+id/assessor_Full_Name"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -286,7 +286,7 @@
                     android:hint="Full Name" />
 
                 <EditText
-                    android:id="@+id/Qualification"
+                    android:id="@+id/assessor_Qualification"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -305,7 +305,7 @@
                     android:layout_marginTop="8dp" />
 
                 <EditText
-                    android:id="@+id/Full_Name_supervisor"
+                    android:id="@+id/supervisor_Full_Name"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -314,7 +314,7 @@
                     android:inputType="textPersonName"
                     android:hint="Full Name" />
                 <EditText
-                    android:id="@+id/Qualification_supervisor"
+                    android:id="@+id/supervisorQualification"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="17dp"
@@ -325,7 +325,7 @@
 
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/assessmentSubmit"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:ems="10"

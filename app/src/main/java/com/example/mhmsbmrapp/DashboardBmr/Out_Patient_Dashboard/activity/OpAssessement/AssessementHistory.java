@@ -25,7 +25,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement.adapter.RecyclerViewAdapterassessement;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement.model.AnimeOpAssessement;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpTherapy.model.AnimeOpTherapy;
+import com.example.mhmsbmrapp.Login.MHPFlow;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
+import com.example.mhmsbmrapp.model.Assessment;
+import com.example.mhmsbmrapp.model.Therapy;
+import com.example.mhmsbmrapp.utility.AssessmentUtility;
+import com.example.mhmsbmrapp.utility.TherapyUtility;
 
 
 import org.json.JSONArray;
@@ -47,9 +54,10 @@ public class AssessementHistory extends Fragment {
     TextView addpatienttext;
 
 
-    private String orgUUID = "4cc74280-efe5-4016-b41e-f29472a4ec12";
-    private String userUUID = "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac";
-    private final String JSON_URL = "http://13.126.27.50/MHMS_DEV/rest/getDoctorPatients/"+orgUUID+"/"+userUUID+"/Waiting";
+    private String orgUUID = SessionInformation.orgUUID;
+    private String userUUID = SessionInformation.userUUID;
+    private String sessionToken = SessionInformation.sessionToken;
+
     private JsonArrayRequest request ;
     private RequestQueue requestQueue ;
     private List<AnimeOpAssessement> lstAnimeOpAssessement ;
@@ -66,7 +74,6 @@ public class AssessementHistory extends Fragment {
         View v = inflater.inflate(R.layout.opassessemethistory, container, false);
 
 
-
         lstAnimeOpAssessement = new ArrayList<>() ;
         recyclerView = v.findViewById(R.id.recyclerviewid);
         Log.e(" ", "Just before jsonrequest() calling");
@@ -80,59 +87,12 @@ public class AssessementHistory extends Fragment {
     }
 
 
-    private void jsonrequest1() {
 
-        /*request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject  = null ;
-
-                for (int i = 0 ; i < response.length(); i++ ) {
-
-
-                    try {
-                        jsonObject = response.getJSONObject(i) ;
-                        AnimeOpAssessement anime = new AnimeOpAssessement() ;
-                        anime.setName(jsonObject.getString("name"));
-                        anime.setDescription(jsonObject.getString("description"));
-                        anime.setRating(jsonObject.getString("Rating"));
-                        anime.setCategorie(jsonObject.getString("categorie"));
-                        anime.setNb_episode(jsonObject.getInt("episode"));
-                        anime.setStudio(jsonObject.getString("studio"));
-                        anime.setImage_url(jsonObject.getString("img"));
-                        lstAnimeOpAssessement.add(anime);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-
-                setuprecyclerview(lstAnimeOpAssessement);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;*/
-
-
-
-
-    }
 
 
     private void jsonrequest() {
 
-        Log.e(" ", "Just before jsonrequest() calling");
+        /*Log.e(" ", "Just before jsonrequest() calling");
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         Log.e("message", sharedPreferences.getString("loginToken", ""));
         Log.e("message", sharedPreferences.getString("sessionToken", ""));
@@ -196,16 +156,70 @@ public class AssessementHistory extends Fragment {
 
 
         requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(requestString) ;
+        requestQueue.add(requestString) ;*/
+
+
+        Thread thread = new Thread() {
+            public void run() {
+
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                String loginToken = sharedPreferences.getString("loginToken", "");
+                Log.e("loginToken is", loginToken);
+                String patientId = sharedPreferences.getString("patientId", "");
+
+
+                System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+                List<Assessment> therapyList = new AssessmentUtility().getHistory(loginToken, sessionToken, patientId, orgUUID);
+
+                for (Assessment o : therapyList) {
+                    try {
+                        AnimeOpAssessement anime = new AnimeOpAssessement();
+
+                        //JSONObject obj = new JSONObject(item.get(i).toString());
+                        //JSONObject o = obj.getJSONArray("resultSet").getJSONObject(0);
+                        System.out.println("#@#@#@#@@@@@@@@@#@@@#@#@##@@#@#@##@"+o.getReasonForReferral()+"     "+o.getImpression()+"     "+o.getSupervisorName());
+                        anime.setName(o.getReasonForReferral());
+                        anime.setCategorie(o.getImpression());
+                        anime.setImage_url(o.getSupervisorName());
+                            /*if (o.has("symptomName")) {
+                                System.out.println(i + "  " + o.getString("symptomName"));
+                                anime.setName(o.getString("symptomName"));
+                            }
+                            else if (o.has("diagnosticCertainity")) {
+                                System.out.println(i + "  " + o.getString("diagnosticCertainity"));
+                                System.out.println(i + "  " + o.getString("problemDiagnosis"));
+                                System.out.println(i + "  " + o.getString("problemTerminology"));
+                                anime.setDescription(o.getString("diagnosticCertainity"));
+                            } else if (o.has("clinicalHistory")) {
+                                System.out.println(i + "  " + o.getString("clinicalHistory"));
+                                anime.setRating(o.getString("clinicalHistory"));
+                            } else if (o.has("illnessSummary")) {
+                                System.out.println(i + "  " + o.getString("illnessSummary"));
+                                anime.setCategorie(o.getString("illnessSummary"));
+                            } else if (o.has("clinicalSynopsis")) {
+                                System.out.println(i + "  " + o.getString("clinicalSynopsis"));
+                            } else if (o.has("medicationItem")) {
+                                System.out.println(i + "  " + o.getString("medicationItem"));
+                                System.out.println(i + "  " + o.getString("directionDuration"));
+                                System.out.println(i + "  " + o.getString("overallDirectionDescription"));
+                                System.out.println(i + "  " + o.getString("timingDescription"));
+                            }*/
+
+                        Log.e("message", "next item starts from here onwards");
+                        lstAnimeOpAssessement.add(anime);
+                    }catch (Exception e) {e.printStackTrace();}
+
+                }
+            }
+        };
+        thread.start();
+        setuprecyclerview(lstAnimeOpAssessement);
+
+
+
 
 
     }
-
-
-
-
-
-
 
 
 
