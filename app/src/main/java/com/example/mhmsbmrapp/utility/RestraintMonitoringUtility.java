@@ -1,14 +1,17 @@
 package com.example.mhmsbmrapp.utility;
 
 import com.example.mhmsbmrapp.Login.GlobalVariables;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.model.Composition;
 import com.example.mhmsbmrapp.model.RestraintMonitoring;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -214,45 +217,50 @@ public class RestraintMonitoringUtility {
         return returnObject;
     } //getrMonitoringApplicationTemplate (GET)
 
-    public Composition createCompositionEHRC_Restraint_monitoringv3(String values[], String loginToken, String sessionToken, String userUUID, String orgUUID, String mheName, String patientId) {
+    public Composition createCompositionEHRC_Restraint_monitoringv3(RestraintMonitoring rm, String loginToken, String mheName, String patientId) {
 
         Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
+
+
         JSONObject payload = new JSONObject();
         try {
             int index = 0;
-            payload.put("authorization", sessionToken);
+            payload.put("authorization", SessionInformation.sessionToken);
             JSONObject composition = new RestraintMonitoringUtility().getrMonitoringTemplate(loginToken);
                 //composition.put("restraint_monitoring/composer|id", "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac");
-            composition.put("restraint_monitoring/composer|id", userUUID);
-                composition.put("restraint_monitoring/context/end_time", "2020-05-04T11:45:26.273Z");
+            composition.put("restraint_monitoring/composer|id", SessionInformation.userUUID);
+                composition.put("restraint_monitoring/context/end_time", time);
                 //composition.put("restraint_monitoring/context/health_care_facility|id", "4cc74280-efe5-4016-b41e-f29472a4ec12");
-            composition.put("restraint_monitoring/context/health_care_facility|id", orgUUID);
+            composition.put("restraint_monitoring/context/health_care_facility|id", SessionInformation.orgUUID);
                 //composition.put("restraint_monitoring/context/health_care_facility|name", "psm321op");
             composition.put("restraint_monitoring/context/health_care_facility|name", mheName);
                 //composition.put("restraint_monitoring/context/start_time", "2020-05-04T11:45:26.273Z");
-            composition.put("restraint_monitoring/context/start_time", "2020-05-04T11:45:26.273Z");
+            composition.put("restraint_monitoring/context/start_time", time);
 
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/breathing_problems", true);
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/breathing_problems", values[index++]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/breathing_problems", rm.getBreathingProblem());
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/injuries:0", "injuries 21");
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/injuries:0", values[index++]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/injuries:0", rm.getInjuries2());
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/no_blood_supply_to_limbs", true);
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/no_blood_supply_to_limbs", values[index++]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/no_blood_supply_to_limbs", rm.getNoBloodSupply());
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/pulse|magnitude", "18");
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/pulse|magnitude", values[index++]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/pulse|magnitude", rm.getPulse());
                 composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/pulse|unit", "1/min");
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/respiratory_rate|magnitude", "20");
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/respiratory_rate|magnitude", values[index++]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/respiratory_rate|magnitude", rm.getRespiratoryRate());
                 composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/respiratory_rate|unit", "1/min");
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/temperature|magnitude", "19");
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/temperature|magnitude", values[index++]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/temperature|magnitude", rm.getTemperature());
                 composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/temperature|unit", "°F");
                 //composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/time_of_observation", "17/04/2020");
-            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/time_of_observation", values[index]);
+            composition.put("restraint_monitoring/restraint_monitoring:0/observations:0/time_of_observation", rm.getMonitoringDate());
 
 
             payload.put("composition", composition);
@@ -291,30 +299,36 @@ public class RestraintMonitoringUtility {
         return returnComposition;
     } //createCompositionEHRC_Restraint_monitoringv3
 
-    public Composition createDiagnosisTemplate(String values[], String loginToken, String sessionToken, String userUUID, String orgUUID, String mheName, String patientId) {
+    public Composition createDiagnosisTemplate(RestraintMonitoring rm, String loginToken, String mheName, String patientId) {
         Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
+
+
         JSONObject payload = new JSONObject();
         try {
             int index = 0;
-            payload.put("authorization", sessionToken);
+            payload.put("authorization", SessionInformation.sessionToken);
             JSONObject composition = new RestraintMonitoringUtility().getDiagnosisTemplate(loginToken);
                 //composition.put("diagnosis/composer|id", "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac");
-            composition.put("diagnosis/composer|id", userUUID);
-                composition.put("diagnosis/composer|name", "prashant");
-                composition.put("diagnosis/context/end_time", "2020-05-04T11:46:09.506Z");
+            composition.put("diagnosis/composer|id", SessionInformation.userUUID);
+                composition.put("diagnosis/composer|name", SessionInformation.userName);
+
                 //composition.put("diagnosis/context/health_care_facility|id", "4cc74280-efe5-4016-b41e-f29472a4ec12");
-            composition.put("diagnosis/context/health_care_facility|id", orgUUID);
+            composition.put("diagnosis/context/health_care_facility|id", SessionInformation.orgUUID);
                 //composition.put("diagnosis/context/health_care_facility|name", "psm321op");
             composition.put("diagnosis/context/health_care_facility|name", mheName);
-                composition.put("diagnosis/context/start_time", "2020-05-04T11:46:09.506Z");
+            composition.put("diagnosis/context/end_time", time);
+            composition.put("diagnosis/context/start_time", time);
                 composition.put("diagnosis/problem_diagnosis:0/diagnostic_certainty", "Psychiatric Diagnosis");
                 composition.put("diagnosis/problem_diagnosis:0/problem_diagnosis_name|code","Undefined ICD Code");
                 //composition.put("diagnosis/problem_diagnosis:0/problem_diagnosis_name|value", "psychiatric diagnosis seven");
-            composition.put("diagnosis/problem_diagnosis:0/problem_diagnosis_name|value", values[index]);
+            composition.put("diagnosis/problem_diagnosis:0/problem_diagnosis_name|value", rm.getPsychiatricDiagnosis());
 
             payload.put("composition", composition);
             payload.put("format", "FLAT");
@@ -352,45 +366,49 @@ public class RestraintMonitoringUtility {
         return returnComposition;
     } //createDiagnosisTemplate
 
-    public Composition createEHRC_Proceduresv3(String values[], String loginToken, String sessionToken, String userUUID, String orgUUID, String mheName, String patientId) {
+    public Composition createEHRC_Proceduresv3(RestraintMonitoring rm, String loginToken,  String mheName, String patientId) {
         Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        String time = sdf.format(System.currentTimeMillis());
+
         JSONObject payload = new JSONObject();
         try {
             int index = 0;
-            payload.put("authorization", sessionToken);
+            payload.put("authorization", SessionInformation.sessionToken);
             JSONObject composition = new RestraintMonitoringUtility().getrMonitoringApplicationTemplate(loginToken);
                 //composition.put("/composer|identifier", "775b8c3e-6742-4b30-b443-c7d6aa6ec4ac");
-            composition.put("/composer|identifier", userUUID);
-                composition.put("/composer|name", "prashant");
-                if(values[index++].equals("Yes"))
+            composition.put("/composer|identifier", SessionInformation.userUUID);
+                composition.put("/composer|name", SessionInformation.userName);
+                if(rm.getInjuries().equals("Yes"))
                     composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0006, 'complication/value#1']", "Injury");
-                if(values[index++].equals("Yes"))
+                if(rm.getLimbIschaemia().equals("Yes"))
                     composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0006, 'complication/value#2']", "Limb ISchaemia");
                 //composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0006, 'complication/value#3']", "others sixteen");
-            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0006, 'complication/value#3']", values[index++]);
+            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0006, 'complication/value#3']", rm.getOthers());
                 //composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0014]|value", "reason thirteen");
-            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0014]|value", values[index++]);
+            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0014]|value", rm.getReason());
             // duration and duration type
-            String at0061 = "P"+values[index++]+values[index++].charAt(0);
+            String at0061 = "P"+rm.getDuration()+(rm.getType().charAt(0));
                 composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0061]|value", at0061);
                 //composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.intimation.v0]/items[at0002]|value", "nominated representative name one");
-            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.intimation.v0]/items[at0002]|value", values[index++]);
+            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.intimation.v0]/items[at0002]|value", rm.getNominatedRepresentativeName());
                 //composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.intimation.v0]/items[at0004]|value", "true");
-            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.intimation.v0]/items[at0004]|value", values[index++]);
+            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.intimation.v0]/items[at0004]|value", rm.getInformedToNR());
                 //composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.provider.v0]/items[at0002]|value", "incharge psychiatrist three");
-            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.provider.v0]/items[at0002]|value", values[index++]);
-                composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/time|value", "2020-04-08T18:30:00.000Z");
-                composition.put("/context/end_time", "2020-05-04T11:45:26.273Z");
-                composition.put("/context/health_care_facility|identifier", orgUUID);
+            composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/protocol[at0053]/items[openEHR-EHR-CLUSTER.provider.v0]/items[at0002]|value", rm.getInchargePsychiatrist());
+                composition.put("/content[openEHR-EHR-ACTION.procedure.v1]/time|value", rm.getStartDate());
+                composition.put("/context/end_time", time);
+                composition.put("/context/health_care_facility|identifier", SessionInformation.orgUUID);
                 composition.put("/context/health_care_facility|name", mheName);
                 composition.put("/context/location", "null");
-                composition.put("/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrc_metadata.v0]/items[at0006]/items[at0007]|value", values[index]);
-                composition.put("/context/setting", "openehr::238|"+values[index]+"|");
-                composition.put("/context/start_time", "2020-05-04T11:45:26.273Z");
+                composition.put("/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.ehrc_metadata.v0]/items[at0006]/items[at0007]|value", rm.getSetting());
+                composition.put("/context/setting", "openehr::238|"+rm.getSetting()+"|");
+                composition.put("/context/start_time", time);
 
             payload.put("composition", composition);
             payload.put("format", "ECISFLAT");
@@ -431,7 +449,7 @@ public class RestraintMonitoringUtility {
         return returnComposition;
     } //createEHRC_Proceduresv3
 
-    public JSONObject saveAllAssessmentCompositions(List<Composition> compositionList, String loginToken, String sessionToken, String orgUUID, String patientId, String userUUID) {
+    public JSONObject saveAllAssessmentCompositions(List<Composition> compositionList, String loginToken, String patientId) {
         final String RELATIVE_PATH = "saveAllAssessmentCompositions/Restraint";
         //String time = new Timestamp(System.currentTimeMillis()).toInstant().toString();
         final MediaType JSON
@@ -441,9 +459,9 @@ public class RestraintMonitoringUtility {
 
         try {
 
-            payload.put("orgUUID", orgUUID);
+            payload.put("orgUUID", SessionInformation.orgUUID);
             payload.put("patientId", patientId);
-            payload.put("token", sessionToken);
+            payload.put("token", SessionInformation.sessionToken);
 
             JSONArray uidata = new JSONArray();
             for(int i=0;i< compositionList.size();i++) {
@@ -464,7 +482,7 @@ public class RestraintMonitoringUtility {
             }
 
             payload.put("uidata", uidata);
-            payload.put("uuid", userUUID);
+            payload.put("uuid", SessionInformation.userUUID);
 
         }catch (Exception e) { e.printStackTrace(); }
 
