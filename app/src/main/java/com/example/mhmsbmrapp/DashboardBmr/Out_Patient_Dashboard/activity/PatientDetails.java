@@ -210,6 +210,4 @@ public class PatientDetails extends AppCompatActivity {
         };thread.start();
     }
 
-
-
 }

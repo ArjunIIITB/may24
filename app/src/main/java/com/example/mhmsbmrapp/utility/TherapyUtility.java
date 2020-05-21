@@ -20,6 +20,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class TherapyUtility {
+    JSONArray children;
 
     private OkHttpClient client = new OkHttpClient();
 
@@ -82,15 +83,20 @@ public class TherapyUtility {
     }
 
     public List<Therapy> getHistory(String loginToken, String sessionToken, String patientId, String orgUUID) {
-        JSONArray children;
+
         List<JSONObject> historyList = new ArrayList<>();
         List<Therapy> therapyList = new ArrayList<>();
-        try {
 
+        try {
             children = new BmrUtility().getVirtualFolderByPersonId(loginToken, patientId, orgUUID).getJSONArray("children");
+        }catch(Exception e){e.printStackTrace();}
+
+        try {
 
             for(int index = 0; index < children.length(); index++) {
                 if(children.getJSONObject(index).getString("name").contains("Therapy") == false)
+                    continue;
+                if(children.getJSONObject(index).has("virtualFolderData") == false)
                     continue;
                 JSONObject virtualFolder = children.getJSONObject(index).getJSONObject("virtualFolderData");
                 JSONArray data = virtualFolder.getJSONArray("data");

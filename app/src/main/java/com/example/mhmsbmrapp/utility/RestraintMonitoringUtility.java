@@ -27,7 +27,7 @@ public class RestraintMonitoringUtility {
 
     public List<RestraintMonitoring> getHistory(String loginToken, String sessionToken, String patientId, String orgUUID) {
         JSONArray children;
-        List<RestraintMonitoring> historyList = new ArrayList<>();
+
         List<RestraintMonitoring> restraintMonitoringList = new ArrayList<>();
         try {
 
@@ -69,23 +69,56 @@ public class RestraintMonitoringUtility {
                             String templateId = object.getString("templateId");
                             String name = object.getString("name");
                             //historyList.add(getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId));
-                            if (getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId) == null) {
+                            //System.out.println("*********************************"+getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId));
+                            if (getCompositionArray(loginToken, sessionToken, name, compositionUid, templateId, patientId) == null) {
                                 System.out.println("NOT OK");
                                 continue;
                             } else
                                 System.out.println("OK");
-                            JSONObject composition = getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId);
+                            JSONArray resultSet = getCompositionArray(loginToken, sessionToken, name, compositionUid, templateId, patientId);
+                            for(int pos = 0; pos < resultSet.length();pos++){
+                                JSONObject composition = resultSet.getJSONObject(pos);
+                                if(composition.getString("complication").equals("Limb ISchaemia"))
+                                    restraintMonitoring.setLimbIschaemia("Yes");
+                                else if(composition.getString("complication").equals("Injury"))
+                                    restraintMonitoring.setInjuries("Yes");
+                                else
+                                    restraintMonitoring.setOthers(composition.getString("complication"));
+                                if(composition.optString("intimationName", null) != null){
+                                    restraintMonitoring.setOthers(composition.getString("complication"));
+                                    restraintMonitoring.setDuration(composition.getString("duration"));
+                                    restraintMonitoring.setInchargePsychiatrist(composition.getString("inChargePsychiatrist"));
+                                    restraintMonitoring.setInformedToNR(composition.getString("intimation"));
+                                    restraintMonitoring.setNominatedRepresentativeName(composition.getString("intimationName"));
+                                    restraintMonitoring.setSetting(composition.getString("programContext"));
+                                    restraintMonitoring.setReason(composition.getString("reason"));
+                                }
+                            }
+                            /*JSONObject composition = getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId);
                             restraintMonitoring.setOthers(composition.getString("complication"));
+                            System.out.println(composition.getString("complication"));
                             restraintMonitoring.setDuration(composition.getString("duration"));
                             restraintMonitoring.setInchargePsychiatrist(composition.getString("inChargePsychiatrist"));
                             restraintMonitoring.setInformedToNR(composition.getString("intimation"));
                             restraintMonitoring.setNominatedRepresentativeName(composition.getString("intimationName"));
                             restraintMonitoring.setSetting(composition.getString("programContext"));
-                            restraintMonitoring.setReason(composition.getString("reason"));
+                            restraintMonitoring.setReason(composition.getString("reason"));*/
+                        } else if(object.getString("name").equals("diagnosis_matches_compositionIDs")) {
+                            String compositionUid = object.getString("compositionUid");
+                            String templateId = object.getString("templateId");
+                            String name = object.getString("name");
+                            if (getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId) == null) {
+                                System.out.println("NOT OK");
+                                continue;
+                            } else
+                                System.out.println("OK");
+                            //historyList.add(getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId));
+                            JSONObject composition = getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId);
+                            restraintMonitoring.setPsychiatricDiagnosis(composition.getString("problemDiagnosis"));
                         }
                     }catch (Exception e) {e.printStackTrace();}
                 }//for
-                System.out.println("jfldksjflkjasdlfkjaldkfjlksdjf"+restraintMonitoring.toString());
+                //System.out.println("jfldksjflkjasdlfkjaldkfjlksdjf"+restraintMonitoring.toString());
                 restraintMonitoringList.add(restraintMonitoring);
 
             }
@@ -144,6 +177,56 @@ public class RestraintMonitoringUtility {
         //System.out.println(composition.toString());
         return composition;
     } //getComposition (POST)
+
+    public JSONArray getCompositionArray(String loginToken, String sessionToken, String name, String compositionIDList, String templateId, String patientId) {
+
+        List<JSONObject> historyList = new ArrayList<JSONObject>();
+        JSONArray compositionArray = null;
+        final String RELATIVE_PATH = "getComposition/";
+
+        final MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+
+        JSONObject jsonObjectResult = null;
+
+        JSONObject jsonObject = new JSONObject();
+        try{
+            jsonObject.put("name", name);
+            jsonObject.put("personId", patientId);
+            jsonObject.put("templateId", templateId);
+            jsonObject.put("token", sessionToken);
+
+            JSONObject query_parameters = new JSONObject();
+            query_parameters.put("CompositionIDList", "\"{'"+compositionIDList+"'}\"");
+
+            jsonObject.put("query-parameters", query_parameters);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        RequestBody formBody = RequestBody.create(JSON, jsonObject.toString());
+
+        Request request = new Request.Builder()
+                .url(GlobalVariables.GLOBAL_PATH_REST+RELATIVE_PATH)
+                .post(formBody)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer "+loginToken)
+                .build();
+
+        Response response = null;
+
+        try {
+            response = client.newCall(request).execute();
+            ResponseBody rb = response.body();
+            jsonObjectResult = new JSONObject(rb.string());
+            compositionArray = jsonObjectResult.getJSONArray("resultSet");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        //System.out.println(composition.toString());
+        return compositionArray;
+    } //getCompositionArray (POST)
 
     public JSONObject getrMonitoringTemplate(String loginToken) {
         final String RELATIVE_PATH = "rMonitoringTemplate/";

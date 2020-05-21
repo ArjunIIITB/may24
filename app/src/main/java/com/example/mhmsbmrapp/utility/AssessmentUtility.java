@@ -5,6 +5,7 @@ package com.example.mhmsbmrapp.utility;
 import android.util.Log;
 
 import com.example.mhmsbmrapp.Login.GlobalVariables;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.model.Assessment;
 import com.example.mhmsbmrapp.model.Composition;
 
@@ -127,7 +128,7 @@ public class AssessmentUtility {
         return composition;
     } //getComposition (POST)
 
-    public Composition createCompositionEHRC_Service_requestv0(String values[], String loginToken, String sessionToken, String userUUID, String orgUUID, String patientId) {
+    public Composition createCompositionEHRC_Service_requestv0(String values[], String loginToken, String sessionToken, String patientId, String mheName) {
         Composition returnComposition = null;
 
         final String RELATIVE_PATH = "createComposition/";
@@ -150,7 +151,7 @@ public class AssessmentUtility {
                 composition.put("/language", "en");
                 composition.put("/territory", "IN");
                 //composition.put("/composer|name", "prashant");
-                composition.put("/composer|name", values[index++]);
+                composition.put("/composer|name", SessionInformation.userName);
 
                 //composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0062]|value", "IQ Assessment");
                 composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0062]|value", values[index++]);
@@ -163,11 +164,11 @@ public class AssessmentUtility {
 
 
 
-                composition.put("/composer|identifier", userUUID);
-                composition.put("/context/health_care_facility|identifier", orgUUID);
+                composition.put("/composer|identifier", SessionInformation.userUUID);
+                composition.put("/context/health_care_facility|identifier", SessionInformation.orgUUID);
 
                 //composition.put("/context/health_care_facility|name", "psm321op");
-                composition.put("/context/health_care_facility|name", values[index]);
+                composition.put("/context/health_care_facility|name", mheName);
                 composition.put("/context/start_time", time);
                 composition.put("/context/end_time", time);
                 composition.put("/context/location", "Bengaluru");
@@ -209,7 +210,7 @@ public class AssessmentUtility {
         return returnComposition;
     } //createCompositionEHRC_Service_requestv0
 
-    public Composition createCompositionEHRC_Psychological_assessmentv0(String values[], String loginToken, String sessionToken, String userUUID, String orgUUID, String patientId) {
+    public Composition createCompositionEHRC_Psychological_assessmentv0(String values[], String loginToken, String sessionToken, String patientId, String mheName) {
 
         Composition returnComposition = null;
         final String RELATIVE_PATH = "createComposition/";
@@ -231,7 +232,7 @@ public class AssessmentUtility {
                 composition.put("/language", "en");
                 composition.put("/territory", "IN");
                 //composition.put("/composer|name", "prashant");
-                composition.put("/composer|name", values[index++]);
+                composition.put("/composer|name", SessionInformation.userName);
 
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/data[at0001]/items[at0003]|value", "salient obeser ELEVEN ");
                 composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/data[at0001]/items[at0003]|value", values[index++]);
@@ -285,9 +286,9 @@ public class AssessmentUtility {
 
 
 
-                composition.put("/composer|identifier", userUUID);
-                composition.put("/context/health_care_facility|identifier", orgUUID);
-                composition.put("/context/health_care_facility|name", values[index]);
+                composition.put("/composer|identifier", SessionInformation.userUUID);
+                composition.put("/context/health_care_facility|identifier", SessionInformation.orgUUID);
+                composition.put("/context/health_care_facility|name", mheName);
                 composition.put("/context/start_time", time);
                 composition.put("/context/end_time", time);
                 composition.put("/context/location", "Bengaluru");
@@ -520,7 +521,6 @@ public class AssessmentUtility {
         }
         return returnObject;
     } //updateIPPatientQueue
-
 
     public Assessment getVisitRecord(String loginToken, String sessionToken, String patientId, JSONObject visit) {
         Assessment assessment = new Assessment();

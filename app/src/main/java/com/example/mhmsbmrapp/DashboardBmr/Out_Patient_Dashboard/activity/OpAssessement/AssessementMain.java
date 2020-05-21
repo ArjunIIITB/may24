@@ -195,14 +195,14 @@ public class AssessementMain extends Fragment {
 
         Thread thread = new Thread() {
             public void run() {
-                String values1[] = {userName, salientBehavioralObservation, backgroundInformation, testScale, testScore, impression, recommendation, languageTestedIn, informant, informantRelationship, reliability, adequacy, assessorFullName, assessorQualification, supervisorFullName, supervisorQualification, mheName};
-                String values12[] = {userName, reasonForReferral, referralNote, referredBy, mheName};
+                String values1[] = {salientBehavioralObservation, backgroundInformation, testScale, testScore, impression, recommendation, languageTestedIn, informant, informantRelationship, reliability, adequacy, assessorFullName, assessorQualification, supervisorFullName, supervisorQualification};
+                String values12[] = {reasonForReferral, referralNote, referredBy};
                 System.out.println(values1.length);
 
                 List<Composition> list = new ArrayList<Composition>();
 
-                list.add(new AssessmentUtility().createCompositionEHRC_Psychological_assessmentv0(values1, loginToken, sessionToken, userUUID, orgUUID, patientId));
-                list.add(new AssessmentUtility().createCompositionEHRC_Service_requestv0(values12, loginToken, sessionToken, userUUID, orgUUID, patientId));
+                list.add(new AssessmentUtility().createCompositionEHRC_Psychological_assessmentv0(values1, loginToken, sessionToken, patientId, mheName));
+                list.add(new AssessmentUtility().createCompositionEHRC_Service_requestv0(values12, loginToken, sessionToken, patientId, mheName));
 
                 for(int i=0;i<list.size();i++) {
                     System.out.println(list.get(i).toString());

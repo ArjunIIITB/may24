@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.Out_Patientbmr;
 import com.example.mhmsbmrapp.Login.GlobalVariables;
 import com.example.mhmsbmrapp.Login.MHPFlow;
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
 import com.example.mhmsbmrapp.utility.MHPAssignmentUtility;
 
@@ -67,10 +68,6 @@ public class AddPatients extends AppCompatActivity {
     String pincode_string;
     String Email_string;
     String Mobile_number_string;
-
-    String orgUUID;
-    String userUUID;
-    String userToken;
 
     JSONObject OTPResponse ;
 
@@ -212,70 +209,19 @@ public class AddPatients extends AppCompatActivity {
 
     public void createPatient(View v){
 
-        patient_First_name = findViewById(R.id.First_Name);
-        patient_First_name_string = patient_First_name.getText().toString();
-
-        id_number = findViewById(R.id.Enter_ID_Number);
-        idNumber = id_number.getText().toString();
-
-        patient_Last_name = findViewById(R.id.Last_Name);
-        patient_Last_name_string = patient_Last_name.getText().toString();
-
-        salutation = findViewById(R.id.Salutation);
-        salutation_string = salutation.getText().toString();
-
-        Address1 = findViewById(R.id.Address_1);
-        Address1_string = Address1.getText().toString();
-
-        Address2 = findViewById(R.id.Address_2);
-        Address2_string = Address2.getText().toString();
-
-        Date_of_birth = findViewById(R.id.Date_of_Birth);
-        Date_of_birth_string = Date_of_birth.getText().toString();
-
-        gender = findViewById(R.id.Gender);
-        gender_string = gender.getText().toString();
-
-        salutation_father = findViewById(R.id.Salutation_father);
-        salutation_father_string = salutation_father.getText().toString();
-
-        Father_name = findViewById(R.id.Father_Name);
-        Father_name_string = Father_name.getText().toString();
-
-        City = findViewById(R.id.City);
-        City_string = City.getText().toString();
-
-        district = findViewById(R.id.District);
-        district_string = district.getText().toString();
-
-        State = findViewById(R.id.State);
-        State_string = State.getText().toString();
-
-        pincode = findViewById(R.id.Pincode);
-        pincode_string = pincode.getText().toString();
-
-        Email = findViewById(R.id.Email);
-        Email_string = Email.getText().toString();
-
-        Mobile_number = findViewById(R.id.Mobile_number);
-        Mobile_number_string = Mobile_number.getText().toString();
+        setValues();
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         final String loginToken = sharedPreferences.getString("loginToken", "");
-        final String sessionToken = sharedPreferences.getString("sessionToken", "");
         try {
             String loginDecodedToken = MHPFlow.decoded(loginToken);
             Log.e("loginDecodedToken", loginDecodedToken);
-            orgUUID = new JSONObject(loginDecodedToken).getString("orgUUID");
-            userUUID = new JSONObject(loginDecodedToken).getString("userUUID");
-            userToken = new JSONObject(loginDecodedToken).getString("sessionToken");
-
 
             jsonObject = new JSONObject();
 
-            jsonObject.put("userToken", userToken);
-            jsonObject.put("userUuid", userUUID);
-            jsonObject.put("orgUuid", orgUUID);
+            jsonObject.put("userToken", SessionInformation.sessionToken);
+            jsonObject.put("userUuid", SessionInformation.userUUID);
+            jsonObject.put("orgUuid", SessionInformation.orgUUID);
             if(idProof) {
                 jsonObject.put("idType", "AB-ARK ID");
                 Log.e(" id number", idNumber);
@@ -325,18 +271,13 @@ public class AddPatients extends AppCompatActivity {
 
                 public void run() {
 
-
                     OkHttpClient client = new OkHttpClient();
 
-
                     final String RELATIVE_PATH = "createpatient/";
-                    String returnString = null;
                     final MediaType JSON
                             = MediaType.parse("application/json; charset=utf-8");
 
-
                     RequestBody formBody = RequestBody.create(JSON, jsonObject.toString());
-
                     Request request = new Request.Builder()
                             .url(GlobalVariables.GLOBAL_PATH_REST + RELATIVE_PATH)
                             .post(formBody)
@@ -349,10 +290,12 @@ public class AddPatients extends AppCompatActivity {
                     try {
                         response = client.newCall(request).execute();
                         ResponseBody rb = response.body();
-                        //System.out.println("patient------ "+rb.string());
-                        String personUUID = new JSONObject(rb.string()).getString("personUUID");
-                        JSONObject patient = new MHPAssignmentUtility().getPatientByPatientId(loginToken, sessionToken, personUUID);
 
+                        //String personUUID = new JSONObject(rb.string()).getString("personUUID");
+                        JSONObject pat = new JSONObject(rb.string());
+                        System.out.println(pat.toString());
+                        String personUUID = pat.getString("personUUID");
+                        JSONObject patient = new MHPAssignmentUtility().getPatientByPatientId(loginToken, SessionInformation.sessionToken, personUUID);
 
                         System.out.println("created Patient details "+patient.toString());
 
@@ -370,9 +313,61 @@ public class AddPatients extends AppCompatActivity {
 
         } catch(Exception e) {e.printStackTrace();}
 
-
-
     } // createPatient method
+
+
+    public void setValues() {
+
+        patient_First_name = findViewById(R.id.First_Name);
+        patient_First_name_string = patient_First_name.getText().toString();
+
+        id_number = findViewById(R.id.Enter_ID_Number);
+        idNumber = id_number.getText().toString();
+
+        patient_Last_name = findViewById(R.id.Last_Name);
+        patient_Last_name_string = patient_Last_name.getText().toString();
+
+        salutation = findViewById(R.id.Salutation);
+        salutation_string = salutation.getText().toString();
+
+        Address1 = findViewById(R.id.Address_1);
+        Address1_string = Address1.getText().toString();
+
+        Address2 = findViewById(R.id.Address_2);
+        Address2_string = Address2.getText().toString();
+
+        Date_of_birth = findViewById(R.id.Date_of_Birth);
+        Date_of_birth_string = Date_of_birth.getText().toString();
+
+        gender = findViewById(R.id.Gender);
+        gender_string = gender.getText().toString();
+
+        salutation_father = findViewById(R.id.Salutation_father);
+        salutation_father_string = salutation_father.getText().toString();
+
+        Father_name = findViewById(R.id.Father_Name);
+        Father_name_string = Father_name.getText().toString();
+
+        City = findViewById(R.id.City);
+        City_string = City.getText().toString();
+
+        district = findViewById(R.id.District);
+        district_string = district.getText().toString();
+
+        State = findViewById(R.id.State);
+        State_string = State.getText().toString();
+
+        pincode = findViewById(R.id.Pincode);
+        pincode_string = pincode.getText().toString();
+
+        Email = findViewById(R.id.Email);
+        Email_string = Email.getText().toString();
+
+        Mobile_number = findViewById(R.id.Mobile_number);
+        Mobile_number_string = Mobile_number.getText().toString();
+
+
+    }
 
 
 
