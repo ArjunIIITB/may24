@@ -179,11 +179,12 @@ public class Out_Patientbmr extends Fragment{
                     e.printStackTrace();
                 }
 
-                setuprecyclerview(lstAnime);
+
             }
 
         };
         thread.start();
+        setuprecyclerview(lstAnime);
 
     }
 

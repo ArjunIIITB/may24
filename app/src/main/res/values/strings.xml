@@ -19,4 +19,61 @@
 
     <!-- intent keys -->
     <string name="intent_message">intent_message</string>
+
+    <string-array name="settings">
+        <item>Out Patient</item>
+        <item>In Patient</item>
+    </string-array>
+
+    <string-array name="durationType">
+        <item>Days</item>
+        <item>Weeks</item>
+        <item>Months</item>
+    </string-array>
+
+    <string-array name="trueOrFalse">
+        <item>True</item>
+        <item>False</item>
+    </string-array>
+
+    <string-array name="YesOrNo">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="reasonForReferral">
+        <item>IQ Assessment</item>
+        <item>Specific Learning Assessment</item>
+        <item>Personality Assessment</item>
+        <item>Neuro Psychological Assessment</item>
+        <item>Psychopathology Assessment</item>
+        <item>Others</item>
+    </string-array>
+
+
+    <string-array name="languageTestedIn">
+        <item>Kannada</item>
+        <item>Hindi</item>
+        <item>English</item>
+    </string-array>
+    
+    
+    
+    <string-array name="therapyMethod">
+        <item>Individual</item>
+        <item>Couple/Family</item>
+        <item>Group</item>
+        <item>Other</item>
+    </string-array>
+
+
+
+    <string-array name="diagnosisType">
+        <item>Differential Diagnosis</item>
+        <item>Provisional Diagnosis</item>
+        <item>Tentative Diagnosis</item>
+        <item>Final Diagnosis</item>
+    </string-array>
+
+
 </resources>

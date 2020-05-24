@@ -1,30 +1,24 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRestraintMonitoring;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRestraintMonitoring.adapter.RecyclerViewAdapterOpRestraint;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRestraintMonitoring.model.AnimeOpRestraint;
-
+import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.mhmsbmrapp.model.RestraintMonitoring;
+import com.example.mhmsbmrapp.utility.RestraintMonitoringUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +26,6 @@ import java.util.List;
 public class RestraintHistory extends Fragment {
     private static final String TAG = "Fragment3";
 
-    Button button;
-    TextView addpatienttext;
-
-    private final String JSON_URL = "https://gist.githubusercontent.com/aws1994/f583d54e5af8e56173492d3f60dd5ebf/raw/c7796ba51d5a0d37fc756cf0fd14e54434c547bc/anime.json" ;
-    private JsonArrayRequest request ;
-    private RequestQueue requestQueue ;
     private List<AnimeOpRestraint> lstAnimeOpRestraint ;
     private RecyclerView recyclerView ;
 
@@ -56,61 +44,62 @@ public class RestraintHistory extends Fragment {
         lstAnimeOpRestraint = new ArrayList<>() ;
         recyclerView = v.findViewById(R.id.recyclerviewid);
         jsonrequest();
-
-        //json//
         return v;
     }
 
 
-    private void jsonrequest() {
+    public void jsonrequest() {
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        Thread thread = new Thread() {
+            public void run() {
 
-                JSONObject jsonObject  = null ;
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                String loginToken = sharedPreferences.getString("loginToken", "");
+                Log.e("loginToken is", loginToken);
+                String patientId = sharedPreferences.getString("patientId", "");
 
-                for (int i = 0 ; i < response.length(); i++ ) {
+                System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
+
+                System.out.println("======================================");
+                System.out.println("======================================");
 
 
-                    try {
-                        jsonObject = response.getJSONObject(i) ;
-                        AnimeOpRestraint anime = new AnimeOpRestraint() ;
-                        anime.setName(jsonObject.getString("name"));
-                        anime.setDescription(jsonObject.getString("description"));
-                        anime.setRating(jsonObject.getString("Rating"));
-                        anime.setCategorie(jsonObject.getString("categorie"));
-                        anime.setNb_episode(jsonObject.getInt("episode"));
-                        anime.setStudio(jsonObject.getString("studio"));
-                        anime.setImage_url(jsonObject.getString("img"));
-                        lstAnimeOpRestraint.add(anime);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                List<RestraintMonitoring> historyList = new RestraintMonitoringUtility().getHistory(loginToken, SessionInformation.sessionToken, patientId, SessionInformation.orgUUID);
+                for(RestraintMonitoring rm : historyList) {
+                    if(rm != null) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(rm.toString());
                     }
 
+                    try{
+                        if(rm != null) {
+                            System.out.println(rm.toString());
+                            AnimeOpRestraint anime = new AnimeOpRestraint();
+
+                            anime.setName(rm.getSetting());
+                            anime.setCategorie(rm.getNominatedRepresentativeName());
+                            anime.setImage_url(rm.getInchargePsychiatrist());
+                            lstAnimeOpRestraint.add(anime);
+                        }
+
+                    }catch(Exception e) { e.printStackTrace();}
 
                 }
 
-                setuprecyclerview(lstAnimeOpRestraint);
 
+
+                System.out.println("======================================");
+                System.out.println("======================================");
+                System.out.println(loginToken);
+                System.out.println(SessionInformation.sessionToken);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(request) ;
-
-
+        };
+        thread.start();
+        setuprecyclerview(lstAnimeOpRestraint);
     }
 
-    private void setuprecyclerview(List<AnimeOpRestraint> lstAnime) {
 
+    private void setuprecyclerview(List<AnimeOpRestraint> lstAnime) {
 
         RecyclerViewAdapterOpRestraint myadapter = new RecyclerViewAdapterOpRestraint(getActivity(),lstAnime) ;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

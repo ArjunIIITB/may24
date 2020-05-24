@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
 
-import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.model.Anime_Ip_Reffered;
+import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.RefferedIP.model.IPReferredModel;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.PatientDetails;
 import com.example.mhmsbmrapp.R;
 
@@ -23,11 +23,11 @@ import java.util.List;
 public class RecyclerView_Adapter_IpReffered extends RecyclerView.Adapter<RecyclerView_Adapter_IpReffered.MyViewHolder> {
 
     private Context mContext ;
-    private List<Anime_Ip_Reffered> mData ;
+    private List<IPReferredModel> mData ;
     RequestOptions option;
 
 
-    public RecyclerView_Adapter_IpReffered(Context mContext, List<Anime_Ip_Reffered> mData) {
+    public RecyclerView_Adapter_IpReffered(Context mContext, List<IPReferredModel> mData) {
         this.mContext = mContext;
         this.mData = mData;
 

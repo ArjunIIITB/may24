@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement.adapter.RecyclerViewAdapterassessement;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpAssessement.model.AnimeOpAssessement;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRestraintMonitoring.model.AnimeOpRestraint;
 import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpTherapy.model.AnimeOpTherapy;
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.Login.SessionInformation;
@@ -48,18 +49,6 @@ public class AssessementHistory extends Fragment {
     private static final String TAG = "Fragment3";
 
 
-
-
-    Button button;
-    TextView addpatienttext;
-
-
-    private String orgUUID = SessionInformation.orgUUID;
-    private String userUUID = SessionInformation.userUUID;
-    private String sessionToken = SessionInformation.sessionToken;
-
-    private JsonArrayRequest request ;
-    private RequestQueue requestQueue ;
     private List<AnimeOpAssessement> lstAnimeOpAssessement ;
     private RecyclerView recyclerView ;
 
@@ -82,7 +71,6 @@ public class AssessementHistory extends Fragment {
         Log.e("message", sharedPreferences.getString("sessionToken", ""));
         jsonrequest();
 
-        //json//
         return v;
     }
 
@@ -91,73 +79,6 @@ public class AssessementHistory extends Fragment {
 
 
     private void jsonrequest() {
-
-        /*Log.e(" ", "Just before jsonrequest() calling");
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        Log.e("message", sharedPreferences.getString("loginToken", ""));
-        Log.e("message", sharedPreferences.getString("sessionToken", ""));
-
-        final String loginToken = sharedPreferences.getString("loginToken", "");
-
-        Log.e(" ","inside jsonrequst()");
-        StringRequest requestString = new StringRequest(Request.Method.GET, JSON_URL,
-
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        System.out.println("inside on response()");
-                        Log.e("","4444444444444444444444444444444");
-                        Log.e("response", response);
-
-
-                        try {
-                            JSONArray arr = new JSONArray(response);
-
-                            for (int i = 0 ; i < arr.length(); i++ ) {
-
-                                JSONObject jsonObject = new JSONObject(arr.get(i).toString());
-
-                                Log.e(i+"   ",jsonObject.toString());
-                                AnimeOpAssessement anime = new AnimeOpAssessement();
-                                anime.setName(jsonObject.getString("patientName"));
-                                anime.setDescription(jsonObject.getString("assignedmhpName"));
-                                anime.setRating(jsonObject.getString("assignedmhpName"));
-                                anime.setStudio(jsonObject.getString("orgId"));
-                                //anime.setDateOfBirth(jsonObject.getInt("dateOfBirth"));
-                                anime.setImage_url(jsonObject.getString("admissionStatus"));
-                                //anime.setImage_url(jsonObject.getString("img"));
-                                lstAnimeOpAssessement.add(anime);
-                            }
-
-                        } catch (JSONException e) {
-                            Log.e("error occurred", e.getMessage());
-                            e.printStackTrace();
-                        }
-
-                        setuprecyclerview(lstAnimeOpAssessement);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("inside error response", "VolleyError error");
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Authorization", "Bearer " + loginToken);
-                params.put("Accept", "application/json");
-
-                return params;
-            }
-        };
-
-
-        requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(requestString) ;*/
-
 
         Thread thread = new Thread() {
             public void run() {
@@ -169,59 +90,37 @@ public class AssessementHistory extends Fragment {
 
 
                 System.out.println("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-                List<Assessment> therapyList = new AssessmentUtility().getHistory(loginToken, sessionToken, patientId, orgUUID);
+                List<Assessment> therapyList = new AssessmentUtility().getHistory(loginToken, SessionInformation.sessionToken, patientId, SessionInformation.orgUUID);
 
+                System.out.println("======================================");
+                System.out.println("======================================");
                 for (Assessment o : therapyList) {
                     try {
                         AnimeOpAssessement anime = new AnimeOpAssessement();
 
-                        //JSONObject obj = new JSONObject(item.get(i).toString());
-                        //JSONObject o = obj.getJSONArray("resultSet").getJSONObject(0);
-                        System.out.println("#@#@#@#@@@@@@@@@#@@@#@#@##@@#@#@##@"+o.getReasonForReferral()+"     "+o.getImpression()+"     "+o.getSupervisorName());
-                        anime.setName(o.getReasonForReferral());
-                        anime.setCategorie(o.getImpression());
-                        anime.setImage_url(o.getSupervisorName());
-                            /*if (o.has("symptomName")) {
-                                System.out.println(i + "  " + o.getString("symptomName"));
-                                anime.setName(o.getString("symptomName"));
-                            }
-                            else if (o.has("diagnosticCertainity")) {
-                                System.out.println(i + "  " + o.getString("diagnosticCertainity"));
-                                System.out.println(i + "  " + o.getString("problemDiagnosis"));
-                                System.out.println(i + "  " + o.getString("problemTerminology"));
-                                anime.setDescription(o.getString("diagnosticCertainity"));
-                            } else if (o.has("clinicalHistory")) {
-                                System.out.println(i + "  " + o.getString("clinicalHistory"));
-                                anime.setRating(o.getString("clinicalHistory"));
-                            } else if (o.has("illnessSummary")) {
-                                System.out.println(i + "  " + o.getString("illnessSummary"));
-                                anime.setCategorie(o.getString("illnessSummary"));
-                            } else if (o.has("clinicalSynopsis")) {
-                                System.out.println(i + "  " + o.getString("clinicalSynopsis"));
-                            } else if (o.has("medicationItem")) {
-                                System.out.println(i + "  " + o.getString("medicationItem"));
-                                System.out.println(i + "  " + o.getString("directionDuration"));
-                                System.out.println(i + "  " + o.getString("overallDirectionDescription"));
-                                System.out.println(i + "  " + o.getString("timingDescription"));
-                            }*/
+                        System.out.println();
 
-                        Log.e("message", "next item starts from here onwards");
+                        Log.e("language", o.getTestedLanguage());
+                        Log.e("reliability", o.getReliability());
+                        Log.e("informant name", o.getInformant());
+                        anime.setName(o.getTestedLanguage());
+                        anime.setCategorie(o.getReliability());
+                        anime.setImage_url(o.getInformant());
                         lstAnimeOpAssessement.add(anime);
+
+                        System.out.println();
+
                     }catch (Exception e) {e.printStackTrace();}
 
                 }
+                System.out.println("======================================");
+                System.out.println("======================================");
             }
         };
         thread.start();
         setuprecyclerview(lstAnimeOpAssessement);
 
-
-
-
-
     }
-
-
 
 
     private void setuprecyclerview(List<AnimeOpAssessement> lstAnimeOpAssessement) {

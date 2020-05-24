@@ -94,23 +94,36 @@
                     android:layout_marginTop="8dp"
                     android:ems="10"
                     android:paddingLeft="17dp"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
+                    android:maxLength="2"
                     android:hint="Session Number"
                     android:background="@drawable/border_style"
                    />
 
 
-                <EditText
-                    android:id="@+id/Therapy_Method"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:layout_marginTop="8dp"
-                    android:inputType="textPersonName"
-                    android:hint="Therapy Method"
-                    android:paddingLeft="17dp"
-                    android:background="@drawable/border_style"
-                   />
+
+            <Spinner
+                android:id="@+id/Therapy_Method"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_style"
+                android:entries= "@array/therapyMethod"
+                />
+
+
+
+            <!--<EditText
+                android:id="@+id/Therapy_Method"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:layout_marginTop="8dp"
+                android:inputType="textPersonName"
+                android:hint="Therapy Method"
+                android:paddingLeft="17dp"
+                android:background="@drawable/border_style"
+               />-->
 
             <EditText
                 android:id="@+id/Type_of_Therapy"

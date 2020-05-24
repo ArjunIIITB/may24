@@ -120,7 +120,8 @@
                     android:background="@drawable/border_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/History" />
+                    app:layout_constraintTop_toBottomOf="@+id/History"
+                    />
 
 
 
@@ -137,7 +138,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Illness_Summery" />
 
-                <EditText
+
+
+
+
+                <!--<Spinner
                     android:id="@+id/Diagnosis_Type"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -150,7 +155,23 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.246"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    android:entries="diagnosisType"
+                    />-->
+
+
+                <Spinner
+                    android:id="@+id/Diagnosis_Type"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.246"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    android:entries= "@array/diagnosisType"
+                    />
 
                 <EditText
                     android:id="@+id/ICD_Description"
@@ -218,6 +239,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Improvement_Status_text">
+
+
 
                     <RadioButton
                         android:id="@+id/Condition_Improved"

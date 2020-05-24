@@ -4,6 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.AdmittedToIP.Ip_Admitted;
+import com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.DischargedIP.Ip_Discharged;
+
 import static com.example.mhmsbmrapp.DashboardBmr.In_Patient_Dashboard.In_Patientbmr_TabFragment.int_items;
 
 public class Ip_bmr_AdapterMain extends FragmentPagerAdapter {

@@ -36,6 +36,10 @@ public class RestraintMonitoringUtility {
             for(int index = 0; index < children.length(); index++) {
                 if(children.getJSONObject(index).getString("name").contains("Restraint") == false)
                     continue;
+                if(children.getJSONObject(index).has("virtualFolderData") == false) {
+                    System.out.println(children.getJSONObject(index).toString());
+                    continue;
+                }
                 JSONObject virtualFolder = children.getJSONObject(index).getJSONObject("virtualFolderData");
                 JSONArray data = virtualFolder.getJSONArray("data");
                 RestraintMonitoring restraintMonitoring = new RestraintMonitoring();
@@ -84,7 +88,8 @@ public class RestraintMonitoringUtility {
                                     restraintMonitoring.setInjuries("Yes");
                                 else
                                     restraintMonitoring.setOthers(composition.getString("complication"));
-                                if(composition.optString("intimationName", null) != null){
+                                if(composition.isNull("intimationName") == false){
+                                //if(composition.optString("intimationName", null) != null){
                                     restraintMonitoring.setOthers(composition.getString("complication"));
                                     restraintMonitoring.setDuration(composition.getString("duration"));
                                     restraintMonitoring.setInchargePsychiatrist(composition.getString("inChargePsychiatrist"));
@@ -118,9 +123,7 @@ public class RestraintMonitoringUtility {
                         }
                     }catch (Exception e) {e.printStackTrace();}
                 }//for
-                //System.out.println("jfldksjflkjasdlfkjaldkfjlksdjf"+restraintMonitoring.toString());
                 restraintMonitoringList.add(restraintMonitoring);
-
             }
 
         }catch(Exception e) {e.printStackTrace();}

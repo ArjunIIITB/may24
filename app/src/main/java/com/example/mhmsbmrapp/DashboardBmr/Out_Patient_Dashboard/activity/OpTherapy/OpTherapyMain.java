@@ -1,6 +1,7 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpTherapy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,15 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.Success;
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
 import com.example.mhmsbmrapp.model.Composition;
 import com.example.mhmsbmrapp.model.Therapy;
+import com.example.mhmsbmrapp.utility.AssessmentUtility;
 import com.example.mhmsbmrapp.utility.TherapyUtility;
 
 import org.json.JSONObject;
@@ -117,8 +121,8 @@ public class OpTherapyMain extends Fragment {
         et = (EditText)getActivity().findViewById(R.id.Session_Number);
         sessionNumber = et.getText().toString();
 
-        et = (EditText)getActivity().findViewById(R.id.Therapy_Method);
-        therapyMethod = et.getText().toString();
+        Spinner spinner = (Spinner)getActivity().findViewById(R.id.Therapy_Method);
+        therapyMethod = spinner.getSelectedItem().toString();
 
         et = (EditText)getActivity().findViewById(R.id.Type_of_Therapy);
         typeOfTherapy = et.getText().toString();
@@ -187,8 +191,17 @@ public class OpTherapyMain extends Fragment {
                     System.out.println("---------------------->" + compositionList.get(i).toString());
                 }
 
-                System.out.println("________________________________________________________________________________________");
-                new TherapyUtility().saveAllAssessmentCompositionsTherapy(compositionList, loginToken, sessionToken, orgUUID, patientId, userUUID);
+
+                try {
+                    JSONObject obj = new TherapyUtility().saveAllAssessmentCompositionsTherapy(compositionList, loginToken, sessionToken, orgUUID, patientId, userUUID);
+                    if (obj.isNull("uuid") == false) {
+                        Intent intent = new Intent(getActivity(), Success.class);
+                        getActivity().startActivity(intent);
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         };
         thread.start();

@@ -143,11 +143,11 @@ public class Out_Completed_list extends Fragment {
                     e.printStackTrace();
                 }
 
-                setuprecyclerview(lstOut_Completed_list_AnimeOpBmrTab);
             }
 
         };
         thread.start();
+        setuprecyclerview(lstOut_Completed_list_AnimeOpBmrTab);
 
 
     }

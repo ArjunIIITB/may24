@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -181,8 +182,10 @@ public class FragmentOP extends Fragment {
         historyAndMentalStatus = et.getText().toString();
         et = (EditText) getActivity().findViewById(R.id.Illness_Summery);
         illnessSummary = et.getText().toString();
-        et = (EditText) getActivity().findViewById(R.id.Diagnosis_Type);
-        diagnosisType = et.getText().toString();
+
+        Spinner spinner = (Spinner) getActivity().findViewById(R.id.Diagnosis_Type);
+        diagnosisType = spinner.getSelectedItem().toString();
+
         et = (EditText) getActivity().findViewById(R.id.ICD_Description);
         icdDescription = et.getText().toString();
         et = (EditText) getActivity().findViewById(R.id.ICD_10_Code);

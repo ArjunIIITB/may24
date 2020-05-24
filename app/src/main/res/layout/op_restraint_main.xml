@@ -10,263 +10,389 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="800dp"
-                tools:context=".OpBmrFolder.OpBmr1">
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
 
-                <EditText
-                    android:id="@+id/editText11"
-                    android:layout_width="137dp"
-                    android:layout_height="38dp"
-                    android:ems="10"
-                    android:hint="Education"
-                    android:inputType="textPersonName"
-                    android:textSize="12sp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.175"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.069" />
-
-                <EditText
-                    android:id="@+id/editText12"
-                    android:layout_width="137dp"
-                    android:layout_height="38dp"
-                    android:ems="10"
-                    android:hint="Occupation"
-                    android:inputType="textPersonName"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.791"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.07" />
-
-                <EditText
-                    android:id="@+id/editText13"
-                    android:layout_width="117dp"
-                    android:layout_height="53dp"
-                    android:ems="10"
-                    android:hint="Reffer By"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.163"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.234" />
-
-                <EditText
-                    android:id="@+id/editText14"
-                    android:layout_width="168dp"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:hint="Referal Note"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.835"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.234" />
-
-                <EditText
-                    android:id="@+id/editText18"
-                    android:layout_width="152dp"
-                    android:layout_height="38dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginLeft="28dp"
-                    android:ems="10"
-                    android:hint="Language Tested In*"
-                    android:inputType="textPersonName"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.468" />
-
-                <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="162dp"
-                    android:layout_height="37dp"
-                    android:layout_marginStart="216dp"
-                    android:layout_marginLeft="216dp"
-                    android:ems="10"
-                    android:hint="Background Information"
-                    android:inputType="textPersonName"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.467" />
-
-                <EditText
-                    android:id="@+id/editText3"
-                    android:layout_width="162dp"
-                    android:layout_height="37dp"
-                    android:layout_marginStart="216dp"
-                    android:layout_marginLeft="216dp"
-                    android:ems="10"
-                    android:hint="Informant Relationship"
-                    android:inputType="textPersonName"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.546" />
-
-                <EditText
-                    android:id="@+id/editText4"
-                    android:layout_width="162dp"
-                    android:layout_height="37dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginLeft="28dp"
-                    android:ems="10"
-                    android:hint="Informant"
-                    android:inputType="textPersonName"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.546" />
-
-                <RadioButton
-                    android:id="@+id/radioButton4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Review  SOS"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <Button
-                    android:id="@+id/button9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dashboard"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.257"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <Button
-                    android:id="@+id/button10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Submit"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.334"
-                    app:layout_constraintStart_toEndOf="@+id/button9"
-                    app:layout_constraintTop_toBottomOf="@+id/radioButton4"
-                    app:layout_constraintVertical_bias="0.757" />
 
                 <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Restraint Monitoring Form"
+                    android:textColor="#813D7E"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"/>
+                <TextView
+                    android:id="@+id/basic_details"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Basic Details"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPurple"
-                    android:textSize="16sp"
+                    android:textColor="#090909"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"/>
 
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.469"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.018" />
 
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Referral Details"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPurple"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.503"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.163" />
+                <EditText
+                    android:id="@+id/nominatedRepresentativeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="12dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:background="@drawable/border_style"
+                    android:hint="Nominated Representative Name*" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Assessment Details"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPurple"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.526"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.399" />
+                <EditText
+                    android:id="@+id/inChargePsychiatry"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:hint="In-Charge Psychiatrist"
+                    android:background="@drawable/border_style" />
+
+                <EditText
+                    android:id="@+id/nameOfMHE"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:hint="Name of MHE/ Out Patient Clinic"
+                    android:background="@drawable/border_style"/>
 
                 <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/reffered_details_text"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Treatment Plan"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPurple"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.492"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.607" />
+                    android:text="Clinical Details"
+                    android:textColor="#050505"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="8dp"
+                    />
 
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Follow Up Recommendations"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorPurple"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.768" />
 
                 <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="325dp"
-                    android:layout_height="41dp"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.32" />
+                    android:id="@+id/Setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_style"
+                    android:entries= "@array/settings"
+                    />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+
+                <EditText
+                    android:id="@+id/PsychiatricDiagnosis"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:hint="Psychiatric Diagnosis"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                    />
+
+                <Spinner
+                    android:id="@+id/InformedToNR"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_style"
+                    android:layout_marginTop="8dp"
+                    android:entries="@array/YesOrNo"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Restraint Information"
+                    android:textColor="#050505"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <EditText
+                    android:id="@+id/Duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="17dp"
+                    android:inputType="textPersonName"
+                    android:background="@drawable/border_style"
+                    android:hint="Duration" />
+
+                <Spinner
+                    android:id="@+id/Duration_Type"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_style"
+                    android:entries="@array/durationType"
+                    />
+
+                <EditText
+                    android:id="@+id/Reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:hint="Reason"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:columnCount="2"
+                    android:rowCount="1">
+
+                    <EditText
+                        android:id="@+id/StartDate"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="4dp"
+                        android:background="@drawable/border_style"
+                        android:hint="Start Date*" />
+
+                    <EditText
+                        android:id="@+id/StartTime"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:paddingRight="4dp"
+                        android:paddingLeft="17dp"
+                        android:background="@drawable/border_style"
+                        android:hint="Start Time*" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:columnCount="2"
+                    android:rowCount="1">
+
+                    <EditText
+                        android:id="@+id/EndDate"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="4dp"
+                        android:background="@drawable/border_style"
+                        android:hint="End Date*" />
+
+                    <EditText
+                        android:id="@+id/EndTime"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:paddingRight="4dp"
+                        android:paddingLeft="17dp"
+                        android:background="@drawable/border_style"
+                        android:hint="End Time*" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Any Complications"
+                    android:textColor="#050505"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <Spinner
+                    android:id="@+id/SpinnerInjuries"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_style"
+                    android:entries="@array/YesOrNo"
+                    />
+
+
+                <EditText
+                    android:id="@+id/Others"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:hint="Others*"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                    />
+
+                <Spinner
+                    android:id="@+id/limb_Ischaemia"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_style"
+                    android:layout_marginTop="8dp"
+                    android:entries="@array/YesOrNo"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Periodic Restraint Monitoring"
+                    android:textColor="#050505"
+                    android:textSize="18dp"
+                    android:textFontWeight="600"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:columnCount="2"
+                    android:rowCount="1">
+
+                    <EditText
+                        android:id="@+id/Monitoring_Date"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="4dp"
+                        android:background="@drawable/border_style"
+                        android:hint="Monitoring Date*" />
+
+                    <EditText
+                        android:id="@+id/Pulse"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:paddingRight="4dp"
+                        android:paddingLeft="17dp"
+                        android:background="@drawable/border_style"
+                        android:hint="Pulse" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:columnCount="2"
+                    android:rowCount="1">
+
+                    <EditText
+                        android:id="@+id/Temperature"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="17dp"
+                        android:paddingRight="4dp"
+                        android:background="@drawable/border_style"
+                        android:hint="Temperature" />
+
+                    <EditText
+                        android:id="@+id/Respiratory_Rate"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:paddingRight="4dp"
+                        android:paddingLeft="17dp"
+                        android:background="@drawable/border_style"
+                        android:hint="Respiratory Rate" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/Injuries"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="17dp"
+                    android:background="@drawable/border_style"
+                    android:layout_marginTop="8dp"
+                    android:inputType="textPersonName"
+                    android:hint="Injuries"
+                    />
+
+                <Spinner
+                    android:id="@+id/BloodSupplyToLimbs"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_style"
+                    android:text="Blood supply to limbs?"
+                    android:textColor="#813D7E"
+                    android:textSize="16dp"
+                    android:layout_marginTop="8dp"
+                    android:entries="@array/YesOrNo"
+                    />
+
+                <Spinner
+                    android:id="@+id/BreathingProblem"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_style"
+                    android:text="Breathing Problem"
+                    android:textColor="#813D7E"
+                    android:textSize="16dp"
+                    android:layout_marginTop="8dp"
+                    android:entries="@array/YesOrNo"
+                    />
+
+                <Button
+                    android:id="@+id/Add"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border_style"
+                    android:text="Add"/>
+
+
+                <Button
+                    android:id="@+id/submit_Restraint_Monitoring"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#FBFBFB"
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_rounded"
+                    android:text="Submit"/>
+
+            </LinearLayout>
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
 

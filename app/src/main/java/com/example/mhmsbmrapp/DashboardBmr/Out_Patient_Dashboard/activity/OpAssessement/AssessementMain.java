@@ -17,12 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mhmsbmrapp.AddPatientFolder.AddPatients;
+import com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.Success;
 import com.example.mhmsbmrapp.Login.MHPFlow;
 import com.example.mhmsbmrapp.Login.SessionInformation;
 import com.example.mhmsbmrapp.R;
 import com.example.mhmsbmrapp.model.Assessment;
 import com.example.mhmsbmrapp.model.Composition;
 import com.example.mhmsbmrapp.utility.AssessmentUtility;
+import com.example.mhmsbmrapp.utility.RestraintMonitoringUtility;
 
 import org.json.JSONObject;
 
@@ -101,10 +103,9 @@ public class AssessementMain extends Fragment {
                 setValues();
 
                 System.out.println("------------------------------");
-                System.out.println(languageTestedIn);
-                System.out.println(reasonForReferral);
-                System.out.println(occupation);
-                System.out.println(recommendation);
+                System.out.println(assessment.getReasonForReferral());
+                System.out.println(assessment.getAdequacy());
+                System.out.println(assessment.getReliability());
                 System.out.println("------------------------------");
 
                 goToAssessment();
@@ -133,7 +134,8 @@ public class AssessementMain extends Fragment {
         assessment.setReferralNote(et.getText().toString().trim());
 
         Spinner spinner = (Spinner)getActivity().findViewById(R.id.reason_for_Referral);
-        //reasonForReferral = spinner.getSelectedItem().toString().trim();
+        reasonForReferral = spinner.getSelectedItem().toString();
+        assessment.setReasonForReferral(spinner.getSelectedItem().toString());
 
         et = (EditText)getActivity().findViewById(R.id.language_Tested_In);
         languageTestedIn = et.getText().toString().trim();
@@ -167,6 +169,13 @@ public class AssessementMain extends Fragment {
         testScore = et.getText().toString().trim();
         assessment.setTestScores(et.getText().toString().trim());
 
+        spinner = (Spinner)getActivity().findViewById(R.id.reliability);
+        assessment.setReliability(spinner.getSelectedItem().toString());
+
+        spinner = (Spinner)getActivity().findViewById(R.id.adequacy);
+        assessment.setAdequacy(spinner.getSelectedItem().toString());
+
+
         et = (EditText)getActivity().findViewById(R.id.recommendation);
         recommendation = et.getText().toString().trim();
         assessment.setRecommendation(et.getText().toString().trim());
@@ -186,6 +195,8 @@ public class AssessementMain extends Fragment {
         et = (EditText)getActivity().findViewById(R.id.supervisorQualification);
         supervisorQualification = et.getText().toString().trim();
         assessment.setSupervisorQualification(et.getText().toString().trim());
+
+        System.out.println(assessment.toString());
 
     }
 
@@ -208,9 +219,16 @@ public class AssessementMain extends Fragment {
                     System.out.println(list.get(i).toString());
                 }
 
-                JSONObject object = new AssessmentUtility().saveAllAssessmentCompositions(list,loginToken, sessionToken, orgUUID, patientId, userUUID);
-                System.out.println("\n\n\n\n\n----------------------------------------------------------------");
-                System.out.println(object.toString());
+
+                try {
+                    JSONObject obj = new AssessmentUtility().saveAllAssessmentCompositions(list,loginToken, sessionToken, orgUUID, patientId, userUUID);
+                    if (obj.isNull("uuid") == false) {
+                        Intent intent = new Intent(getActivity(), Success.class);
+                        getActivity().startActivity(intent);
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
         thread.start();
@@ -219,5 +237,4 @@ public class AssessementMain extends Fragment {
 
 
 }
-
 

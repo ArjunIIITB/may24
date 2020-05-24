@@ -101,15 +101,16 @@
                 <Spinner
                     android:id="@+id/reason_for_Referral"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:ems="10"
+                    android:layout_height="38dp"
                     android:layout_marginTop="8dp"
-                    android:inputType="textPersonName"
-                    android:tooltipText="Reason"
+                    android:background="@drawable/border_style"
                     android:contextClickable="true"
+                    android:ems="10"
                     android:hint="Reason for Referral"
+                    android:inputType="textPersonName"
                     android:paddingLeft="17dp"
-                    android:background="@drawable/border_style" />
+                    android:tooltipText="Reason"
+                    android:entries="@array/reasonForReferral"/>
 
                 <TextView
                     android:id="@+id/textView6"
@@ -226,7 +227,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/Mobile_number">
 
                     <Spinner
-                        android:id="@+id/button2"
+                        android:id="@+id/reliability"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:ems="10"
@@ -243,10 +244,12 @@
                         android:hint="OTP"
                         android:background="@drawable/border_style"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0" />
+                        app:layout_constraintHorizontal_bias="1.0"
+                        android:entries="@array/YesOrNo"
+                        />
 
                     <Spinner
-                        android:id="@+id/editText19"
+                        android:id="@+id/adequacy"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
                         android:ems="10"
@@ -263,7 +266,9 @@
                         android:hint="OTP"
                         android:background="@drawable/border_style"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0" />
+                        app:layout_constraintHorizontal_bias="1.0"
+                        android:entries="@array/YesOrNo"
+                        />
                 </LinearLayout>
 
                 <TextView
