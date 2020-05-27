@@ -94,8 +94,10 @@ public class RestraintMain extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            System.out.println("inside onclick of submit therapy button");
-            setValues();
+
+                boolean ret = setValues();
+                if(ret == false)
+                    return;
 
                 System.out.println("===============================================");
                 System.out.println(rm.toString());
@@ -109,17 +111,28 @@ public class RestraintMain extends Fragment {
         return view;
     }
 
-    public void setValues(){
+    public boolean setValues(){
         EditText et = (EditText)getActivity().findViewById(R.id.nominatedRepresentativeName);
         rm.setNominatedRepresentativeName(et.getText().toString().trim());
+        if(rm.getNominatedRepresentativeName().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
         et = (EditText)getActivity().findViewById(R.id.nameOfMHE);
         et.setText(mheName);
+        et.setFocusable(false);
         rm.setNameOfMHE(mheName);
+
         et = (EditText)getActivity().findViewById(R.id.inChargePsychiatry);
         rm.setInchargePsychiatrist(et.getText().toString().trim());
+        if(rm.getInchargePsychiatrist().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
         Spinner spinner = (Spinner)getActivity().findViewById(R.id.Setting);
         rm.setSetting(spinner.getSelectedItem().toString());
-
         spinner = (Spinner)getActivity().findViewById(R.id.InformedToNR);
         if(spinner.getSelectedItem().toString().equals("Yes"))
             rm.setInformedToNR("true");
@@ -127,30 +140,67 @@ public class RestraintMain extends Fragment {
             rm.setInformedToNR("false");
 
         et = (EditText)getActivity().findViewById(R.id.PsychiatricDiagnosis);
-        rm.setPsychiatricDiagnosis(et.getText().toString());
+        rm.setPsychiatricDiagnosis(et.getText().toString().trim());
+        if(rm.getPsychiatricDiagnosis().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
         et = (EditText)getActivity().findViewById(R.id.Duration);
         rm.setDuration(et.getText().toString().trim());
+        if(rm.getDuration().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
+
         spinner = (Spinner)getActivity().findViewById(R.id.Duration_Type);
         rm.setType(spinner.getSelectedItem().toString());
+
         et = (EditText)getActivity().findViewById(R.id.Reason);
         rm.setReason(et.getText().toString().trim());
+        if(rm.getReason().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
         spinner = (Spinner)getActivity().findViewById(R.id.SpinnerInjuries);
         rm.setInjuries(spinner.getSelectedItem().toString());
         spinner = (Spinner)getActivity().findViewById(R.id.limb_Ischaemia);
         rm.setLimbIschaemia(spinner.getSelectedItem().toString());
+
         et = (EditText)getActivity().findViewById(R.id.Others);
         rm.setOthers(et.getText().toString().trim());
+        if(rm.getOthers().isEmpty()){
+            et.setError("this field is required");
+            return false;
+        }
 
         rm.setMonitoringDate(monitoringDate);
 
         et = (EditText)getActivity().findViewById(R.id.Pulse);
         rm.setPulse(et.getText().toString().trim());
+        if(rm.getPulse().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
         et = (EditText)getActivity().findViewById(R.id.Temperature);
         rm.setTemperature(et.getText().toString().trim());
+        if(rm.getTemperature().isEmpty()) {
+            et.setError("this field is required");
+            return false;
+        }
+
         et = (EditText)getActivity().findViewById(R.id.Respiratory_Rate);
         rm.setRespiratoryRate(et.getText().toString().trim());
+        if(rm.getRespiratoryRate().isEmpty())
+            return false;
+
         et = (EditText)getActivity().findViewById(R.id.Injuries);
         rm.setInjuries2(et.getText().toString().trim());
+        if(rm.getInjuries2().isEmpty())
+            return false;
 
         spinner = (Spinner)getActivity().findViewById(R.id.BloodSupplyToLimbs);
         if(spinner.getSelectedItem().toString().equals("Yes"))
@@ -166,7 +216,7 @@ public class RestraintMain extends Fragment {
 
         rm.setStartDate("2020-05-20T09:49:12.014Z");
 
-        System.out.println(rm.toString());
+        return true;
     }
 
 

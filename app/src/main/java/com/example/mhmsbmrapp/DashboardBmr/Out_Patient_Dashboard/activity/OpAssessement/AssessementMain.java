@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -100,7 +101,9 @@ public class AssessementMain extends Fragment {
             @Override
             public void onClick(View v) {
                 System.out.println("inside onclick of submit therapy button");
-                setValues();
+                boolean ret = setValues();
+                if(ret == false)
+                    return;
 
                 System.out.println("------------------------------");
                 System.out.println(assessment.getReasonForReferral());
@@ -116,13 +119,21 @@ public class AssessementMain extends Fragment {
     }
 
 
-    private void setValues() {
+    private boolean setValues() {
         EditText et = (EditText)getActivity().findViewById(R.id.asmtEducation);
         education = et.getText().toString().trim();
+        if(education.trim().isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setEducation(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.asmtOccupation);
         occupation = et.getText().toString().trim();
+        if(occupation.trim().isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setOccupation(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.referred_By);
@@ -135,14 +146,24 @@ public class AssessementMain extends Fragment {
 
         Spinner spinner = (Spinner)getActivity().findViewById(R.id.reason_for_Referral);
         reasonForReferral = spinner.getSelectedItem().toString();
+        if(reasonForReferral.equals("Reason for Referral"))
+            reasonForReferral = "";
         assessment.setReasonForReferral(spinner.getSelectedItem().toString());
 
-        et = (EditText)getActivity().findViewById(R.id.language_Tested_In);
-        languageTestedIn = et.getText().toString().trim();
+        spinner = (Spinner) getActivity().findViewById(R.id.language_Tested_In);
+        languageTestedIn = spinner.getSelectedItem().toString().trim();
+        if(languageTestedIn.equals("Language Tested In *")){
+            Toast.makeText(getActivity(), getResources().getString(R.string.spinnerEmpytError)+"\"Language Tested In\"", Toast.LENGTH_LONG).show();
+            return false;
+        }
         assessment.setTestedLanguage(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.background_Information);
         backgroundInformation = et.getText().toString().trim();
+        if(backgroundInformation.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setBackgroundInformation(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.informant);
@@ -155,37 +176,75 @@ public class AssessementMain extends Fragment {
 
         et = (EditText)getActivity().findViewById(R.id.salient_Behavioral_Obeservations);
         salientBehavioralObservation = et.getText().toString().trim();
+        if(salientBehavioralObservation.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setBackgroundInformation(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.impressions);
         impression = et.getText().toString().trim();
+        if(impression.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setImpression(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.test_Scales_Administered);
         testScale = et.getText().toString().trim();
+        if(testScale.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setTestScale(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.test_Score);
         testScore = et.getText().toString().trim();
+        if(testScore.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setTestScores(et.getText().toString().trim());
 
         spinner = (Spinner)getActivity().findViewById(R.id.reliability);
+        reliability = spinner.getSelectedItem().toString();
+        if(reliability.equals("Reliability *")){
+            Toast.makeText(getActivity(), getResources().getString(R.string.spinnerEmpytError)+"\"Reliability *\"", Toast.LENGTH_LONG).show();
+            return false;
+        }
         assessment.setReliability(spinner.getSelectedItem().toString());
 
         spinner = (Spinner)getActivity().findViewById(R.id.adequacy);
+        adequacy = spinner.getSelectedItem().toString();
+        if(adequacy.equals("Adequacy *")){
+            Toast.makeText(getActivity(), getResources().getString(R.string.spinnerEmpytError)+"\"Adequacy *\"", Toast.LENGTH_LONG).show();
+            return false;
+        }
         assessment.setAdequacy(spinner.getSelectedItem().toString());
 
 
         et = (EditText)getActivity().findViewById(R.id.recommendation);
         recommendation = et.getText().toString().trim();
+        if(recommendation.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setRecommendation(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.assessor_Full_Name);
         assessorFullName = et.getText().toString().trim();
+        if(assessorFullName.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setAssessorName(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.assessor_Qualification);
         assessorQualification = et.getText().toString().trim();
+        if(assessorQualification.isEmpty()){
+            et.setError(getResources().getString(R.string.fieldEmptyError));
+            return false;
+        }
         assessment.setAssessorQualification(et.getText().toString().trim());
 
         et = (EditText)getActivity().findViewById(R.id.supervisor_Full_Name);
@@ -197,6 +256,13 @@ public class AssessementMain extends Fragment {
         assessment.setSupervisorQualification(et.getText().toString().trim());
 
         System.out.println(assessment.toString());
+
+        if(informantRelationship.isEmpty())
+            informant = "";
+        if(informant.isEmpty())
+            informantRelationship = "";
+
+        return true;
 
     }
 
@@ -213,7 +279,8 @@ public class AssessementMain extends Fragment {
                 List<Composition> list = new ArrayList<Composition>();
 
                 list.add(new AssessmentUtility().createCompositionEHRC_Psychological_assessmentv0(values1, loginToken, sessionToken, patientId, mheName));
-                list.add(new AssessmentUtility().createCompositionEHRC_Service_requestv0(values12, loginToken, sessionToken, patientId, mheName));
+                if((!values12[0].isEmpty()) || (!values12[1].isEmpty()) || (!values12[2].isEmpty()))
+                    list.add(new AssessmentUtility().createCompositionEHRC_Service_requestv0(values12, loginToken, sessionToken, patientId, mheName));
 
                 for(int i=0;i<list.size();i++) {
                     System.out.println(list.get(i).toString());

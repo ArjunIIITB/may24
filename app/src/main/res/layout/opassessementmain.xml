@@ -122,7 +122,7 @@
                     android:layout_marginTop="8dp" />
 
 
-                <EditText
+                <Spinner
                     android:id="@+id/language_Tested_In"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -131,7 +131,9 @@
                     android:paddingLeft="17dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="Language Tested In *" />
+                    android:hint="Language Tested In *"
+                    android:entries="@array/languageTestedIn"
+                    />
 
                 <EditText
                     android:id="@+id/background_Information"
@@ -245,7 +247,7 @@
                         android:background="@drawable/border_style"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        android:entries="@array/YesOrNo"
+                        android:entries="@array/reliabilityYN"
                         />
 
                     <Spinner
@@ -267,7 +269,7 @@
                         android:background="@drawable/border_style"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        android:entries="@array/YesOrNo"
+                        android:entries="@array/adequacyYN"
                         />
                 </LinearLayout>
 

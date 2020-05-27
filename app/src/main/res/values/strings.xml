@@ -20,6 +20,12 @@
     <!-- intent keys -->
     <string name="intent_message">intent_message</string>
 
+
+    <!--ErrorMessages-->
+    <string name="fieldEmptyError">this field is required</string>
+    <string name="spinnerEmpytError">select any option from the drop down menu</string>
+
+
     <string-array name="settings">
         <item>Out Patient</item>
         <item>In Patient</item>
@@ -41,22 +47,6 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
-
-    <string-array name="reasonForReferral">
-        <item>IQ Assessment</item>
-        <item>Specific Learning Assessment</item>
-        <item>Personality Assessment</item>
-        <item>Neuro Psychological Assessment</item>
-        <item>Psychopathology Assessment</item>
-        <item>Others</item>
-    </string-array>
-
-
-    <string-array name="languageTestedIn">
-        <item>Kannada</item>
-        <item>Hindi</item>
-        <item>English</item>
-    </string-array>
     
     
     
@@ -77,5 +67,36 @@
         <item>Final Diagnosis</item>
     </string-array>
 
+
+    <!--Assessment-->
+
+    <string-array name="reasonForReferral">
+        <item>Reason for Referral</item>
+        <item>IQ Assessment</item>
+        <item>Specific Learning Assessment</item>
+        <item>Personality Assessment</item>
+        <item>Neuro Psychological Assessment</item>
+        <item>Psychopathology Assessment</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="languageTestedIn">
+        <item>Language Tested In *</item>
+        <item>Kannada</item>
+        <item>Hindi</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="reliabilityYN">
+        <item>Reliability *</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="adequacyYN">
+        <item>Adequacy *</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
 </resources>

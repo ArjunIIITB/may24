@@ -154,13 +154,18 @@ public class AssessmentUtility {
                 composition.put("/composer|name", SessionInformation.userName);
 
                 //composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0062]|value", "IQ Assessment");
-                composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0062]|value", values[index++]);
+                if(! values[index].isEmpty())
+                    composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0062]|value", values[index]);
+                index++;
 
                 //composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0064]|value", "referral note three");
-                composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0064]|value", values[index++]);
+                if(! values[index].isEmpty())
+                    composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/activities[at0001]/description[at0009]/items[at0064]|value", values[index]);
+                index++;
 
                 //composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/protocol[at0008]/items[openEHR-EHR-CLUSTER.organisation.v0]/items[at0005]/items[openEHR-EHR-CLUSTER.person_name.v0]/items[at0001]|value", "referred by three");
-                composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/protocol[at0008]/items[openEHR-EHR-CLUSTER.organisation.v0]/items[at0005]/items[openEHR-EHR-CLUSTER.person_name.v0]/items[at0001]|value", values[index++]);
+                if(! values[index].isEmpty())
+                    composition.put("/content[openEHR-EHR-INSTRUCTION.service_request.v1]/protocol[at0008]/items[openEHR-EHR-CLUSTER.organisation.v0]/items[at0005]/items[openEHR-EHR-CLUSTER.person_name.v0]/items[at0001]|value", values[index]);
 
 
 
@@ -253,18 +258,21 @@ public class AssessmentUtility {
                 composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/data[at0001]/items[at0009]|value", values[index++]);
 
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/data[at0001]/items[at0010]|value", "2020-05-02T16:39:42.536Z");
-
-                composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/data[at0001]/items[at0010]|value", "2020-05-02T16:39:42.536Z");
+                composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/data[at0001]/items[at0010]|value", time);
 
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0011]|value", "Kannada");
                 composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0011]|value", values[index++]);
 
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0013, 'Informant#0']/items[at0014]|value", "informant ELEVEN");
-                composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0013, 'Informant#0']/items[at0014]|value", values[index++]);
-
+                if(! values[index].isEmpty()) {
+                    composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0013, 'Informant#0']/items[at0014]|value", values[index]);
+                }
+                index++;
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0013, 'Informant#0']/items[at0015]|value", "informant relationship ELEVEN");
-                composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0013, 'Informant#0']/items[at0015]|value", values[index++]);
-
+                if(! values[index].isEmpty()) {
+                    composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0013, 'Informant#0']/items[at0015]|value", values[index]);
+                }
+                index++;
 
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0016]|value", "Yes");
                 composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0012]/items[at0016]|value", values[index++]);
@@ -279,10 +287,14 @@ public class AssessmentUtility {
                 composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0018]/items[at0020]|value", values[index++]);
 
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0021]/items[at0022]|value", "full name fouELEVENr");
-                composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0021]/items[at0022]|value", values[index++]);
-
+                if(! values[index].isEmpty()) {
+                    composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0021]/items[at0022]|value", values[index]);
+                }
+                index++;
                 //composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0021]/items[at0023]|value", "q ELEVEN");
-                composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0021]/items[at0023]|value", values[index++]);
+                if(! values[index].isEmpty()) {
+                    composition.put("/content[openEHR-EHR-EVALUATION.psychological_assessment.v0]/protocol[at0002]/items[at0021]/items[at0023]|value", values[index]);
+                }
 
 
 
