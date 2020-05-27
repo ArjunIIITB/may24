@@ -84,6 +84,11 @@ public class Reffered_To_Ip extends Fragment {
             }
         };
         thread.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         setuprecyclerview(lstIPReferredModel);
     }
 

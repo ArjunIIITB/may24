@@ -223,6 +223,7 @@ public class AssessementMain extends Fragment {
                 try {
                     JSONObject obj = new AssessmentUtility().saveAllAssessmentCompositions(list,loginToken, sessionToken, orgUUID, patientId, userUUID);
                     if (obj.isNull("uuid") == false) {
+                        new AssessmentUtility().updateIPPatientQueue(loginToken, patientId);
                         Intent intent = new Intent(getActivity(), Success.class);
                         getActivity().startActivity(intent);
                     }

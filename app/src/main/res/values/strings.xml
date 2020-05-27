@@ -26,6 +26,7 @@
     </string-array>
 
     <string-array name="durationType">
+        <item>Duration Type</item>
         <item>Days</item>
         <item>Weeks</item>
         <item>Months</item>
@@ -69,6 +70,7 @@
 
 
     <string-array name="diagnosisType">
+        <item>Diagnosis Type</item>
         <item>Differential Diagnosis</item>
         <item>Provisional Diagnosis</item>
         <item>Tentative Diagnosis</item>

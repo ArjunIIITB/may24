@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -38,6 +41,14 @@ import java.util.TimeZone;
 public class FragmentOP extends Fragment {
 
 
+    RadioButton conditionRadioButton;
+    RadioGroup conditionGroup;
+
+    RadioButton followUpRecommendationRadioButton;
+    RadioGroup followUpGroup;
+
+
+
     private String complaints;
     private String duration;
     private String historyAndMentalStatus;
@@ -62,6 +73,9 @@ public class FragmentOP extends Fragment {
     private String additionalTreatmentDetails;
     private String reasonForReferral;
 
+    boolean treatmentPlan = false;
+    boolean diagnosis = false;
+
     private boolean referral = true;
     private boolean followUp = false;
 
@@ -76,12 +90,19 @@ public class FragmentOP extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.opbmrfinal, container, false);
+
+        conditionGroup = (RadioGroup)view.findViewById(R.id.conditionRadioGroup);
+        System.out.println(conditionGroup.toString());
+        followUpGroup = (RadioGroup)view.findViewById(R.id.followUpRecommGroup);
+        System.out.println(followUpGroup.toString());
+
         Button button = (Button) view.findViewById(R.id.button5);
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View view) {
-
-                setValues();
-
+                boolean val = setValues();
+                if(val == false)
+                    return;
                 try {
                     Thread thread = new Thread() {
                         public void run() {
@@ -108,16 +129,17 @@ public class FragmentOP extends Fragment {
                             BmrCreateCompositionUtility utility = new BmrCreateCompositionUtility();
                             List<Composition> list = new ArrayList<Composition>();
                             String sessionToken = SessionInformation.sessionToken;
-                            System.out.println(utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, icdDescription, icdCode}, composition, patientId, loginToken, sessionToken));
+                            //System.out.println(utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, icdDescription, icdCode}, composition, patientId, loginToken, sessionToken));
 
                             try {
                                 System.out.println("inside try");
-                                System.out.println(utility.createComposition_EHRC_Complaintsv0(new String[]{complaints, duration}, composition, patientId,loginToken, sessionToken));
                                 //list.add(new Composition("complaints_matches_compositionIDs", "EHRC - Complaints.v0", utility.createComposition_EHRC_Complaintsv0(new String[]{complaints, duration}, composition, patientId, loginToken,sessionToken).getString("compositionUid")));
                                 list.add(utility.createComposition_EHRC_Complaintsv0(new String[]{complaints, duration}, composition, patientId, loginToken,sessionToken));
 
                                 //list.add(new Composition("diagnosis_matches_compositionIDs", "EHRC - Diagnosis.v0", utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, icdDescription, icdCode}, composition, patientId, loginToken, sessionToken).getString("compositionUid")));
-                                list.add(utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, icdDescription, icdCode}, composition, patientId, loginToken, sessionToken));
+                                Log.e("***$$$$***", String.valueOf(diagnosis));
+                                if(diagnosis)
+                                    list.add(utility.createComposition_EHRC_Diagnosisv0(new String[]{diagnosisType, icdDescription, icdCode}, composition, patientId, loginToken, sessionToken));
 
                                 //list.add(new Composition("clinical_history_matches_compositionIDs", "EHRC - Clinical history.v0", utility.createCompostion_EHRC_Clinical_historyv0(historyAndMentalStatus, composition, patientId,loginToken, sessionToken).getString("compositionUid")));
                                 list.add(utility.createCompostion_EHRC_Clinical_historyv0(historyAndMentalStatus, composition, patientId,loginToken, sessionToken));
@@ -130,7 +152,9 @@ public class FragmentOP extends Fragment {
 
                                 final String[] medicationOrder = {medicineName, dosage, dosingTime, medDuration, durationType, remarks};
                                 //list.add(new Composition("medication_order_matches_compositionIDs", "EHRC - Medication order.v0", utility.createCompositionEHRC_Medication_orderv0(medicationOrder, composition, patientId, loginToken, sessionToken).getString("compositionUid")));
-                                list.add(utility.createCompositionEHRC_Medication_orderv0(medicationOrder, composition, patientId, loginToken, sessionToken));
+                                Log.e("***$$$$***", String.valueOf(treatmentPlan));
+                                if(treatmentPlan)
+                                    list.add(utility.createCompositionEHRC_Medication_orderv0(medicationOrder, composition, patientId, loginToken, sessionToken));
 
                                 //list.add(new Composition("cgi_scale_matches_compositionIDs", "EHRC - CGI Scale.v0", utility.createComposition_EHRC_CGI_Scalev0(improvementStatus, composition, patientId, loginToken, sessionToken).getString("compositionUid")));
                                 list.add(utility.createComposition_EHRC_CGI_Scalev0(improvementStatus, composition, patientId, loginToken, sessionToken));
@@ -170,46 +194,295 @@ public class FragmentOP extends Fragment {
 
 
 
-    public void setValues() {
+    public boolean setValues() {
 
         EditText et = (EditText) getActivity().findViewById(R.id.Complaints);
         complaints = et.getText().toString();
-        System.out.println("complaints = "+complaints);
+        if(complaints.trim().isEmpty()) {
+            et.setError("this field is mandatory");
+            return false;
+        }
+
         et = (EditText) getActivity().findViewById(R.id.Duration_complaint);
         duration = et.getText().toString();
-        System.out.println(duration);
+        if(duration.trim().isEmpty()) {
+            et.setError("this field is mandatory");
+            return false;
+        }
+
         et = (EditText) getActivity().findViewById(R.id.History);
         historyAndMentalStatus = et.getText().toString();
+        if(historyAndMentalStatus.trim().isEmpty()) {
+            et.setError("this field is mandatory");
+            return false;
+        }
+
         et = (EditText) getActivity().findViewById(R.id.Illness_Summery);
         illnessSummary = et.getText().toString();
+        if(illnessSummary.trim().isEmpty()) {
+            et.setError("this field is mandatory");
+            return false;
+        }
+
+
+
+
+        //---------------diagnosis
+
+        diagnosis = false;
+        boolean ret1 = false;
 
         Spinner spinner = (Spinner) getActivity().findViewById(R.id.Diagnosis_Type);
         diagnosisType = spinner.getSelectedItem().toString();
+        if(diagnosisType.equals("Diagnosis Type"))
+            diagnosisType = "";
+        if(! diagnosisType.trim().isEmpty())
+            diagnosis = true;
 
         et = (EditText) getActivity().findViewById(R.id.ICD_Description);
         icdDescription = et.getText().toString();
+        if(! icdDescription.trim().isEmpty())
+            diagnosis = true;
+
+
         et = (EditText) getActivity().findViewById(R.id.ICD_10_Code);
         icdCode = et.getText().toString();
+        if(! icdCode.trim().isEmpty())
+            diagnosis = true;
 
-        improvementStatus = "2|local::at0027|Very much improved|";
+
+
+        spinner = (Spinner) getActivity().findViewById(R.id.Diagnosis_Type);
+        diagnosisType = spinner.getSelectedItem().toString();
+        if(diagnosisType.equals("Diagnosis Type"))
+            diagnosisType = "";
+        if(diagnosisType.trim().isEmpty() ){
+            if(diagnosis == true) {
+                Toast.makeText(getActivity(), "select an option from drop down menu \"Diagnosis Type\"", Toast.LENGTH_LONG).show();
+                ret1 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
+        et = (EditText) getActivity().findViewById(R.id.ICD_Description);
+        icdDescription = et.getText().toString();
+        if(icdDescription.trim().isEmpty() ){
+            if(diagnosis == true) {
+                et.setError("this field is required");
+                ret1 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
+        et = (EditText) getActivity().findViewById(R.id.ICD_10_Code);
+        icdCode = et.getText().toString();
+        if(icdCode.trim().isEmpty() ){
+            if(diagnosis == true) {
+                et.setError("this field is required");
+                ret1 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
+        if(ret1 == true)
+            return false;
+
+        //---------------diagnosis
+
+        //---------------improvement status
+
+        int selectedId = conditionGroup.getCheckedRadioButtonId();
+        conditionRadioButton = (RadioButton)getActivity().findViewById(selectedId);
+        if(selectedId == -1){
+            Log.e("selection error", "Nothing selected");
+            conditionRadioButton = (RadioButton)getActivity().findViewById(R.id.Condition_Worsened);
+            conditionRadioButton.setError("select an option");
+            return false;
+        }else {
+            conditionRadioButton = (RadioButton)getActivity().findViewById(R.id.Condition_Worsened);
+            conditionRadioButton.setError(null);
+            System.out.println("===================");
+            System.out.println("inside else part "+ conditionRadioButton.getText().toString());
+            if(conditionRadioButton.getText().toString().equals("Very much improved"))
+                improvementStatus = "2|local::at0027|Very much improved|";
+            else if(conditionRadioButton.getText().toString().equals("No Change in Condition"))
+                improvementStatus = "5|local::at0030|No change|";
+            else if(conditionRadioButton.getText().toString().equals("Condition Worsened"))
+                improvementStatus = "7|local::at0032|Much worse|";
+            System.out.println(improvementStatus);
+            System.out.println("===================");
+        }
+
+        //---------------improvement status
+
+        //---------------treatment plan
+
+        treatmentPlan = false;
+        boolean ret2 = false;
+        et = (EditText) getActivity().findViewById(R.id.Medicine_Name);
+        medicineName = et.getText().toString();
+        if(! medicineName.trim().isEmpty() )
+            treatmentPlan = true;
+
+        et = (EditText) getActivity().findViewById(R.id.Dosage);
+        dosage = et.getText().toString();
+        if(! dosage.trim().isEmpty() )
+            treatmentPlan = true;
+
+        et = (EditText) getActivity().findViewById(R.id.Dosage_Time);
+        dosingTime = et.getText().toString();
+        if(! dosingTime.trim().isEmpty() )
+            treatmentPlan = true;
+
+        et = (EditText) getActivity().findViewById(R.id.Duration_med);
+        medDuration = et.getText().toString();
+        if(! medDuration.trim().isEmpty() )
+            treatmentPlan = true;
+
+        spinner =  getActivity().findViewById(R.id.Duration_Type);
+        durationType = spinner.getSelectedItem().toString();
+        if(durationType.equals("Duration Type"))
+            durationType = "";
+        if(! durationType.trim().isEmpty() )
+            treatmentPlan = true;
+
+
+        et = (EditText) getActivity().findViewById(R.id.Remarks);
+        remarks = et.getText().toString();
+        if(! remarks.trim().isEmpty() )
+            treatmentPlan = true;
+
+
+
 
         et = (EditText) getActivity().findViewById(R.id.Medicine_Name);
         medicineName = et.getText().toString();
+        if(medicineName.trim().isEmpty() ){
+            if(treatmentPlan == true) {
+                et.setError("this field is required");
+                ret2 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
+
         et = (EditText) getActivity().findViewById(R.id.Dosage);
         dosage = et.getText().toString();
+        if(dosage.trim().isEmpty() ){
+            if(treatmentPlan == true) {
+                et.setError("this field is required");
+                ret2 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
         et = (EditText) getActivity().findViewById(R.id.Dosage_Time);
         dosingTime = et.getText().toString();
+        if(dosingTime.trim().isEmpty() ){
+            if(treatmentPlan == true) {
+                et.setError("this field is required");
+                ret2 = true;
+            }else
+                et.setError(null);
+
+        }else{
+            et.setError(null);
+        }
+
         et = (EditText) getActivity().findViewById(R.id.Duration_med);
         medDuration = et.getText().toString();
-        et = (EditText) getActivity().findViewById(R.id.Duration_Type);
-        durationType = et.getText().toString();
+        if(medDuration.trim().isEmpty() ){
+            if(treatmentPlan == true) {
+                et.setError("this field is required");
+                ret2 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
+        spinner =  getActivity().findViewById(R.id.Duration_Type);
+        durationType = spinner.getSelectedItem().toString();
+        if(durationType.equals("Duration Type"))
+            durationType = "";
+        if(durationType.trim().isEmpty() ){
+            if(treatmentPlan == true) {
+                Toast.makeText(getActivity(), "select an option from drop down menu \"Duration Type\"", Toast.LENGTH_LONG).show();
+                ret2 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
         et = (EditText) getActivity().findViewById(R.id.Remarks);
         remarks = et.getText().toString();
+        if(remarks.trim().isEmpty() ){
+            if(treatmentPlan == true) {
+                et.setError("this field is required");
+                ret2 = true;
+            }else
+                et.setError(null);
+        }else{
+            et.setError(null);
+        }
+
+        if(ret2 == true) {
+            return false;
+        }
+
+        //---------------treatment plan
+
         et = (EditText) getActivity().findViewById(R.id.Treatment_Instructions);
         treatmentInstruction = et.getText().toString();
+        if(treatmentInstruction.trim().isEmpty()) {
+            et.setError("this field is mandatory");
+            return false;
+        }
 
+        //---------------follow up recommendation
+
+        int selId = followUpGroup.getCheckedRadioButtonId();
+        followUpRecommendationRadioButton = (RadioButton) getActivity().findViewById(selId);
+        if(selId == -1){
+            System.out.println("++++++++++++++++++++ NOTHING SELECTED ++++++++++++++++++++");
+            followUpRecommendationRadioButton = getActivity().findViewById(R.id.Refer);
+            followUpRecommendationRadioButton.setError("select an option");
+            return false;
+        }else {
+            followUpRecommendationRadioButton = (RadioButton)getActivity().findViewById(R.id.Refer);
+            followUpRecommendationRadioButton.setError(null);
+            if(followUpRecommendationRadioButton.getText().toString().equals("Follow Up")) {
+                followUp = true;
+                referral = false;
+                System.out.println("===================");
+                System.out.println("followUp = "+followUp +"        "+ "referral = "+referral);
+                System.out.println("===================");
+            }
+            else if(followUpRecommendationRadioButton.getText().toString().equals("Refer")) {
+                followUp = false;
+                referral = true;
+                System.out.println("===================");
+                System.out.println("followUp = "+followUp +"        "+ "referral = "+referral);
+                System.out.println("===================");
+            }
+
+        }
+
+        //---------------follow up recommendation
+
+        return true;
     }
-
 
 }
 

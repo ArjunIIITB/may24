@@ -195,6 +195,7 @@ public class OpTherapyMain extends Fragment {
                 try {
                     JSONObject obj = new TherapyUtility().saveAllAssessmentCompositionsTherapy(compositionList, loginToken, sessionToken, orgUUID, patientId, userUUID);
                     if (obj.isNull("uuid") == false) {
+                        new TherapyUtility().updateIPPatientQueue(loginToken, patientId);
                         Intent intent = new Intent(getActivity(), Success.class);
                         getActivity().startActivity(intent);
                     }

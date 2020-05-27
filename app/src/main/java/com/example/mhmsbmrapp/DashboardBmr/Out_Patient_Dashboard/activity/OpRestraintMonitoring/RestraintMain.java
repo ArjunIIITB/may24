@@ -1,5 +1,6 @@
 package com.example.mhmsbmrapp.DashboardBmr.Out_Patient_Dashboard.activity.OpRestraintMonitoring;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -22,12 +24,18 @@ import com.example.mhmsbmrapp.utility.RestraintMonitoringUtility;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class RestraintMain extends Fragment {
 
     RestraintMonitoring rm = new RestraintMonitoring();
+
+    EditText dateText;
+    final Calendar calendar = Calendar.getInstance();;
 
     private String loginToken;
     private String patientId;
@@ -78,6 +86,10 @@ public class RestraintMain extends Fragment {
         loginToken = sharedPreferences.getString("loginToken", "");
         patientId = sharedPreferences.getString("patientId", "");
 
+        EditText et = (EditText)view.findViewById(R.id.nameOfMHE);
+        et.setText(mheName);
+
+
         Button button = (Button) view.findViewById(R.id.submit_Restraint_Monitoring);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +113,7 @@ public class RestraintMain extends Fragment {
         EditText et = (EditText)getActivity().findViewById(R.id.nominatedRepresentativeName);
         rm.setNominatedRepresentativeName(et.getText().toString().trim());
         et = (EditText)getActivity().findViewById(R.id.nameOfMHE);
+        et.setText(mheName);
         rm.setNameOfMHE(mheName);
         et = (EditText)getActivity().findViewById(R.id.inChargePsychiatry);
         rm.setInchargePsychiatrist(et.getText().toString().trim());
@@ -127,8 +140,9 @@ public class RestraintMain extends Fragment {
         rm.setLimbIschaemia(spinner.getSelectedItem().toString());
         et = (EditText)getActivity().findViewById(R.id.Others);
         rm.setOthers(et.getText().toString().trim());
-        //et = (EditText)getActivity().findViewById(R.id.Monitoring_Date);
+
         rm.setMonitoringDate(monitoringDate);
+
         et = (EditText)getActivity().findViewById(R.id.Pulse);
         rm.setPulse(et.getText().toString().trim());
         et = (EditText)getActivity().findViewById(R.id.Temperature);
@@ -167,6 +181,7 @@ public class RestraintMain extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(new RestraintMonitoringUtility().saveAllAssessmentCompositions(list, loginToken, patientId).toString());
                     if (obj.isNull("uuid") == false) {
+                        new RestraintMonitoringUtility().updateIPPatientQueue(loginToken, patientId);
                         Intent intent = new Intent(getActivity(), Success.class);
                         getActivity().startActivity(intent);
                     }
@@ -177,7 +192,6 @@ public class RestraintMain extends Fragment {
         };
         thread.start();
     }
-
 
 }
 

@@ -241,32 +241,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/Improvement_Status_text">
 
 
-
-                    <RadioButton
-                        android:id="@+id/Condition_Improved"
-                        android:layout_width="match_parent"
+                    <RadioGroup
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="2"
-                        android:layout_weight="1"
-                        android:paddingLeft="17dp"
-                        android:ems="10"
-                        android:layout_marginRight="8dp"
-                        android:hint="Condition Improved"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:id="@+id/conditionRadioGroup">
 
-                    <RadioButton
-                        android:id="@+id/No_Change_in_Condition"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="17dp"
-                        android:layout_rowWeight="1"
-                        android:layout_columnWeight="2"
-                        android:layout_centerHorizontal="true"
-                        android:layout_weight="1"
-                        android:hint="No Change in Condition"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0" />
+                        <RadioButton
+                            android:id="@+id/Condition_Improved"
+                            android:layout_width="match_parent"
+                            android:layout_height="49dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="2"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="Condition Improved"
+                            android:paddingLeft="17dp"
+                            android:text="Condition Improved"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <RadioButton
+                            android:id="@+id/No_Change_in_Condition"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="2"
+                            android:layout_centerHorizontal="true"
+                            android:layout_weight="1"
+                            android:hint="No Change in Condition"
+                            android:paddingLeft="17dp"
+                            android:text="No Change in Condition"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0" />
 
                     <RadioButton
                         android:id="@+id/Condition_Worsened"
@@ -278,8 +284,11 @@
                         android:layout_centerHorizontal="true"
                         android:layout_weight="1"
                         android:hint="Condition Worsened"
+                        android:text="Condition Worsened"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0" />
+
+                    </RadioGroup>
                 </LinearLayout>
 
                 <TextView
@@ -370,6 +379,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
+
+
+
                     <EditText
                         android:id="@+id/Duration_med"
                         android:layout_width="150dp"
@@ -382,12 +394,27 @@
                         android:ems="10"
                         android:paddingLeft="17dp"
                         android:background="@drawable/border_style"
-                        android:inputType="textPersonName"
+                        android:inputType="number"
                         android:hint="Duration"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/Salutation" />
 
-                    <EditText
+                    <Spinner
+                        android:id="@+id/Duration_Type"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_style"
+                        android:entries="@array/durationType"
+                        />
+
+
+                    <!--<EditText
                         android:id="@+id/Duration_Type"
                         android:layout_width="150dp"
                         android:layout_height="50dp"
@@ -403,7 +430,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/First_Name"
-                        app:layout_constraintTop_toBottomOf="@+id/Salutation" />
+                        app:layout_constraintTop_toBottomOf="@+id/Salutation" />-->
+
                 </LinearLayout>
 
                 <EditText
@@ -461,6 +489,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Treatment_Instructions">
 
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/followUpRecommGroup">
+
                     <RadioButton
                         android:id="@+id/Follow_Up"
                         android:layout_width="match_parent"
@@ -472,10 +505,11 @@
                         android:ems="10"
                         android:layout_marginRight="8dp"
                         android:hint="Follow Up"
+                        android:text="Follow Up"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <RadioButton
-                        android:id="@+id/Move_to_IP"
+                        android:id="@+id/Refer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="17dp"
@@ -483,9 +517,12 @@
                         android:layout_columnWeight="2"
                         android:layout_centerHorizontal="true"
                         android:layout_weight="1"
-                        android:hint="Move to IP"
+                        android:hint="Refer"
+                        android:text="Refer"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0" />
+
+                    </RadioGroup>
 
                 </LinearLayout>
                 <LinearLayout
@@ -500,8 +537,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
+
                     <RadioButton
-                        android:id="@+id/Refer"
+                        android:id="@+id/Move_To_IP"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:paddingLeft="17dp"
@@ -509,7 +547,8 @@
                         android:layout_columnWeight="1"
                         android:layout_centerHorizontal="true"
                         android:layout_weight="1"
-                        android:hint="Refer"
+                        android:hint="Move_To_IP"
+                        android:text="MoveToIP"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0" />
                     <RadioButton
@@ -522,6 +561,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_weight="1"
                         android:hint="Review SOS"
+                        android:text="Review SOS"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0" />
                 </LinearLayout>

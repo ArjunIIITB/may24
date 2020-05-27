@@ -86,6 +86,11 @@ public class Ip_Admitted extends Fragment {
             }
         };
         thread.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         setuprecyclerview(lstadmittedToIPModelfile);
     }
 

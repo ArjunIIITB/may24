@@ -28,13 +28,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class Out_Completed_list extends Fragment {
 
 
-    private final String JSON_URL = "https://gist.githubusercontent.com/aws1994/f583d54e5af8e56173492d3f60dd5ebf/raw/c7796ba51d5a0d37fc756cf0fd14e54434c547bc/anime.json" ;
-    private JsonArrayRequest request ;
-    private RequestQueue requestQueue ;
     private List<Out_Completed_list_AnimeOpBmrTab> lstOut_Completed_list_AnimeOpBmrTab ;
     private RecyclerView recyclerView ;
 
@@ -57,6 +55,8 @@ public class Out_Completed_list extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
+
+
         View v  = inflater.inflate(R.layout.ophistory, container, false);
 
         lstOut_Completed_list_AnimeOpBmrTab = new ArrayList<>() ;
@@ -95,13 +95,7 @@ public class Out_Completed_list extends Fragment {
             public void onErrorResponse(VolleyError error) {
             }
         });*/
-
-
-        //requestQueue = Volley.newRequestQueue(getActivity());
-        //requestQueue.add(request) ;
-
-
-        Log.e("^^^^^^^^^^^ ","inside jsonrequst() Out_Patientbmr");
+        //final CountDownLatch latch = new CountDownLatch(1);
 
         System.out.println(getActivity().toString());
         System.out.println(getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
@@ -135,18 +129,27 @@ public class Out_Completed_list extends Fragment {
                             //anime.setPatientName(jsonObject.getString("patientName"));
                             anime.setPatientId(jsonObject.getString("patientId"));
                             lstOut_Completed_list_AnimeOpBmrTab.add(anime);
+                            //latch.countDown();
                         }
                     }
+                    System.out.println("33333333333333Flow first ends here 33333333333333333333");
 
                 } catch (JSONException e) {
                     Log.e("error occurred", e.getMessage());
                     e.printStackTrace();
                 }
-
             }
 
         };
         thread.start();
+
+        try {
+            //latch.await();
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("33333333333333Flow second ends here 33333333333333333333");
         setuprecyclerview(lstOut_Completed_list_AnimeOpBmrTab);
 
 

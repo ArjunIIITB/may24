@@ -461,6 +461,41 @@ public class AssessmentUtility {
         return returnObject;
     } //getPatient
 
+    public Assessment getVisitRecord(String loginToken, String sessionToken, String patientId, JSONObject visit) {
+        Assessment assessment = new Assessment();
+        try {
+            JSONObject virtualFolder = visit.getJSONObject("virtualFolderData");
+            JSONArray data = virtualFolder.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject object = data.getJSONObject(i);
+                if (object.getString("name").equals("psychological_assessment_matches_compositionIDs")) {
+                    String compositionUid = object.getString("compositionUid");
+                    String templateId = object.getString("templateId");
+                    String name = object.getString("name");
+                    JSONObject composition = getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId);
+                    assessment.setTestedLanguage(composition.getString("assessmentLanguage"));
+                    assessment.setBackgroundInformation(composition.getString("backgroundInformation"));
+                    assessment.setSalientBehaviouralObservation(composition.getString("silentBehaviouralObservation"));
+                    assessment.setImpression(composition.getString("impression"));
+                    assessment.setTestScale(composition.getString("testAdministered"));
+                    assessment.setTestScores(composition.getString("score"));
+                    assessment.setRecommendation(composition.getString("recommendation"));
+                    assessment.setReliability(composition.getString("reliability"));
+                    assessment.setAdequacy(composition.getString("adequacy"));
+                    assessment.setInformant(composition.getString("informantName"));
+                    assessment.setAssessorName(composition.getString("assessorName"));
+                    assessment.setSupervisorName(composition.getString("supervisorName"));
+                }
+            }
+
+        }catch (Exception e){e.printStackTrace();}
+        return assessment;
+    }
+
+
+
+
+
     public JSONObject getIPpatient(String loginToken, String patientId) {
         final String RELATIVE_PATH = "getIPpatient/"+patientId;
 
@@ -522,35 +557,5 @@ public class AssessmentUtility {
         return returnObject;
     } //updateIPPatientQueue
 
-    public Assessment getVisitRecord(String loginToken, String sessionToken, String patientId, JSONObject visit) {
-        Assessment assessment = new Assessment();
-        try {
-            JSONObject virtualFolder = visit.getJSONObject("virtualFolderData");
-            JSONArray data = virtualFolder.getJSONArray("data");
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject object = data.getJSONObject(i);
-                if (object.getString("name").equals("psychological_assessment_matches_compositionIDs")) {
-                    String compositionUid = object.getString("compositionUid");
-                    String templateId = object.getString("templateId");
-                    String name = object.getString("name");
-                    JSONObject composition = getComposition(loginToken, sessionToken, name, compositionUid, templateId, patientId);
-                    assessment.setTestedLanguage(composition.getString("assessmentLanguage"));
-                    assessment.setBackgroundInformation(composition.getString("backgroundInformation"));
-                    assessment.setSalientBehaviouralObservation(composition.getString("silentBehaviouralObservation"));
-                    assessment.setImpression(composition.getString("impression"));
-                    assessment.setTestScale(composition.getString("testAdministered"));
-                    assessment.setTestScores(composition.getString("score"));
-                    assessment.setRecommendation(composition.getString("recommendation"));
-                    assessment.setReliability(composition.getString("reliability"));
-                    assessment.setAdequacy(composition.getString("adequacy"));
-                    assessment.setInformant(composition.getString("informantName"));
-                    assessment.setAssessorName(composition.getString("assessorName"));
-                    assessment.setSupervisorName(composition.getString("supervisorName"));
-                }
-            }
-
-        }catch (Exception e){e.printStackTrace();}
-        return assessment;
-    }
 
 }

@@ -288,6 +288,67 @@ public class PatientUtility {
         return information;
     } //searchPatientUnderOrg
 
+    public JSONObject getIPpatient(String loginToken, String patientId) {
+        final String RELATIVE_PATH = "getIPpatient/"+patientId;
+
+        final MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+
+        Request request = new Request.Builder()
+                .url(GlobalVariables.GLOBAL_PATH_REST+RELATIVE_PATH)
+                .get()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer "+loginToken)
+                .build();
+
+        Response response = null;
+        JSONObject returnObject = null;
+        try {
+            response = client.newCall(request).execute();
+            ResponseBody rb = response.body();
+            Log.e("why is it null", "");
+            returnObject = new JSONObject(rb.string());
+            //jsonObjectResult = new JSONObject(rb.string());
+            System.out.println("why is it null-----------------------------------"+returnObject);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return returnObject;
+    } //getIPpatient
+
+    public JSONObject updateIPPatientQueue(String loginToken, String patientId) {
+        final String RELATIVE_PATH = "updateIPPatientQueue/";
+        final MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+
+        JSONObject jsonObject = getIPpatient(loginToken, patientId);
+        try {
+            jsonObject.put("admissionStatus", "Completed");
+            jsonObject.put("assessmentStatus","Assessment");
+        }catch (Exception e) {}
+
+        RequestBody formBody = RequestBody.create(JSON, jsonObject.toString());
+
+        Request request = new Request.Builder()
+                .url(GlobalVariables.GLOBAL_PATH_REST+RELATIVE_PATH)
+                .post(formBody)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer "+loginToken)
+                .build();
+        JSONObject returnObject = null;
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            ResponseBody rb = response.body();
+            Log.e("why is it null", "");
+            returnObject = new JSONObject(rb.string());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return returnObject;
+    } //updateIPPatientQueue
+
 
 
 }
