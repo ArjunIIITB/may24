@@ -100,7 +100,6 @@ public class AssessementMain extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("inside onclick of submit therapy button");
                 boolean ret = setValues();
                 if(ret == false)
                     return;
